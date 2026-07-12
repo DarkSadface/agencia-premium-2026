@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EQUINOX | Gimnasio Alto Rendimiento</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.0.3/dist/fonts/geist-sans/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.0.3/dist/fonts/geist-mono/style.css">
+    <style>
+        :root {
+            --bg: #050505;
+            --neon-green: #39ff14;
+            --neon-red: #ff003c;
+            --text: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Geist Sans', sans-serif;
+            overflow-x: hidden;
+            overscroll-behavior: none;
+            letter-spacing: -0.04em;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.05;
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>');
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Geist Mono', monospace;
+            text-transform: uppercase;
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+            color: white;
+            font-size: 15vw;
+            line-height: 0.8;
+            z-index: 10;
+            mix-blend-mode: difference;
+            white-space: nowrap;
+            transform: translateX(-5vw);
+        }
+
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg);
+        }
+
+        .glitch::before {
+            left: 3px;
+            text-shadow: -2px 0 var(--neon-red);
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -3px;
+            text-shadow: -2px 0 var(--neon-green);
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(13px, 9999px, 83px, 0); }
+            20% { clip: rect(69px, 9999px, 14px, 0); }
+            40% { clip: rect(98px, 9999px, 48px, 0); }
+            60% { clip: rect(28px, 9999px, 73px, 0); }
+            80% { clip: rect(11px, 9999px, 103px, 0); }
+            100% { clip: rect(68px, 9999px, 35px, 0); }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(65px, 9999px, 100px, 0); }
+            20% { clip: rect(21px, 9999px, 8px, 0); }
+            40% { clip: rect(82px, 9999px, 56px, 0); }
+            60% { clip: rect(31px, 9999px, 94px, 0); }
+            80% { clip: rect(15px, 9999px, 22px, 0); }
+            100% { clip: rect(74px, 9999px, 70px, 0); }
+        }
+
+        /* Layout Asimétrico & Diagonales */
+        .hero {
+            height: 120vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+            background: #111;
+            overflow: hidden;
+            margin-bottom: -10vh;
+        }
+
+        .hero-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.3;
+            filter: grayscale(100%) contrast(150%);
+            mix-blend-mode: luminosity;
+            transform: scale(1.1);
+            will-change: transform, opacity;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: left;
+            width: 90%;
+            max-width: 1400px;
+            transform: rotate(-3deg);
+        }
+
+        .subtitle {
+            font-size: 1.5vw;
+            color: var(--neon-green);
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        /* Secciones diagonales */
+        .section-dark {
+            padding: 20vw 5vw 15vw 5vw;
+            background: var(--bg);
+            position: relative;
+        }
+
+        .grid-asymmetric {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 5vw;
+            align-items: center;
+        }
+
+        .grid-asymmetric.reverse {
+            grid-template-columns: 1.5fr 1fr;
+        }
+
+        .text-block {
+            will-change: transform, opacity;
+        }
+
+        .text-block h2 {
+            font-size: 5vw;
+            line-height: 0.9;
+            margin-bottom: 2vw;
+            color: var(--neon-green);
+        }
+
+        .text-block p {
+            font-size: 1.2vw;
+            line-height: 1.6;
+            color: #aaa;
+            max-width: 90%;
+        }
+
+        .image-block {
+            position: relative;
+            height: 70vh;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            background: #222;
+            overflow: hidden;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            border: 1px solid rgba(128,128,128,0.25);
+        }
+
+        .image-block:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 0 30px rgba(128,128,128,0.15);
+        }
+
+        .image-block::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--neon-red) 0%, transparent 50%);
+            opacity: 0.3;
+            mix-blend-mode: overlay;
+        }
+
+        /* Banner Diagonal */
+        .marquee-container {
+            background: var(--neon-red);
+            color: var(--bg);
+            padding: 2vw 0;
+            transform: rotate(-5deg) scale(1.1);
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            z-index: 10;
+            border-top: 2px solid var(--text);
+            border-bottom: 2px solid var(--text);
+            margin: -5vw 0;
+        }
+
+        .marquee {
+            display: inline-block;
+            font-size: 4vw;
+            font-family: 'Geist Mono', monospace;
+            font-weight: 700;
+            animation: scroll 8s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2vw 5vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            mix-blend-mode: difference;
+        }
+
+        .logo {
+            font-family: 'Geist Mono', monospace;
+            font-size: 2vw;
+            color: white;
+            text-decoration: none;
+            letter-spacing: -2px;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            margin-left: 3vw;
+            font-size: 1vw;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--neon-green);
+            transition: 0.3s ease;
+        }
+
+        .menu a:hover::after {
+            width: 100%;
+        }
+
+        .btn-glitch {
+            background: transparent;
+            color: var(--neon-green);
+            border: 1px solid rgba(128,128,128,0.25);
+            padding: 1.5vw 3vw;
+            font-family: 'Geist Mono', monospace;
+            font-size: 1vw;
+            text-transform: uppercase;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            margin-top: 3vw;
+            transition: 0.3s;
+        }
+
+        .btn-glitch:hover {
+            background: var(--neon-green);
+            color: var(--bg);
+            box-shadow: 6px 6px 0 var(--text);
+            transform: translate(-3px, -3px) skewX(-10deg);
+        }
+
+        /* Custom cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--neon-red);
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background 0.2s;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor" id="cursor"></div>
+
+    <nav>
+        <a href="#inicio" class="logo">EQUINOX</a>
+        <div class="menu">
+            <a href="#entrenamiento">Entrenamiento</a>
+            <a href="#instalaciones">Instalaciones</a>
+            <a href="#membresia">Membresía</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <img src="assets/hero_gimnasio.jpg" alt="Equinox Gym" class="hero-img" id="hero-img">
+        <div class="hero-content">
+            <span class="subtitle">ALTO RENDIMIENTO</span>
+            <h1 class="glitch" data-text="DESTRUYE">DESTRUYE</h1>
+            <h1 class="glitch" style="margin-left: 5vw; color: transparent; -webkit-text-stroke: 2px white;" data-text="TUS LÍMITES">TUS LÍMITES</h1>
+            <button class="btn-glitch" onclick="window.location.href='#membresia'">Únete Ahora</button>
+        </div>
+    </section>
+
+    <div class="marquee-container">
+        <div class="marquee">
+            NO PAIN NO GAIN // FUERZA BRUTA // RENDIMIENTO EXTREMO // NO PAIN NO GAIN // FUERZA BRUTA // RENDIMIENTO EXTREMO // NO PAIN NO GAIN // FUERZA BRUTA // RENDIMIENTO EXTREMO //
+        </div>
+    </div>
+
+    <section class="section-dark">
+        <div class="grid-asymmetric">
+            <div class="text-block" id="text-1">
+                <h2>LA MÁQUINA<br>ERES TÚ</h2>
+                <p>Olvida todo lo que sabes sobre gimnasios tradicionales. En EQUINOX diseñamos el entorno perfecto para llevar tu cuerpo al colapso y reconstruirlo de titanio. Equipamiento biomecánico, atmósferas de alta presión y entrenadores que no conocen la piedad.</p>
+            </div>
+            <div class="image-block" id="img-1">
+                <div style="width:100%; height:100%; background: repeating-linear-gradient(45deg, #111, #111 10px, #222 10px, #222 20px);"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-dark" style="background: #0a0a0a; clip-path: polygon(0 15%, 100% 0, 100% 85%, 0 100%); margin-top: -10vw; padding-bottom: 25vw;">
+        <div class="grid-asymmetric reverse">
+            <div class="image-block" style="clip-path: polygon(0 0, 90% 10%, 100% 100%, 10% 90%); border: 1px solid rgba(128,128,128,0.25);" id="img-2">
+                 <div style="width:100%; height:100%; background: radial-gradient(circle, var(--neon-green) 0%, transparent 60%); opacity:0.15;"></div>
+            </div>
+            <div class="text-block" id="text-2" style="text-align: right;">
+                <h2 style="color: var(--neon-red);">HIPERTROFIA<br>SINTÉTICA</h2>
+                <p style="margin-left: auto;">Zonas de peso libre sin restricciones. Jaulas de potencia de grado militar. Y un sistema de sonido que bombea adrenalina directo a tu córtex cerebral. No es fitness, es supervivencia pura.</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Custom Cursor
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+        
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.width = '60px';
+                cursor.style.height = '60px';
+                cursor.style.background = 'rgba(255, 0, 60, 0.2)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.width = '20px';
+                cursor.style.height = '20px';
+                cursor.style.background = 'transparent';
+            });
+        });
+
+        // Hero Image Parallax
+        gsap.to("#hero-img", {
+            yPercent: 40,
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+
+        // Supersonic scroll simulation (fast wheel multiplier)
+        window.addEventListener('wheel', (e) => {
+            window.scrollBy({
+                top: e.deltaY * 3.5, // Scroll super rápido
+                left: 0,
+                behavior: 'auto' // Sin smooth para que sea instantáneo y agresivo
+            });
+            e.preventDefault();
+        }, { passive: false });
+
+        // Animations on scroll
+        gsap.from("#text-1", {
+            x: -150,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power4.out",
+            scrollTrigger: {
+                trigger: "#text-1",
+                start: "top 85%"
+            }
+        });
+
+        gsap.from("#img-1", {
+            x: 150,
+            opacity: 0,
+            duration: 1.2,
+            rotation: 10,
+            ease: "power4.out",
+            scrollTrigger: {
+                trigger: "#img-1",
+                start: "top 85%"
+            }
+        });
+
+        gsap.from("#text-2", {
+            x: 150,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power4.out",
+            scrollTrigger: {
+                trigger: "#text-2",
+                start: "top 85%"
+            }
+        });
+
+        gsap.from("#img-2", {
+            scale: 0.5,
+            opacity: 0,
+            duration: 1.2,
+            rotation: -10,
+            ease: "power4.out",
+            scrollTrigger: {
+                trigger: "#img-2",
+                start: "top 85%"
+            }
+        });
+    </script>
+</body>
+</html>

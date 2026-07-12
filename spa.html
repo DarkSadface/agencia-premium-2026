@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura | Spa & Wellness</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --salvia: #9fb3a6;
+            --terracota: #c28873;
+            --arena: #f5f1eb;
+            --text-dark: #3a403d;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: radial-gradient(circle at 50% -20%, #fffbf5, var(--arena)),
+                        repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(0,0,0,0.02) 59px, rgba(0,0,0,0.02) 60px),
+                        repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(0,0,0,0.02) 59px, rgba(0,0,0,0.02) 60px);
+            background-attachment: fixed;
+            color: var(--text-dark);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+        h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 400; }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--arena); }
+        ::-webkit-scrollbar-thumb { background: var(--salvia); border-radius: 4px; }
+
+        nav {
+            padding: 2.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: absolute;
+            width: 100%;
+            z-index: 100;
+        }
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: var(--text-dark); text-decoration: none; letter-spacing: 4px; }
+        .nav-links { display: flex; gap: 4rem; }
+        .nav-links a {
+            color: var(--text-dark); text-decoration: none; font-size: 0.9rem;
+            letter-spacing: 2px; text-transform: uppercase; position: relative;
+        }
+        .nav-links a::before {
+            content: ''; position: absolute; bottom: -5px; left: 50%;
+            transform: translateX(-50%); width: 4px; height: 4px;
+            background-color: var(--terracota); border-radius: 50%; opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        .nav-links a:hover::before { opacity: 1; transform: translateX(-50%) scale(1.5); }
+
+        .hero {
+            height: 100vh; display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
+        }
+        .hero-img-container {
+            position: absolute; width: 100%; height: 100%; z-index: 0;
+            clip-path: circle(0% at 50% 50%);
+        }
+        .hero-img-container img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.2); filter: brightness(0.9); }
+        .hero-content {
+            position: relative; z-index: 1; text-align: center; max-width: 800px;
+            padding: 0 20px; mix-blend-mode: color-burn;
+        }
+        .hero h1 { font-size: 6rem; line-height: 1; margin-bottom: 2rem; color: var(--text-dark); opacity: 0; transform: translateY(30px); }
+        .hero p { font-size: 1.2rem; letter-spacing: 3px; line-height: 2; text-transform: uppercase; margin-bottom: 3rem; opacity: 0; }
+        
+        .breathe-circle {
+            position: absolute; width: 60vw; height: 60vw; border-radius: 50%;
+            background: radial-gradient(circle, rgba(159,179,166,0.1) 0%, rgba(245,241,235,0) 70%);
+            z-index: -1; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            pointer-events: none; will-change: transform, opacity;
+        }
+
+        .services { padding: 10rem 5%; background-color: var(--arena); }
+        .service-container { display: flex; align-items: center; justify-content: space-between; gap: 5rem; margin-bottom: 5rem; }
+        .service-img { flex: 1; height: 80vh; border-radius: 50% 50% 0 0; overflow: hidden; position: relative; }
+        .service-img img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.2); will-change: transform; }
+        .service-text { flex: 1; padding: 0 5%; }
+        .service-text h2 { font-size: 4rem; margin-bottom: 2rem; color: var(--terracota); }
+        .service-text p { font-size: 1.1rem; line-height: 1.8; margin-bottom: 3rem; font-weight: 300; }
+        
+        .btn-organic {
+            display: inline-block; padding: 1rem 3rem; border: 1px solid var(--text-dark);
+            border-radius: 0; text-decoration: none; color: var(--text-dark);
+            text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem;
+            transition: all 0.4s ease; position: relative; overflow: hidden; cursor: pointer;
+            background: transparent;
+        }
+        .btn-organic:hover { background-color: var(--text-dark); color: var(--arena); }
+
+        .santuario-section {
+            padding: 8rem 5%; text-align: center; background: white;
+        }
+
+        /* Glassmorphism Spa */
+        .glass-section-spa {
+            padding: 8rem 5%; position: relative; background: url('assets/spa_ritual.jpg') center/cover;
+            background-attachment: fixed; display: flex; justify-content: center; align-items: center;
+            min-height: 100vh;
+        }
+        .glass-section-spa::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.3); z-index: 1;
+        }
+        .glass-panel-spa {
+            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 20px; padding: 4rem 3rem;
+            width: 100%; max-width: 550px; position: relative; z-index: 2;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2); color: white;
+        }
+        .glass-panel-spa h2 { color: white; margin-bottom: 1rem; text-align: center; font-size: 3.5rem; line-height: 1.1; }
+        .glass-panel-spa input, .glass-panel-spa select {
+            width: 100%; padding: 1.2rem; margin-bottom: 1.5rem; background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 4px; color: white;
+            outline: none; font-size: 1rem; font-family: 'Montserrat', sans-serif; transition: all 0.3s ease;
+        }
+        .glass-panel-spa input:focus, .glass-panel-spa select:focus {
+            background: rgba(255, 255, 255, 0.25); border-color: rgba(255, 255, 255, 0.6);
+        }
+        .glass-panel-spa input::placeholder { color: rgba(255,255,255,0.9); }
+        .glass-panel-spa option { color: var(--text-dark); }
+        .btn-glass { border-color: white; color: white; width: 100%; }
+        .btn-glass:hover { background-color: white; color: var(--text-dark); }
+
+        /* Vercel Design System Injection */
+        :root {
+            --vercel-border: rgba(128, 128, 128, 0.25);
+            --vercel-glow: 0 0 20px rgba(128, 128, 128, 0.15);
+            --vercel-shadow-sm: 0 0 0 1px rgba(0,0,0,.03), 0 2px 4px rgba(0,0,0,.05), 0 12px 24px rgba(0,0,0,.05);
+            --vercel-shadow-md: 0 0 0 1px rgba(0,0,0,.03), 0 4px 8px rgba(0,0,0,.08), 0 24px 48px rgba(0,0,0,.08);
+        }
+        body, p, a, span, div, li, input, textarea, select {
+            font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+            font-feature-settings: "ss01" 1, "ss02" 1;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+            letter-spacing: -0.04em !important;
+            font-weight: 600 !important;
+        }
+        .btn, button, .card, .service-card, .tarjeta, .menu-item, .treatment-card, .hero-img, .glass-panel-spa {
+            border: 1px solid var(--vercel-border) !important;
+            box-shadow: var(--vercel-shadow-sm) !important;
+            border-radius: 12px !important;
+            transition: all 0.2s ease !important;
+        }
+        .btn:hover, button:hover, .card:hover, .service-card:hover, .tarjeta:hover, .menu-item:hover, .treatment-card:hover {
+            border-color: rgba(128, 128, 128, 0.5) !important;
+            box-shadow: var(--vercel-shadow-md), var(--vercel-glow) !important;
+            transform: translateY(-2px) !important;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.0.3/dist/fonts/geist-sans/style.css" rel="stylesheet">
+</head>
+<body>
+
+    <nav>
+        <a href="#inicio" class="logo">AURA</a>
+        <div class="nav-links">
+            <a href="#rituales">Rituales</a>
+            <a href="#espacio">Espacio</a>
+            <a href="#reservas">Reservas</a>
+        </div>
+    </nav>
+
+    <div class="breathe-circle"></div>
+
+    <section id="inicio" class="hero">
+        <div class="hero-img-container">
+            <img src="assets/hero_spa.png" alt="Spa Wellness" onerror="this.src='https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1000&auto=format&fit=crop'">
+        </div>
+        <div class="hero-content">
+            <h1>Respira.<br>Siente.<br>Renace.</h1>
+            <p>Un santuario para tu equilibrio interior</p>
+        </div>
+    </section>
+
+    <section id="rituales" class="services">
+        <div class="service-container">
+            <div class="service-img organic-mask">
+                <img src="assets/spa_ritual.jpg" alt="Ritual" onerror="this.src='https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=1000&auto=format&fit=crop'">
+            </div>
+            <div class="service-text fade-up">
+                <h2>Ritual Tierra</h2>
+                <p>Nuestra terapia insignia utiliza arcillas orgánicas ricas en minerales y aceites esenciales de salvia y romero para purificar, nutrir y restaurar la vitalidad de la piel, conectándote con la energía profunda de la tierra.</p>
+                <a href="#reservas" class="btn-organic">Descubrir</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="espacio" class="santuario-section">
+        <div class="fade-up">
+            <h2 style="font-size: 3rem; color: var(--terracota); margin-bottom: 2rem;">Nuestro Santuario</h2>
+            <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto; line-height: 1.8; color: var(--text-dark);">
+                Cada detalle de Aura ha sido diseñado siguiendo los principios del Feng Shui y la biofilia. Materiales orgánicos, luz natural y sonidos de la naturaleza crean una atmósfera de paz absoluta que invita a la desconexión total y al reencuentro contigo mismo.
+            </p>
+        </div>
+    </section>
+
+    <section id="reservas" class="glass-section-spa">
+        <div class="glass-panel-spa fade-up">
+            <h2>Reserva tu Experiencia</h2>
+            <p style="text-align: center; margin-bottom: 2.5rem; font-family: 'Montserrat', sans-serif;">Permítenos guiarte hacia tu balance natural.</p>
+            <form onsubmit="event.preventDefault(); alert('Reserva de Spa solicitada exitosamente. Nos contactaremos en breve.');">
+                <input type="text" placeholder="Tu Nombre Completo" required>
+                <input type="email" placeholder="Correo Electrónico" required>
+                <select required>
+                    <option value="" disabled selected>Selecciona un Ritual</option>
+                    <option value="tierra">Ritual Tierra (Arcillas y Salvia)</option>
+                    <option value="agua">Ritual Agua (Hidroterapia Profunda)</option>
+                    <option value="aire">Ritual Aire (Masaje Aromaterapéutico)</option>
+                    <option value="fuego">Ritual Fuego (Piedras Calientes)</option>
+                </select>
+                <input type="date" required style="color: white;">
+                <button type="submit" class="btn-organic btn-glass">Confirmar Cita</button>
+            </form>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero Init Animations
+        const tl = gsap.timeline();
+        
+        tl.to('.hero-img-container', {
+            clipPath: 'circle(150% at 50% 50%)',
+            duration: 2.5,
+            ease: "power3.inOut"
+        })
+        .to('.hero-img-container img', {
+            scale: 1,
+            duration: 2.5,
+            ease: "power3.inOut"
+        }, "-=2.5")
+        .to('.hero h1', {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            stagger: 0.2,
+            ease: "power2.out"
+        }, "-=1")
+        .to('.hero p', {
+            opacity: 1,
+            duration: 1,
+            ease: "power2.out"
+        }, "-=0.5");
+
+        // Breathe Animation (Loop)
+        gsap.to('.breathe-circle', {
+            scale: 1.3,
+            opacity: 0.3,
+            duration: 4,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
+
+        // Scroll Animations
+        const serviceImgs = document.querySelectorAll('.service-img img');
+        serviceImgs.forEach(img => {
+            gsap.to(img, {
+                scrollTrigger: {
+                    trigger: img.parentElement,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1
+                },
+                y: 100,
+                ease: "none"
+            });
+        });
+
+        const fadeUps = document.querySelectorAll('.fade-up');
+        fadeUps.forEach(elem => {
+            gsap.from(elem, {
+                scrollTrigger: {
+                    trigger: elem,
+                    start: "top 80%"
+                },
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out"
+            });
+        });
+    </script>
+</body>
+</html>

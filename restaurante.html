@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Étoile Rouge | Michelin Star Restaurant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #111111;
+            --accent: #4a0000;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Lato', sans-serif;
+            overflow-x: hidden;
+        }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 400; }
+        
+        nav {
+            padding: 2.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            color: var(--text);
+            text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 4rem; }
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.75rem;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        .nav-links a:hover { opacity: 1; color: var(--accent); }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 10%;
+        }
+        .hero h1 {
+            font-size: 6rem;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            color: var(--text);
+            opacity: 0;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            line-height: 1.8;
+            color: #555;
+            max-width: 500px;
+            margin: 0 auto;
+            opacity: 0;
+        }
+
+        .menu-section { padding: 12rem 5%; max-width: 800px; margin: 0 auto; }
+        .menu-text h2 {
+            font-size: 3rem;
+            margin-bottom: 4rem;
+            text-align: center;
+            opacity: 0;
+        }
+        .menu-list { list-style: none; }
+        .menu-item {
+            padding: 2.5rem 0;
+            border-bottom: 1px solid #eaeaea;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            opacity: 0;
+        }
+        .item-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; }
+        .item-price { font-family: 'Lato', sans-serif; letter-spacing: 2px; font-size: 0.9rem; color: #666; }
+
+        .reservas-widget {
+            position: fixed;
+            bottom: 2.5rem;
+            right: 2.5rem;
+            background: var(--text);
+            color: var(--bg);
+            padding: 1rem 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.75rem;
+            text-decoration: none;
+            z-index: 999;
+            transition: background-color 0.3s;
+            border: 1px solid var(--text);
+        }
+        .reservas-widget:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#inicio" class="logo">L'Étoile Rouge</a>
+        <div class="nav-links">
+            <a href="#menu">Menú</a>
+            <a href="#experiencia">Experiencia</a>
+            <a href="#reservas">Contacto</a>
+        </div>
+    </nav>
+
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h1 class="fade-element">Sangre<br>y Tierra</h1>
+            <p class="fade-element">Una experiencia culinaria inmersiva despojada de artificios. El enfoque absoluto en el origen.</p>
+        </div>
+    </section>
+
+    <section id="menu" class="menu-section">
+        <div class="menu-text">
+            <h2 class="fade-element">Degustación</h2>
+            <ul class="menu-list">
+                <li class="menu-item fade-element">
+                    <span class="item-name">Ostra Escalfada, Caviar Oscuro</span>
+                    <span class="item-price">$45</span>
+                </li>
+                <li class="menu-item fade-element">
+                    <span class="item-name">Tartar de Ciervo Ahumado</span>
+                    <span class="item-price">$65</span>
+                </li>
+                <li class="menu-item fade-element">
+                    <span class="item-name">Magret de Pato en Frutos Rojos</span>
+                    <span class="item-price">$90</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+    
+    <section id="experiencia" style="padding: 8rem 5%; text-align: center; background: #fafafa;">
+        <h2 class="fade-element" style="font-size: 2.5rem; margin-bottom: 2rem;">La Experiencia</h2>
+        <p class="fade-element" style="max-width: 600px; margin: 0 auto; color: #555; line-height: 1.8;">Cada detalle ha sido curado para ofrecer una inmersión total. Sin distracciones, solo el arte puro de la gastronomía de alto nivel.</p>
+    </section>
+
+    <a href="#reservas" id="reservas" class="reservas-widget">Reservas Sin Fricción</a>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Invisible Technology Animations (Subtle Fades)
+        gsap.utils.toArray('.fade-element').forEach(element => {
+            gsap.to(element, {
+                scrollTrigger: {
+                    trigger: element,
+                    start: "top 85%",
+                },
+                opacity: 1,
+                y: 0,
+                duration: 1.2,
+                ease: "power2.out"
+            });
+            gsap.set(element, { opacity: 0, y: 15 });
+        });
+    </script>
+</body>
+</html>
