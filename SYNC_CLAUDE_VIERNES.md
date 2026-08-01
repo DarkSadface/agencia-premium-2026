@@ -18,21 +18,19 @@ El usuario ha ordenado de forma definitiva que **Claude (Opus/Sonnet)** y **Vier
 ---
 
 ## 🌟 ESTADO AGREGADO DEL SISTEMA (FUSIÓN TÉCNICA Y MEJORA NEURONAL VERIFICADA)
-En la iteración actual (2026-08-01 13:28), se ejecutaron y verificaron los siguientes avances en estricto cumplimiento del diseño JARVIS PC:
+En la iteración actual (2026-08-01 13:35), se ejecutaron y verificaron los siguientes avances en estricto cumplimiento del diseño JARVIS PC:
 
-### 1. Silueta Pura Sin Fondo (PNG Transparente + Fusión Cuántica) ✅
-- **Procesamiento de Imagen en Python:** Se generó `media/robot_ai_humanoid_transparent.png` mediante un algoritmo que convirtió el fondo oscuro a 100% transparente (Alpha 0) preservando el brillo y los fotones del androide y su cerebro neuronal.
-- **Cero Recuadros ni Marcos:** La imagen ya no necesita recuadro, degradados difusos de corte ni fondo rectangular; es una silueta pura flotando libre en el lienzo de Three.js.
+### 1. Robot Humanoide Anclado en el Extremo Derecho ✅
+- **Posición Inamovible a Petición del Usuario:** La silueta pura sin fondo (`robot_ai_humanoid_transparent.png`) se mantiene firmemente anclada al ras de la pantalla en `position: absolute; right: -10px; top: 52%;`. Su espalda comienza en la orilla derecha de la pantalla y mira hacia la red neuronal central.
 
-### 2. Espalda Anclada al Borde Derecho Exacto del Pantalla ✅
-- **Posicionamiento Absoluto al Ras de Pantalla:** Se colocó `.robot-showcase-hologram` en `position: absolute; right: -10px; top: 52%;`. Esto garantiza que **la espalda del robot comienza justo en la orilla derecha de la pantalla del usuario**, mirando con autoridad hacia el lado izquierdo donde resplandece el título de la marca.
-- **Despeje de Textos:** El lado izquierdo ocupa el 54% del ancho en exclusiva, sin empujar al robot y sin sufrir ruido visual de fondo.
+### 2. AgentDeck 3D Centrado en el Lienzo ✅
+- **Centrado Cartesiano en Three.js:** Se regresó la posición de `constellationGroup` al centro exacto (`X=0, Y=1.5, Z=-0.5`).
+- **Equilibrio Visual del Ecosistema:** Ahora la composición presenta los tres pilares de Colombia Tech Systems en una sinergia perfecta:
+  - **Izquierda (0% - 54%):** Títulos principales, descripción, métricas y botones CTAs con legibilidad garantizada.
+  - **Centro (X=0):** Núcleo Oráculo Maestro y órbitas wireframe de los 46 agentes girando en el espacio 3D.
+  - **Derecha (Al Ras Exterior):** Robot Android IA extendiendo su mano e impulsos cerebrales desde la orilla derecha hacia la constelación central en el mismo plano de flotación 3D.
 
-### 3. Integración en el Exacto Mismo Plano del AgentDeck 3D ✅
-- **Coordenadas Unificadas en Three.js:** Se situó el `constellationGroup` de Three.js en `X=+7.8, Y=1.2, Z=-0.5`, concentrando el Núcleo Oráculo Maestro y las órbitas icosaédricas wireframe de los 46 agentes alrededor de la mano y el cerebro iluminado del robot.
-- **Profundidad de Capas y Etiquetas:** Al mantener `mix-blend-mode: screen` en el robot, los rayos del lienzo resplandecen a través de la silueta y las etiquetas `.node-label` de los agentes operan en `z-index: 8` flotando alrededor del rostro y dedos de la IA en auténtico parallax 3D.
-
-### 4. Preservación y Respeto Absoluto a Claude ✅
+### 3. Preservación y Respeto Absoluto a Claude ✅
 - **Parches y Mejoras Mantenidos:** Conservados inalterados los aportes de Claude (scanlines globales, accesibilidad `prefers-reduced-motion` y la corrección de 404 del portafolio en `hero_odontologia.png`).
 
 ---
@@ -44,6 +42,7 @@ En la iteración actual (2026-08-01 13:28), se ejecutaron y verificaron los sigu
 | 2026-08-01 | **Claude Opus 5** | Commit `85abf7e`: Máscara radial, HUD global, fix 404 odontología | Completado en rama |
 | 2026-08-01 | **Viernes (Gemini)** | Commit `2bf98ef`: Contorno desvanecido (mix-blend-mode) y Nodos Icosaedro Wireframe | Completado y verificado |
 | 2026-08-01 | **Viernes (Gemini)** | Commit `4d2beab`: Alineate Robot y AgentDeck 3D a la derecha | Completado y verificado |
-| 2026-08-01 (13:28) | **Viernes (Gemini)** | Robot anclado con espalda en el borde derecho de pantalla + Silueta PNG en plano 3D | `pendiente_qa (Claude)` |
+| 2026-08-01 | **Viernes (Gemini)** | Commit `9bcfb10`: Robot en borde derecho exacto + silueta PNG transparente | Completado y verificado |
+| 2026-08-01 (13:35) | **Viernes (Gemini)** | Robot inamovible en borde derecho y AgentDeck 3D centrado en el lienzo | `pendiente_qa (Claude)` |
 
-> **Nota de Viernes para Claude:** *Colega, el usuario ordenó recortar el fondo del robot para tener únicamente la silueta y su cerebro luminoso, posicionando la espalda al ras del borde derecho de la pantalla e integrando sus coordenadas con el plano 3D del AgentDeck. Generé el asset `robot_ai_humanoid_transparent.png`, alineé el elemento absoluto al límite `right: -10px` del viewport y sincronicé las coordenadas en Three.js (`X=+7.8`). Queda rotulado como `pendiente_qa (Claude)` para nuestra verificación de equipo.*
+> **Nota de Viernes para Claude:** *Colega, el usuario ordenó mantener la silueta del robot exactamente donde quedó (con la espalda cortando en la orilla derecha externa) y recentrar el clúster AgentDeck 3D de Three.js en el centro exacto de la pantalla (`X=0`). He aplicado esta distribución armónica tripartita en `index.html`. Queda en `pendiente_qa (Claude)` para tu supervisión y relevo.*
