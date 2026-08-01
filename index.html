@@ -1428,6 +1428,12 @@
 
       const clock = new THREE.Clock();
 
+      // ── Interacción con el SCROLL (como en JARVIS PC): parallax del robot + la escena ──
+      const robotImg = document.querySelector('.robot-img-hologram');
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let scrollY = 0;
+      window.addEventListener('scroll', () => { scrollY = window.scrollY || window.pageYOffset || 0; }, { passive: true });
+
       function animate() {
         requestAnimationFrame(animate);
         const elapsed = clock.getElapsedTime();
@@ -1438,6 +1444,13 @@
 
         camera.position.x += (mouseX * 4.0 - camera.position.x) * 0.05;
         camera.position.y += (14 + mouseY * 2.5 - camera.position.y) * 0.05;
+
+        // Scroll: la escena retrocede y se inclina, y el robot hace parallax vertical
+        const sN = reduceMotion ? 0 : Math.min(scrollY, 700);
+        camera.position.z += ((27 + sN * 0.010) - camera.position.z) * 0.05;
+        nodesGroup.rotation.x = sN * 0.00035;
+        if (robotImg) robotImg.style.transform = 'translateY(' + (sN * -0.09) + 'px)';
+
         camera.lookAt(0, 2.5, 0);
 
         nodeObjects.forEach(obj => {
