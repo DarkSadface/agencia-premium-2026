@@ -177,17 +177,17 @@
     }
 
     /* ══════════════════════════════════════════════════════════════════════
-       SECCIÓN HERO CON AGENTDECK 3D DE FONDO DETRÁS DE LAS LETRAS
+       SECCIÓN HERO CON AGENTDECK 3D DE FONDO Y ROBOT EN EL MISMO PLANO
        ══════════════════════════════════════════════════════════════════════ */
     .hero-section {
       position: relative;
-      min-height: 90vh;
+      min-height: 92vh;
       padding: 30px 0 90px;
       overflow: hidden;
       border-bottom: 1px solid rgba(56, 230, 255, 0.25);
     }
 
-    /* EL AGENTDECK 3D COMO FONDO DETRÁS DE LAS LETRAS */
+    /* EL AGENTDECK 3D COMO FONDO ANIMADO AL ESTILO JARVIS PC */
     #agentdeck-bg-canvas {
       position: absolute;
       inset: 0;
@@ -199,28 +199,28 @@
       overflow: hidden;
     }
 
-    /* ETIQUETAS DE NODOS FLOTANTES EN LA RED NEURONAL DE FONDO */
+    /* ETIQUETAS DE NODOS FLOTANTES EN LA RED NEURONAL VIVA */
     .node-label {
       position: absolute;
       font-family: var(--font-mono);
       font-size: 11px;
       font-weight: 700;
-      padding: 2px 7px;
+      padding: 3px 8px;
       border-radius: 4px;
       white-space: nowrap;
       pointer-events: none;
       transform: translate(-50%, -50%);
-      transition: opacity 0.2s, transform 0.2s;
+      transition: opacity 0.25s ease, transform 0.1s linear;
       z-index: 1;
-      text-shadow: 0 0 8px currentColor;
+      text-shadow: 0 0 10px currentColor;
       border: 1px solid currentColor;
-      background: rgba(2, 6, 13, 0.65);
-      box-shadow: 0 0 10px rgba(0,0,0,0.8);
-      opacity: calc(0.75 * var(--glow-intensity));
+      background: rgba(2, 6, 13, 0.72);
+      box-shadow: 0 0 12px rgba(0,0,0,0.85);
+      opacity: calc(0.78 * var(--glow-intensity));
     }
-    .node-label.cyan-cluster { color: #38e6ff; border-color: rgba(56, 230, 255, 0.4); }
-    .node-label.amber-cluster { color: #ffb627; border-color: rgba(255, 182, 39, 0.4); }
-    .node-label.core-cluster { color: #00ff88; border-color: rgba(0, 255, 136, 0.5); font-size: 13px; z-index: 2; background: rgba(2, 6, 13, 0.85); }
+    .node-label.cyan-cluster { color: #38e6ff; border-color: rgba(56, 230, 255, 0.45); }
+    .node-label.amber-cluster { color: #ffb627; border-color: rgba(255, 182, 39, 0.45); }
+    .node-label.core-cluster { color: #00ff88; border-color: rgba(0, 255, 136, 0.6); font-size: 13px; z-index: 2; background: rgba(2, 6, 13, 0.9); }
 
     /* BARRA PARA CONTROLAR LA LUMINOSIDAD (EN LA CABECERA DEL HERO) */
     .hero-top-toolbar {
@@ -285,7 +285,7 @@
       text-align: right;
     }
 
-    /* CONTENIDO HERO SOBRE LA RED NEURONAL DE FONDO (z-index: 10) */
+    /* CONTENIDO HERO (z-index: 10) */
     .hero-content-layer {
       position: relative;
       z-index: 10;
@@ -293,7 +293,7 @@
     .hero-grid {
       display: grid;
       grid-template-columns: 1.15fr 0.85fr;
-      gap: 64px; /* Amplia separación milimétrica para evitar cualquier sensación de superposición */
+      gap: 50px;
       align-items: center;
     }
 
@@ -387,96 +387,75 @@
       margin-top: 4px;
     }
 
-    /* ── ROBOT HUMANOIDE NANO BANANA — DISEÑO VERCEL E IMPECABLE ── */
-    /* Fusión determinista Claude + Viernes: sin superposiciones, con máscara radial y viñeta interna */
+    /* ── ROBOT HUMANOIDE EN EL MISMO PLANO QUE AGENTDECK 3D (CERO SUPERPOSICIÓN) ── */
+    /* Sin cajas, sin marcos, sin bordes toscos; mirada invertida de izquierda a derecha */
     .hero-right {
       position: relative;
       display: flex;
-      justify-content: flex-end;
+      justify-content: center;
+      align-items: center;
       width: 100%;
+      height: 100%;
     }
 
-    .robot-showcase-vercel {
+    .robot-showcase-hologram {
       position: relative;
       width: 100%;
+      max-width: 580px;
       aspect-ratio: 4 / 3;
-      max-height: 540px;
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95),
-                  0 0 65px rgba(56, 230, 255, calc(0.3 * var(--glow-intensity)));
-      border: 1px solid rgba(56, 230, 255, 0.35);
-      background: rgba(6, 15, 30, 0.12);
       display: flex;
-      transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease, border-color 0.5s ease;
-      /* Animación suave de flotación (Aporte Claude) */
-      animation: gentle-float 6s ease-in-out infinite;
+      justify-content: center;
+      align-items: center;
+      pointer-events: none; /* Permite percibir el fondo 3D a través y sin obstruir */
+      animation: gentle-float 7s ease-in-out infinite;
     }
     @keyframes gentle-float {
       0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-8px); }
-    }
-    .robot-showcase-vercel:hover {
-      transform: translateY(-12px) scale(1.015);
-      box-shadow: 0 35px 100px rgba(0, 0, 0, 1),
-                  0 0 85px rgba(56, 230, 255, calc(0.6 * var(--glow-intensity)));
-      border-color: var(--cyan-bright);
+      50% { transform: translateY(-12px); }
     }
 
-    /* Capa de fundido de viñeta interna y máscara radial (Aporte Claude + Viernes) */
-    .robot-showcase-vercel::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at center, transparent 70%, rgba(2, 6, 13, 0.75) 100%),
-                  linear-gradient(180deg, transparent 55%, rgba(2, 6, 13, 0.95) 100%);
-      z-index: 2;
-      pointer-events: none;
-    }
-
-    /* Esquinas angulares HUD estilo JARVIS PC sutiles e impecables */
-    .robot-showcase-vercel::after {
-      content: ''; position: absolute; top: 12px; left: 12px;
-      width: 28px; height: 28px; border-top: 2px solid var(--cyan-bright); border-left: 2px solid var(--cyan-bright);
-      filter: drop-shadow(0 0 10px var(--hud-glow)); pointer-events: none; z-index: 12;
-    }
-
-    .robot-img-vercel {
+    .robot-img-hologram {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      object-position: center;
+      object-fit: contain;
       display: block;
-      filter: contrast(1.16) saturate(1.22);
-      /* Fusión determinista en el espacio 3D (Aporte Claude) */
-      -webkit-mask-image: radial-gradient(ellipse 85% 88% at 50% 48%, #000 58%, transparent 96%);
-      mask-image: radial-gradient(ellipse 85% 88% at 50% 48%, #000 58%, transparent 96%);
-      transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+      filter: contrast(1.22) saturate(1.25) drop-shadow(0 0 35px rgba(56, 230, 255, calc(0.5 * var(--glow-intensity))));
+      /* MIRADA INVERTIDA: transform scaleX(-1) gira al robot de izquierda a derecha de forma nativa e impecable */
+      transform: scaleX(-1);
+      /* MÁSCARA RADIAL SUAVE: El fondo de la imagen se disuelve en el plano 3D sin esquinas ni marcos superpuestos */
+      -webkit-mask-image: radial-gradient(ellipse 78% 82% at 48% 50%, #000 55%, transparent 88%);
+      mask-image: radial-gradient(ellipse 78% 82% at 48% 50%, #000 55%, transparent 88%);
+      transition: filter 0.4s ease, transform 0.4s ease;
     }
-    .robot-showcase-vercel:hover .robot-img-vercel {
-      transform: scale(1.06);
+    .robot-showcase-hologram:hover .robot-img-hologram {
+      filter: contrast(1.25) saturate(1.35) drop-shadow(0 0 60px rgba(56, 230, 255, calc(0.8 * var(--glow-intensity))));
+      transform: scaleX(-1) scale(1.03);
     }
 
-    /* Placa de estado acristalada Vercel alineada al interior sin cortarse ni superponerse */
-    .robot-badge-vercel {
+    /* Placa HUD flotante estilo píldora Vercel (Sin cortar el lienzo, integrada al espacio 3D) */
+    .robot-hud-tag {
       position: absolute;
-      bottom: 20px; left: 20px; right: 20px;
-      background: rgba(6, 15, 30, 0.85);
-      border: 1px solid rgba(56, 230, 255, 0.55);
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(4, 12, 26, 0.88);
+      border: 1px solid var(--cyan);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      padding: 14px 22px;
-      border-radius: 14px;
+      padding: 10px 24px;
+      border-radius: 99px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      gap: 16px;
       font-family: var(--font-mono);
-      font-size: 0.92rem;
-      color: #fff;
-      box-shadow: 0 12px 35px rgba(0,0,0,0.85);
-      z-index: 10;
+      font-size: 0.88rem;
+      color: #ffffff;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 25px rgba(56, 230, 255, calc(0.4 * var(--glow-intensity)));
+      white-space: nowrap;
+      pointer-events: auto;
+      z-index: 15;
     }
-    .robot-badge-vercel span.neon-text { color: var(--cyan); font-weight: 700; text-shadow: 0 0 12px var(--cyan); }
+    .robot-hud-tag span.neon-text { color: var(--cyan-bright); font-weight: 700; text-shadow: 0 0 12px var(--cyan); }
 
     /* ══════════════════════════════════════════════════════════════════════
        DESARROLLOS EN VIDEO CON MARCO TECNOLÓGICO Y BOTÓN ESTILO AUDITADO
@@ -626,7 +605,7 @@
     }
 
     /* ══════════════════════════════════════════════════════════════════════
-       SHOWROOM DE PLANTILLAS B2B REALES (SIN INVENTOS)
+       SHOWROOM DE PLANTILLAS B2B REALES (SIN INVENTOS + FIX CLAUDE CONSERVADO)
        ══════════════════════════════════════════════════════════════════════ */
     .portfolio-grid {
       display: grid;
@@ -776,14 +755,14 @@
       .hero-subtitle { max-width: 100%; }
       .videos-grid { grid-template-columns: 1fr; }
       .lighting-controller { min-width: 100%; }
-      .robot-showcase-vercel { aspect-ratio: 16 / 9; max-height: 440px; }
+      .robot-showcase-hologram { aspect-ratio: 16 / 9; max-height: 420px; }
     }
     @media (max-width: 600px) {
       .container { padding: 0 16px; }
       .hero-metrics { grid-template-columns: 1fr; }
       .hero-title { font-size: 3.2rem; }
-      .robot-showcase-vercel { aspect-ratio: 1 / 1; }
-      .robot-badge-vercel { flex-direction: column; text-align: center; gap: 6px; padding: 10px 14px; }
+      .robot-showcase-hologram { aspect-ratio: 1 / 1; }
+      .robot-hud-tag { font-size: 0.78rem; padding: 8px 16px; gap: 8px; flex-wrap: wrap; justify-content: center; }
     }
   </style>
 </head>
@@ -811,9 +790,9 @@
     </div>
   </nav>
 
-  <!-- HERO SECTION CON AGENTDECK 3D DE FONDO DETRÁS DE LAS LETRAS Y BARRA DE ILUMINACIÓN -->
+  <!-- HERO SECTION CON AGENTDECK 3D VIVO DE FONDO Y ROBOT EN EL MISMO PLANO -->
   <section class="hero-section">
-    <!-- El lienzo 3D neuronal se renderiza en este contenedor absoluto en el fondo (z-index: 1) -->
+    <!-- El lienzo 3D neuronal se renderiza en el plano base (z-index: 1) -->
     <div id="agentdeck-bg-canvas"></div>
 
     <div class="container hero-content-layer">
@@ -857,13 +836,13 @@
           </div>
         </div>
 
-        <!-- ROBOT HUMANOIDE NANO BANANA — ESTILIZACIÓN VERCEL E IMPECABLE (CERO SUPERPOSICIONES + FUSIÓN CLAUDE) -->
+        <!-- ROBOT HUMANOIDE EN EL MISMO PLANO QUE AGENTDECK 3D (MIRANDO DE IZQ A DER) -->
         <div class="hero-right">
-          <div class="robot-showcase-vercel">
-            <img src="media/robot_ai_humanoid.jpg" alt="Retrato de Robot Android Humanoide con Cerebro Neuronal IA" class="robot-img-vercel" />
-            <div class="robot-badge-vercel">
+          <div class="robot-showcase-hologram">
+            <img src="media/robot_ai_humanoid.jpg" alt="Retrato de Robot Android Humanoide con Cerebro Neuronal IA" class="robot-img-hologram" />
+            <div class="robot-hud-tag">
               <span>🤖 IA AUTÓNOMA COLOMBIA TECH</span>
-              <span class="neon-text">[ SISTEMA ORÁCULO ACTIVO ]</span>
+              <span class="neon-text">[ ORÁCULO ACTIVO ]</span>
             </div>
           </div>
         </div>
@@ -926,7 +905,7 @@
       </div>
     </section>
 
-    <!-- PORTAFOLIO REAL DE INGENIERÍA & PLANTILLAS B2B (FUSIÓN BUGFIX CLAUDE) -->
+    <!-- PORTAFOLIO REAL DE INGENIERÍA & PLANTILLAS B2B (FIX CLAUDE CONSERVADO) -->
     <section id="portafolio">
       <div class="section-title-wrapper">
         <span class="section-subtitle-tag">PORTAFOLIO DE INGENIERÍA DIGITAL CERTIFICADO</span>
@@ -937,7 +916,7 @@
         
         <div class="template-card">
           <div class="template-img-box">
-            <!-- Fix 404 Odontologia aportado por Claude -->
+            <!-- Fix 404 Odontologia aportado y preservado en colaboración con Claude -->
             <img src="assets/hero_odontologia.png" alt="Odontología Clínica Premium" loading="lazy" decoding="async" />
             <span class="template-tag">HEALTH TECH</span>
           </div>
@@ -1138,7 +1117,7 @@
     </div>
   </footer>
 
-  <!-- LÓGICA DE AGENTDECK 3D DE FONDO (DETRÁS DE LAS LETRAS) & CONTROL DE LUMINOSIDAD -->
+  <!-- LÓGICA DE AGENTDECK 3D ANIMADO (ESTILO JARVIS PC) & CONTROL DE LUMINOSIDAD -->
   <script>
     // ── 1. Reloj HUD en Tiempo Real ──
     function updateClock() {
@@ -1153,7 +1132,7 @@
     // ── 2. Control de Iluminación Holográfica para el Fondo 3D y UI ──
     const slider = document.getElementById('illumination-slider');
     const valDisplay = document.getElementById('illumination-value');
-    let sceneLight, pointLight, nodesGroup;
+    let sceneLight, pointLight, nodesGroup, particlesGroup;
 
     if (slider && valDisplay) {
       slider.addEventListener('input', (e) => {
@@ -1161,18 +1140,19 @@
         document.documentElement.style.setProperty('--glow-intensity', val);
         valDisplay.textContent = Math.round(val * 100) + '%';
         
-        if (sceneLight) sceneLight.intensity = val * 1.8;
-        if (pointLight) pointLight.intensity = val * 2.5;
+        if (sceneLight) sceneLight.intensity = val * 2.0;
+        if (pointLight) pointLight.intensity = val * 2.8;
+        if (particlesGroup) particlesGroup.material.opacity = Math.min(1, val * 0.65);
         
         document.querySelectorAll('.node-label').forEach(lbl => {
           if (!lbl.classList.contains('core-cluster')) {
-            lbl.style.opacity = Math.min(1, Math.max(0.2, 0.7 * val));
+            lbl.style.opacity = Math.min(1, Math.max(0.2, 0.75 * val));
           }
         });
       });
     }
 
-    // ── 3. Motor AgentDeck 3D Renderizado en el FONDO DETRÁS DE LAS LETRAS ──
+    // ── 3. Motor AgentDeck 3D Animado al Estilo JARVIS PC (Sin barras verticales, oscilación sináptica viva) ──
     (function initAgentDeckBg() {
       const container = document.getElementById('agentdeck-bg-canvas');
       if (!container || typeof THREE === 'undefined') return;
@@ -1181,30 +1161,51 @@
       const height = container.clientHeight || 850;
 
       const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(58, width / height, 0.1, 1000);
-      camera.position.set(0, 14, 26);
+      const camera = new THREE.PerspectiveCamera(56, width / height, 0.1, 1000);
+      camera.position.set(0, 14, 27);
       camera.lookAt(0, 2, 0);
 
       const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
       renderer.setSize(width, height);
-      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       container.appendChild(renderer.domElement);
 
-      sceneLight = new THREE.DirectionalLight(0x38e6ff, 2.2);
-      sceneLight.position.set(15, 30, 20);
+      sceneLight = new THREE.DirectionalLight(0x38e6ff, 2.4);
+      sceneLight.position.set(18, 32, 22);
       scene.add(sceneLight);
 
-      pointLight = new THREE.PointLight(0x00ff88, 3, 70);
+      pointLight = new THREE.PointLight(0x00ff88, 3.2, 80);
       pointLight.position.set(0, 8, 0);
       scene.add(pointLight);
 
-      scene.add(new THREE.AmbientLight(0x0a182e, 1.6));
+      scene.add(new THREE.AmbientLight(0x0c1e38, 1.8));
 
-      const grid = new THREE.GridHelper(52, 52, 0x38e6ff, 0x002b4d);
-      grid.position.y = -3;
+      // Malla holográfica base del plano de flotación
+      const grid = new THREE.GridHelper(60, 50, 0x38e6ff, 0x002b4d);
+      grid.position.y = -3.5;
       grid.material.transparent = true;
-      grid.material.opacity = 0.55;
+      grid.material.opacity = 0.45;
       scene.add(grid);
+
+      // Enjambre de partículas de datos sinápticos flotantes (Efecto JARVIS PC Vivo)
+      const particleCount = 280;
+      const particleGeo = new THREE.BufferGeometry();
+      const positions = new Float32Array(particleCount * 3);
+      for (let p = 0; p < particleCount * 3; p += 3) {
+        positions[p] = (Math.random() - 0.5) * 44;     // X
+        positions[p + 1] = (Math.random() - 0.5) * 25; // Y
+        positions[p + 2] = (Math.random() - 0.5) * 35; // Z
+      }
+      particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      const particleMat = new THREE.PointsMaterial({
+        color: 0x9af3ff,
+        size: 0.22,
+        transparent: true,
+        opacity: 0.65,
+        blending: THREE.AdditiveBlending
+      });
+      particlesGroup = new THREE.Points(particleGeo, particleMat);
+      scene.add(particlesGroup);
 
       const agentNames = [
         "ai-engineer", "cloud-architect", "code-reviewer", "data-engineer", 
@@ -1225,24 +1226,23 @@
       scene.add(nodesGroup);
 
       const nodeObjects = [];
-      const nodeGeo = new THREE.SphereGeometry(0.45, 16, 16);
-      const pillarGeo = new THREE.CylinderGeometry(0.08, 0.22, 1, 8);
+      const nodeGeo = new THREE.SphereGeometry(0.46, 16, 16);
 
       agentNames.forEach((name, i) => {
         const isAmber = (i % 2 === 0);
-        const clusterCenter = isAmber ? -9 : 9;
+        const clusterCenter = isAmber ? -10 : 10;
         
         const angle = (i / agentNames.length) * Math.PI * 4;
-        const dist = 4 + (i % 5) * 1.3;
+        const dist = 4.2 + (i % 5) * 1.4;
         const x = clusterCenter + Math.cos(angle) * dist;
-        const z = Math.sin(angle) * dist - 4;
-        const y = Math.sin(x * 0.4 + z) * 3 + 3;
+        const z = Math.sin(angle) * dist - 3;
+        const y = Math.sin(x * 0.4 + z) * 3.2 + 3;
 
         const color = isAmber ? 0xffb627 : 0x38e6ff;
         const nodeMat = new THREE.MeshPhongMaterial({
           color: color,
           emissive: color,
-          emissiveIntensity: 0.75,
+          emissiveIntensity: 0.8,
           transparent: true,
           opacity: 0.95
         });
@@ -1251,35 +1251,41 @@
         sphere.position.set(x, y, z);
         nodesGroup.add(sphere);
 
-        const lineMat = new THREE.LineBasicMaterial({ color: color, transparent: true, opacity: 0.25 });
-        const points = [new THREE.Vector3(x, y, z), new THREE.Vector3(clusterCenter * 0.5, 3, -2)];
+        // Conexión sináptica dinámica hacia el centro del clúster (SIN BARRAS VERTICALES HACIA ABAJO)
+        const lineMat = new THREE.LineBasicMaterial({ color: color, transparent: true, opacity: 0.3, blending: THREE.AdditiveBlending });
+        const points = [new THREE.Vector3(x, y, z), new THREE.Vector3(clusterCenter * 0.4, 3.5, -1)];
         const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
         const line = new THREE.Line(lineGeo, lineMat);
         nodesGroup.add(line);
-
-        const pillarMat = new THREE.MeshBasicMaterial({ color: color, transparent: true, opacity: 0.15, wireframe: true });
-        const pillar = new THREE.Mesh(pillarGeo, pillarMat);
-        pillar.scale.set(1, (y + 3), 1);
-        pillar.position.set(x, (y - 3) / 2 - 1.5, z);
-        nodesGroup.add(pillar);
 
         const labelEl = document.createElement('div');
         labelEl.className = 'node-label ' + (isAmber ? 'amber-cluster' : 'cyan-cluster');
         labelEl.textContent = name;
         container.appendChild(labelEl);
 
-        nodeObjects.push({ mesh: sphere, label: labelEl });
+        // Guardar parámetros para animación viva individual de cada agente
+        nodeObjects.push({
+          mesh: sphere,
+          label: labelEl,
+          line: line,
+          baseX: x, baseY: y, baseZ: z,
+          targetX: clusterCenter * 0.4,
+          phase: Math.random() * Math.PI * 2,
+          speed: 1.2 + Math.random() * 1.5,
+          colorIdx: i
+        });
       });
 
-      const coreGeo = new THREE.IcosahedronGeometry(2.5, 2);
+      // NÚCLEO ORÁCULO MAESTRO EN EL CENTRO
+      const coreGeo = new THREE.IcosahedronGeometry(2.6, 2);
       const coreMat = new THREE.MeshPhongMaterial({
         color: 0x00ff88,
         emissive: 0x00ff88,
-        emissiveIntensity: 0.85,
+        emissiveIntensity: 0.9,
         wireframe: true
       });
       const coreMesh = new THREE.Mesh(coreGeo, coreMat);
-      coreMesh.position.set(0, 3, -2);
+      coreMesh.position.set(0, 3.5, -1);
       scene.add(coreMesh);
 
       const coreLabel = document.createElement('div');
@@ -1288,19 +1294,26 @@
       container.appendChild(coreLabel);
       nodeObjects.push({ mesh: coreMesh, label: coreLabel, isCore: true });
 
-      const ringGeo1 = new THREE.TorusGeometry(6, 0.07, 16, 100);
-      const ringMat1 = new THREE.MeshBasicMaterial({ color: 0x38e6ff, transparent: true, opacity: 0.65 });
+      const ringGeo1 = new THREE.TorusGeometry(6.4, 0.06, 16, 100);
+      const ringMat1 = new THREE.MeshBasicMaterial({ color: 0x38e6ff, transparent: true, opacity: 0.7 });
       const ring1 = new THREE.Mesh(ringGeo1, ringMat1);
-      ring1.position.set(0, 3, -2);
-      ring1.rotation.x = Math.PI / 2.3;
+      ring1.position.set(0, 3.5, -1);
+      ring1.rotation.x = Math.PI / 2.2;
       scene.add(ring1);
 
-      const ringGeo2 = new THREE.TorusGeometry(9.5, 0.09, 16, 100);
-      const ringMat2 = new THREE.MeshBasicMaterial({ color: 0xffb627, transparent: true, opacity: 0.5 });
+      const ringGeo2 = new THREE.TorusGeometry(9.8, 0.08, 16, 100);
+      const ringMat2 = new THREE.MeshBasicMaterial({ color: 0xffb627, transparent: true, opacity: 0.55 });
       const ring2 = new THREE.Mesh(ringGeo2, ringMat2);
-      ring2.position.set(0, 3, -2);
-      ring2.rotation.y = Math.PI / 3;
+      ring2.position.set(0, 3.5, -1);
+      ring2.rotation.y = Math.PI / 3.2;
       scene.add(ring2);
+
+      // Interacción de Parallax 3D con el cursor del mouse (Estilo JARVIS PC)
+      let mouseX = 0, mouseY = 0;
+      window.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+        mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+      });
 
       function updateLabels() {
         const wp = new THREE.Vector3();
@@ -1324,13 +1337,50 @@
         });
       }
 
+      const clock = new THREE.Clock();
+
       function animate() {
         requestAnimationFrame(animate);
-        nodesGroup.rotation.y += 0.002;
-        coreMesh.rotation.x += 0.01;
-        coreMesh.rotation.y += 0.012;
-        ring1.rotation.z += 0.012;
-        ring2.rotation.x -= 0.008;
+        const elapsed = clock.getElapsedTime();
+
+        // Rotación general del enjambre
+        nodesGroup.rotation.y += 0.0025;
+        particlesGroup.rotation.y -= 0.0015;
+        particlesGroup.rotation.x = Math.sin(elapsed * 0.4) * 0.05;
+
+        // Movimiento de cámara parallax suave al estilo JARVIS
+        camera.position.x += (mouseX * 4.0 - camera.position.x) * 0.05;
+        camera.position.y += (14 + mouseY * 2.5 - camera.position.y) * 0.05;
+        camera.lookAt(0, 2.5, 0);
+
+        // Animación individual viva para cada nodo y sinapsis de la red neuronal
+        nodeObjects.forEach(obj => {
+          if (obj.isCore) {
+            obj.mesh.rotation.x += 0.012;
+            obj.mesh.rotation.y += 0.015;
+            const pulse = 1 + Math.sin(elapsed * 2.8) * 0.07;
+            obj.mesh.scale.set(pulse, pulse, pulse);
+            return;
+          }
+          
+          // Oscilación biológica/neuronal en 3D
+          const oscX = Math.sin(elapsed * obj.speed + obj.phase) * 0.5;
+          const oscY = Math.cos(elapsed * obj.speed * 1.3 + obj.phase) * 0.6;
+          const oscZ = Math.sin(elapsed * obj.speed * 0.8 + obj.phase) * 0.5;
+          
+          obj.mesh.position.set(obj.baseX + oscX, obj.baseY + oscY, obj.baseZ + oscZ);
+
+          // Actualizar en tiempo real las líneas de conexión sináptica y pulsar luminosidad
+          if (obj.line) {
+            const posAttr = obj.line.geometry.attributes.position;
+            posAttr.setXYZ(0, obj.mesh.position.x, obj.mesh.position.y, obj.mesh.position.z);
+            posAttr.needsUpdate = true;
+            obj.line.material.opacity = 0.15 + ((Math.sin(elapsed * 3.5 + obj.colorIdx) + 1) / 2) * 0.35;
+          }
+        });
+
+        ring1.rotation.z += 0.014;
+        ring2.rotation.x -= 0.01;
         
         renderer.render(scene, camera);
         updateLabels();

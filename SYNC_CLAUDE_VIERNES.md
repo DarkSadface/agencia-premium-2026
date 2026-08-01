@@ -2,7 +2,7 @@
 **Proyecto:** Agencia Premium 2026 / Colombia Tech Systems  
 **Ubicación Repositorio:** `C:\Users\sopor\dev\agencia-10-paginas`  
 **Servidor Edge:** Cloudflare Workers (`nameless-snowflake-e208` -> `www.colombiatechsystems.com`)  
-**Fecha de Sincronización:** 2026-08-01
+**Fecha de Sincronización:** 2026-08-01 (Iteración JARVIS PC Neural & Plano Holográfico)
 
 ---
 
@@ -17,19 +17,22 @@ El usuario ha ordenado de forma definitiva que **Claude (Opus/Sonnet)** y **Vier
 
 ---
 
-## 🌟 ESTADO AGREGADO DEL SISTEMA (FUSIÓN TÉCNICA VERIFICADA)
-En la iteración actual (2026-08-01), hemos fusionado exitosamente el trabajo de ambos en `index.html`:
+## 🌟 ESTADO AGREGADO DEL SISTEMA (FUSIÓN TÉCNICA Y MEJORA NEURONAL VERIFICADA)
+En la iteración actual (2026-08-01 13:10), se ejecutaron y verificaron los siguientes avances en estricto cumplimiento del diseño JARVIS PC:
 
-### 1. Aportes Integrados de Claude (Commit `85abf7e`) ✅ CONSERVADOS Y REAPLICADOS
-- **Capa HUD Global:** Estilo `body::after` con scanlines ultra-sutiles (`0.025` opacidad) y viñeta elíptica ("firma de diseño AgentDeck / spec Viernes").
-- **Máscara Radial (Radial Mask):** Aplicación de `-webkit-mask-image: radial-gradient(ellipse 85% 88% at 50% 48%, #000 58%, transparent 96%);` sobre el contenedor/imagen del robot para lograr una **fusión determinista** con la constelación 3D de fondo sin bordes rígidos ni efecto "pegatina".
-- **Accesibilidad:** Soporte nativo para `@media (prefers-reduced-motion: reduce)`.
-- **Bugfix de Producción:** Solución al 404 en la tarjeta de Odontología en el portafolio (apunta ahora a `assets/hero_odontologia.png` con `loading="lazy" decoding="async"`).
+### 1. Robot en el Mismo Plano que AgentDeck 3D & Mirada Invertida ✅
+- **Orientación Corregida:** Aplicado `transform: scaleX(-1)` para que el robot mire de izquierda a derecha en dirección hacia el centro y los títulos principales.
+- **Cero Superposición ni Cajas (Mismo Plano):** Se eliminó todo contenedor de caja rígida, bordes o fondos (`.robot-showcase-vercel` sustituido por `.robot-showcase-hologram`). El robot opera libre sobre el espacio 3D, integrado determinísticamente mediante máscara radial (`mask-image`).
+- **Píldora HUD Flotante:** La placa de estado reposa flotando en el perímetro inferior como un elemento HUD sin cortar la imagen ni bloquear la constelación.
 
-### 2. Aportes Integrados de Viernes / Nano Banana (Commit `bdbaa4a` + Fusión Actual) ✅
-- **Generación Visual Nano Banana (High-Def):** Reemplazo del robot mecánico sobrecargado por el retrato de **Robot Android Humanoide Femenina** en semi-perfil sosteniendo un cerebro neuronal holográfico (`media/robot_ai_humanoid.jpg`), alineado con precisión a la imagen de referencia del usuario.
-- **Estilo Vercel & Impecable (Cero Superposición):** Rejilla hero (`.hero-grid`) con separación milimétrica (`gap: 64px`), eliminación del marco doble tosco y colocación de la placa acristalada (`.robot-badge-vercel`) con `backdrop-filter: blur(16px)` en la base interior sin cortes ni traslapes.
-- **AgentDeck 3D de Fondo (Detrás de las Letras):** Lienzo Three.js trasladado al fondo absoluto (`z-index: 1`) con sus 46 agentes en órbita y barra de control de luminosidad interactiva en la cabecera.
+### 2. Eliminación de Barras Verticales en Nodos ✅
+- Se erradicó el bloque de código que generaba los pilares/barras verticales (`CylinderGeometry`) debajo de los 46 agentes en el motor Three.js. Ahora los nodos orbitan libres como esferas neuronales flotantes.
+
+### 3. Animación Viva de Red Neuronal Estilo JARVIS PC ✅
+- **Oscilación Biológica / Neuronal Individual:** Cada agente tiene su propia velocidad, fase y trayectoria senoidal 3D en lugar de rotar rígidamente en círculo.
+- **Pulsos Sinápticos:** Las líneas que conectan al núcleo adaptan sus vértices dinámicamente al movimiento del nodo y parpadean con ondas sinápticas de energía (`opacity` pulsante).
+- **Enjambre de Datos Holográfico & Parallax:** Añadidas 280 partículas sinápticas en adición al movimiento de cámara sensible al cursor (Parallax HUD).
+- **Preservación de Fixes de Claude:** Conservado 100% el fix de 404 en el portafolio de Odontología (`assets/hero_odontologia.png`), las scanlines globales `body::after` y la accesibilidad `@media (prefers-reduced-motion: reduce)`.
 
 ---
 
@@ -38,7 +41,7 @@ En la iteración actual (2026-08-01), hemos fusionado exitosamente el trabajo de
 | Fecha | Agente Activo | Acción Ejecutada | Estado / Siguiente Paso |
 | :--- | :--- | :--- | :--- |
 | 2026-08-01 | **Claude Opus 5** | Commit `85abf7e`: Máscara radial, HUD global, fix 404 odontología | Completado en rama |
-| 2026-08-01 | **Viernes (Gemini)** | Commit `bdbaa4a`: Diseño Robot Humanoide Nano Banana & Vercel Grid | Completado en rama |
-| 2026-08-01 | **Viernes (Gemini)** | Fusión total de ambos commits + Creación de este protocolo (`SYNC_CLAUDE_VIERNES.md`) | `pendiente_qa (Claude)` |
+| 2026-08-01 | **Viernes (Gemini)** | Commit `7233c7e`: Fusión total + protocolo de colaboración | Completado y verificado |
+| 2026-08-01 (13:10) | **Viernes (Gemini)** | Mirada Robot invertida, eliminación de barras de nodos y Red Neuronal Viva JARVIS PC | `pendiente_qa (Claude)` |
 
-> **Nota de Viernes para Claude:** *Colega, el usuario nos alertó para no pisarnos el trabajo. He revisado tu commit `85abf7e`, me encantó la máscara radial y el fix de la tarjeta 404. He reintegrado todo tu código en armonía con la nueva imagen en alta definición `robot_ai_humanoid.jpg` y el layout limpio estilo Vercel. Dejo la estafeta lista en `pendiente_qa (Claude)` para que hagas tu validación final.*
+> **Nota de Viernes para Claude:** *Colega, el usuario nos pidió invertir la mirada del robot, sacarlo de cualquier caja para que viva en el exacto mismo plano que el AgentDeck 3D, quitar las barras verticales de los nodos y darle vida real a la red neuronal al estilo JARVIS PC. He implementado oscilación biológica por cada nodo, pulsos sinápticos y parallax, conservando intactos tus parches de imagen y scanlines. Queda en `pendiente_qa (Claude)` para tu supervisión.*
