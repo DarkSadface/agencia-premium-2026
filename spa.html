@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aura | Spa & Wellness</title>
+    <meta name="description" content="Spa y centro de bienestar: rituales de relajación, masajes y tratamientos holísticos. Reserva tu experiencia en nuestro santuario urbano.">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -283,7 +284,7 @@
 
     <section id="inicio" class="hero">
         <div class="hero-img-container">
-            <img src="assets/hero_spa.png" alt="Spa Wellness" onerror="this.src='https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1000&auto=format&fit=crop'">
+            <img src="assets/hero_spa.png" alt="Spa Wellness" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1000&auto=format&fit=crop'">
         </div>
         <div class="hero-content">
             <h1>Respira.<br>Siente.<br>Renace.</h1>
@@ -294,7 +295,7 @@
     <section id="rituales" class="services">
         <div class="service-container">
             <div class="service-img organic-mask">
-                <img src="assets/spa_ritual.jpg" alt="Ritual" onerror="this.src='https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=1000&auto=format&fit=crop'">
+                <img src="assets/spa_ritual.jpg" alt="Ritual" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=1000&auto=format&fit=crop'">
             </div>
             <div class="service-text fade-up">
                 <h2>Ritual Tierra</h2>
@@ -317,18 +318,19 @@
         <div class="glass-panel-spa fade-up">
             <h2>Reserva tu Experiencia</h2>
             <p style="text-align: center; margin-bottom: 2.5rem; font-family: 'Montserrat', sans-serif;">Permítenos guiarte hacia tu balance natural.</p>
-            <form onsubmit="event.preventDefault(); alert('Reserva de Spa solicitada exitosamente. Nos contactaremos en breve.');">
-                <input type="text" placeholder="Tu Nombre Completo" required>
-                <input type="email" placeholder="Correo Electrónico" required>
-                <select required>
+            <form class="form-cita" action="https://wa.me/573000000000" method="get" target="_blank">
+                <input type="text" placeholder="Tu Nombre Completo" required data-cita="Tu Nombre Completo">
+                <input type="email" placeholder="Correo Electrónico" required data-cita="Correo Electrónico">
+                <select required data-cita="Ritual">
                     <option value="" disabled selected>Selecciona un Ritual</option>
                     <option value="tierra">Ritual Tierra (Arcillas y Salvia)</option>
                     <option value="agua">Ritual Agua (Hidroterapia Profunda)</option>
                     <option value="aire">Ritual Aire (Masaje Aromaterapéutico)</option>
                     <option value="fuego">Ritual Fuego (Piedras Calientes)</option>
                 </select>
-                <input type="date" required style="color: white;">
-                <button type="submit" class="btn-organic btn-glass">Confirmar Cita</button>
+                <input type="date" required style="color: white;" data-cita="Fecha">
+                <button type="submit" class="btn-organic btn-glass">Enviar por WhatsApp</button>
+                <input type="hidden" name="text" value="Hola, quiero agendar una cita desde su página web.">
             </form>
         </div>
     </section>
@@ -435,5 +437,74 @@
         });
     </script>
 
+
+    <!-- REPARACION CONTACTO/FORMULARIO (Claude, 97o ciclo) -->
+    <style>
+        .contacto-directo {
+            position: relative; z-index: 5;
+            display: flex; flex-wrap: wrap; gap: 1.5rem;
+            align-items: center; justify-content: center;
+            padding: 1.6rem 1rem 5.5rem;
+            font-family: inherit; font-size: 0.95rem;
+            border-top: 1px solid currentColor;
+        }
+        .contacto-directo { border-color: rgba(128,128,128,0.25); }
+        .contacto-directo a {
+            color: inherit; text-decoration: none; opacity: 0.85;
+            display: inline-flex; align-items: center; gap: 0.5rem;
+        }
+        .contacto-directo a:hover { opacity: 1; text-decoration: underline; }
+    </style>
+
+    <div class="contacto-directo">
+        <!-- Telefono: marcador de posicion unico del producto (573000000000).
+             Sustituir por el numero real del cliente en el CTA y aqui. -->
+        <a href="tel:+573000000000">&#128222; +57 300 000 0000</a>
+        <a href="mailto:operadororangeicff23@gmail.com">&#9993; operadororangeicff23@gmail.com</a>
+    </div>
+
+    <!-- REPARACION CONTACTO/FORMULARIO (Claude, 97o ciclo)
+         Medido a 375x667: los enlaces de esta barra terminaban en x=513
+         con viewport 375 y, con overflow-x:hidden, quedaban inalcanzables. -->
+    <style>
+        @media (max-width: 720px) {
+            .nav-links { gap: 1.25rem; flex-wrap: wrap; justify-content: flex-end; }
+            .nav-links a, .nav-links span { font-size: 0.78rem; letter-spacing: 1px; }
+        }
+    </style>
+
+    <!-- REPARACION CONTACTO/FORMULARIO (Claude, 97o ciclo)
+         El formulario ENVIA de verdad: submit nativo (GET) a wa.me, el mismo
+         numero que anuncia el CTA. Este script solo compone el texto del
+         mensaje y deja que el envio nativo siga su curso: no cancela el evento
+         ni lo intercepta. -->
+    <script>
+    (function () {
+        var formularios = document.querySelectorAll('form.form-cita');
+        for (var i = 0; i < formularios.length; i++) {
+            (function (f) {
+                f.addEventListener('submit', function () {
+                    var campos = f.querySelectorAll('[data-cita]');
+                    var lineas = [];
+                    for (var j = 0; j < campos.length; j++) {
+                        var el = campos[j];
+                        // De un <select> interesa lo que LEE el negocio
+                        // ("Implantes Dentales"), no el value interno
+                        // ("implantes"), que no le dice nada a nadie.
+                        var v = el.tagName === 'SELECT' && el.selectedIndex >= 0
+                            ? (el.options[el.selectedIndex].text || '')
+                            : (el.value || '');
+                        v = v.trim();
+                        if (v) { lineas.push(el.getAttribute('data-cita') + ': ' + v); }
+                    }
+                    var oculto = f.querySelector('input[name="text"]');
+                    if (!oculto) { return; }
+                    var cabecera = f.getAttribute('data-mensaje') || 'Hola, quiero agendar una cita desde su página web.';
+                    oculto.value = lineas.length ? cabecera + '\n' + lineas.join('\n') : cabecera;
+                });
+            })(formularios[i]);
+        }
+    })();
+    </script>
 </body>
 </html>

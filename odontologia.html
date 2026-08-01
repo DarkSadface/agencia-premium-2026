@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Odontología Premium | Sonrisas Perfectas</title>
+    <meta name="description" content="Clínica dental especializada en diseño de sonrisa, carillas de porcelana, implantes dentales y blanqueamiento láser. Primera evaluación con especialista.">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -405,7 +406,7 @@
             <a href="#reserva" class="btn fade-in">Reserva tu evaluación</a>
         </div>
         <div class="hero-img scale-in">
-            <img src="assets/hero_odontologia.png" alt="Odontología Premium" onerror="this.src='https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=1000&auto=format&fit=crop'">
+            <img src="assets/hero_odontologia.png" alt="Odontología Premium" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=1000&auto=format&fit=crop'">
         </div>
     </section>
 
@@ -416,9 +417,9 @@
         </div>
         <div class="h-image fade-up">
             <div class="slider-container">
-                <img src="assets/dental_despues.jpg" alt="Después" class="image-after" onerror="this.src='https://images.unsplash.com/photo-1590845947698-8924d7409b56?q=80&w=1000&auto=format&fit=crop'">
+                <img src="assets/dental_despues.jpg" alt="Después" class="image-after" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1590845947698-8924d7409b56?q=80&w=1000&auto=format&fit=crop'">
                 <div class="image-before-wrapper" id="before-wrapper">
-                    <img src="assets/dental_antes.jpg" alt="Antes" class="image-before" onerror="this.src='https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=1000&auto=format&fit=crop'">
+                    <img src="assets/dental_antes.jpg" alt="Antes" class="image-before" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=1000&auto=format&fit=crop'">
                 </div>
                 <input type="range" min="0" max="100" value="50" class="slider-input" id="compare-slider" aria-label="Comparar antes y después">
                 <div class="slider-button" id="slider-button"></div>
@@ -430,18 +431,19 @@
         <div class="glass-panel fade-up">
             <h2>Agenda tu Cita</h2>
             <p>Déjanos tus datos y un especialista se pondrá en contacto para tu primera evaluación sin costo.</p>
-            <form onsubmit="event.preventDefault(); alert('Reserva enviada exitosamente. Nos contactaremos pronto.');">
-                <input type="text" placeholder="Nombre completo" required>
-                <input type="email" placeholder="Correo electrónico" required>
-                <input type="tel" placeholder="Teléfono de contacto" required>
-                <select required>
+            <form class="form-cita" action="https://wa.me/573000000000" method="get" target="_blank">
+                <input type="text" placeholder="Nombre completo" required data-cita="Nombre completo">
+                <input type="email" placeholder="Correo electrónico" required data-cita="Correo electrónico">
+                <input type="tel" placeholder="Teléfono de contacto" required data-cita="Teléfono de contacto">
+                <select required data-cita="Tratamiento de interés">
                     <option value="" disabled selected>Selecciona un tratamiento de interés</option>
                     <option value="diseno">Diseño de Sonrisa</option>
                     <option value="carillas">Carillas de Porcelana</option>
                     <option value="implantes">Implantes Dentales</option>
                     <option value="blanqueamiento">Blanqueamiento Láser</option>
                 </select>
-                <button type="submit" class="btn">Confirmar Reserva</button>
+                <button type="submit" class="btn">Enviar por WhatsApp</button>
+                <input type="hidden" name="text" value="Hola, quiero agendar una cita desde su página web.">
             </form>
         </div>
     </section>
@@ -521,5 +523,64 @@
         });
     </script>
 
+
+    <!-- REPARACION CONTACTO/FORMULARIO (Claude, 97o ciclo) -->
+    <style>
+        .contacto-directo {
+            position: relative; z-index: 5;
+            display: flex; flex-wrap: wrap; gap: 1.5rem;
+            align-items: center; justify-content: center;
+            padding: 1.6rem 1rem 5.5rem;
+            font-family: inherit; font-size: 0.95rem;
+            border-top: 1px solid currentColor;
+        }
+        .contacto-directo { border-color: rgba(128,128,128,0.25); }
+        .contacto-directo a {
+            color: inherit; text-decoration: none; opacity: 0.85;
+            display: inline-flex; align-items: center; gap: 0.5rem;
+        }
+        .contacto-directo a:hover { opacity: 1; text-decoration: underline; }
+    </style>
+
+    <div class="contacto-directo">
+        <!-- Telefono: marcador de posicion unico del producto (573000000000).
+             Sustituir por el numero real del cliente en el CTA y aqui. -->
+        <a href="tel:+573000000000">&#128222; +57 300 000 0000</a>
+        <a href="mailto:operadororangeicff23@gmail.com">&#9993; operadororangeicff23@gmail.com</a>
+    </div>
+
+    <!-- REPARACION CONTACTO/FORMULARIO (Claude, 97o ciclo)
+         El formulario ENVIA de verdad: submit nativo (GET) a wa.me, el mismo
+         numero que anuncia el CTA. Este script solo compone el texto del
+         mensaje y deja que el envio nativo siga su curso: no cancela el evento
+         ni lo intercepta. -->
+    <script>
+    (function () {
+        var formularios = document.querySelectorAll('form.form-cita');
+        for (var i = 0; i < formularios.length; i++) {
+            (function (f) {
+                f.addEventListener('submit', function () {
+                    var campos = f.querySelectorAll('[data-cita]');
+                    var lineas = [];
+                    for (var j = 0; j < campos.length; j++) {
+                        var el = campos[j];
+                        // De un <select> interesa lo que LEE el negocio
+                        // ("Implantes Dentales"), no el value interno
+                        // ("implantes"), que no le dice nada a nadie.
+                        var v = el.tagName === 'SELECT' && el.selectedIndex >= 0
+                            ? (el.options[el.selectedIndex].text || '')
+                            : (el.value || '');
+                        v = v.trim();
+                        if (v) { lineas.push(el.getAttribute('data-cita') + ': ' + v); }
+                    }
+                    var oculto = f.querySelector('input[name="text"]');
+                    if (!oculto) { return; }
+                    var cabecera = f.getAttribute('data-mensaje') || 'Hola, quiero agendar una cita desde su página web.';
+                    oculto.value = lineas.length ? cabecera + '\n' + lineas.join('\n') : cabecera;
+                });
+            })(formularios[i]);
+        }
+    })();
+    </script>
 </body>
 </html>
