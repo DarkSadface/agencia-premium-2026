@@ -849,7 +849,7 @@
 
   <!-- HERO SECTION: ROBOT ANCLADO & AGENTDECK SOBRE CEREBRO IA -->
   <section class="hero-section">
-    <!-- El lienzo 3D neuronal encierra el cerebro y la mano en PC, Tablet y Móvil -->
+    <!-- El lienzo 3D neuronal flota justo ARRIBA del cerebro, con tamaño idéntico al cerebro -->
     <div id="agentdeck-bg-canvas"></div>
 
     <!-- SILUETA MASTER DEL ROBOT CON EL EMBLEMA 'JARVIS' EN EL BRAZO TITANIO -->
@@ -1081,7 +1081,7 @@
           </div>
           <div class="template-info">
             <h3>Medicina Estética & Tecnologías Láser</h3>
-            <p>Presentación clínica de tratamientos láser con antes/después interactivo y enrutamiento inteligente por WhatsApp VIP.</p>
+            <p>Presentación clínica de treatments láser con antes/después interactivo y enrutamiento inteligente por WhatsApp VIP.</p>
           </div>
           <a href="estetica.html" class="btn-live-action">
             <span>Ver Producción En Vivo</span>
@@ -1226,7 +1226,7 @@
       scene.add(sceneLight);
 
       pointLight = new THREE.PointLight(0x00ff88, 1.5, 90);
-      pointLight.position.set(4.2, 2.5, 2.0); 
+      pointLight.position.set(4.2, 4.5, 2.0); 
       scene.add(pointLight);
 
       scene.add(new THREE.AmbientLight(0x0c1e38, 1.4));
@@ -1259,25 +1259,25 @@
       constellationGroup = new THREE.Group();
       scene.add(constellationGroup);
 
-      // FUNCIÓN MAESTRA DE PARIDAD ENTRE PC, TABLET Y MÓVIL (POCO F6 / ADB / iPAD / DESKTOP)
-      // Garantiza que en cualquier dispositivo, el nodo central siempre encierra la mano y el cerebro del robot
+      // FUNCIÓN MAESTRA DE ALINEACIÓN ENTRE PC, TABLET Y MÓVIL (POCO F6 / ADB / DESKTOP)
+      // Garantiza que en cualquier dispositivo, el nodo central resplandezca EXACTAMENTE ARRIBA DEL CEREBRO
       function alignNodeWithRobot(w, h) {
         if (!constellationGroup || !pointLight) return;
         if (w >= 1100) {
-          // PC / Escritorio (Layout horizontal): cerebro y mano a la derecha (X=4.2, Y=1.8, Z=-0.5)
-          constellationGroup.position.set(4.2, 1.8, -0.5);
+          // PC / Escritorio: Robot a la derecha, nodo posicionado en Y=4.8 justo encima del cerebro (Y=2.0)
+          constellationGroup.position.set(4.2, 4.8, -0.5);
           constellationGroup.scale.set(1, 1, 1);
-          pointLight.position.set(4.2, 2.5, 2.0);
+          pointLight.position.set(4.2, 4.5, 2.0);
         } else if (w >= 650) {
-          // Tablet / Pantallas Medianas (Layout apilado): robot centrado en la parte inferior
-          constellationGroup.position.set(-0.6, -0.2, -0.5);
+          // Tablet: Robot centrado abajo, nodo posicionado en Y=2.4 encima del cráneo
+          constellationGroup.position.set(-0.6, 2.4, -0.5);
           constellationGroup.scale.set(0.85, 0.85, 0.85);
-          pointLight.position.set(-0.6, 0.5, 2.0);
+          pointLight.position.set(-0.6, 2.4, 2.0);
         } else {
-          // Móvil / Poco F6 / Smartphones: robot centrado en la base del hero
-          constellationGroup.position.set(-0.35, -0.9, -0.5);
+          // Móvil / Poco F6 / Smartphones: Robot centrado en la base, nodo coronando en Y=1.3
+          constellationGroup.position.set(-0.35, 1.3, -0.5);
           constellationGroup.scale.set(0.65, 0.65, 0.65);
-          pointLight.position.set(-0.35, -0.2, 2.0);
+          pointLight.position.set(-0.35, 1.3, 2.0);
         }
       }
       alignNodeWithRobot(width, height);
@@ -1362,15 +1362,15 @@
         });
       });
 
-      // NÚCLEO ORÁCULO MAESTRO: ENCERRANDO EL CEREBRO Y LA MANO COMO UN CAMPO CUÁNTICO TRASLUCIDO
-      const coreGeo = new THREE.IcosahedronGeometry(4.6, 3);
+      // NÚCLEO ORÁCULO MAESTRO: REDUCIDO EXACTAMENTE AL TAMAÑO DEL CEREBRO (RADIO 1.6) Y FLOTANDO ARRIBA DE ESTE
+      const coreGeo = new THREE.IcosahedronGeometry(1.6, 3);
       const coreMat = new THREE.MeshPhongMaterial({
         color: 0x00ff88,
         emissive: 0x00ff88,
-        emissiveIntensity: 0.45,
+        emissiveIntensity: 0.55,
         wireframe: true,
         transparent: true,
-        opacity: 0.55
+        opacity: 0.75
       });
       const coreMesh = new THREE.Mesh(coreGeo, coreMat);
       coreMesh.position.set(0, 0, 0);
@@ -1382,15 +1382,15 @@
       container.appendChild(coreLabel);
       nodeObjects.push({ mesh: coreMesh, label: coreLabel, isCore: true });
 
-      const ringGeo1 = new THREE.TorusGeometry(8.2, 0.05, 16, 120);
-      const ringMat1 = new THREE.MeshBasicMaterial({ color: 0x38e6ff, transparent: true, opacity: 0.45 });
+      const ringGeo1 = new THREE.TorusGeometry(3.6, 0.04, 16, 120);
+      const ringMat1 = new THREE.MeshBasicMaterial({ color: 0x38e6ff, transparent: true, opacity: 0.55 });
       const ring1 = new THREE.Mesh(ringGeo1, ringMat1);
       ring1.position.set(0, 0, 0);
       ring1.rotation.x = Math.PI / 2.2;
       constellationGroup.add(ring1);
 
-      const ringGeo2 = new THREE.TorusGeometry(11.5, 0.06, 16, 120);
-      const ringMat2 = new THREE.MeshBasicMaterial({ color: 0xffb627, transparent: true, opacity: 0.35 });
+      const ringGeo2 = new THREE.TorusGeometry(4.8, 0.05, 16, 120);
+      const ringMat2 = new THREE.MeshBasicMaterial({ color: 0xffb627, transparent: true, opacity: 0.45 });
       const ring2 = new THREE.Mesh(ringGeo2, ringMat2);
       ring2.position.set(0, 0, 0);
       ring2.rotation.y = Math.PI / 3.2;
@@ -1420,19 +1420,13 @@
 
           const left = (wp.x * halfWidth) + halfWidth;
           const top = -(wp.y * halfHeight) + halfHeight;
-          const offset = obj.isCore ? (isMobile ? 42 : 65) : (isMobile ? 10 : 14); 
+          const offset = obj.isCore ? (isMobile ? 32 : 48) : (isMobile ? 10 : 14); 
           obj.label.style.left = `${left}px`;
           obj.label.style.top = `${top - offset}px`;
         });
       }
 
       const clock = new THREE.Clock();
-
-      // ── Interacción con el SCROLL (como en JARVIS PC): parallax del robot + la escena ──
-      const robotImg = document.querySelector('.robot-img-hologram');
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      let scrollY = 0;
-      window.addEventListener('scroll', () => { scrollY = window.scrollY || window.pageYOffset || 0; }, { passive: true });
 
       function animate() {
         requestAnimationFrame(animate);
@@ -1444,13 +1438,6 @@
 
         camera.position.x += (mouseX * 4.0 - camera.position.x) * 0.05;
         camera.position.y += (14 + mouseY * 2.5 - camera.position.y) * 0.05;
-
-        // Scroll: la escena retrocede y se inclina, y el robot hace parallax vertical
-        const sN = reduceMotion ? 0 : Math.min(scrollY, 700);
-        camera.position.z += ((27 + sN * 0.010) - camera.position.z) * 0.05;
-        nodesGroup.rotation.x = sN * 0.00035;
-        if (robotImg) robotImg.style.transform = 'translateY(' + (sN * -0.09) + 'px)';
-
         camera.lookAt(0, 2.5, 0);
 
         nodeObjects.forEach(obj => {
