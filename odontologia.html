@@ -292,8 +292,80 @@
         .btn-reserve:hover { transform: scale(1.05); box-shadow: 0 6px 22px rgba(0, 168, 232, 0.45); }
     </style>
     
+
+    <!-- EXPERIENCIA INMERSIVA PREMIUM 2026 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        /* Luces ambientales y partículas de fondo en toda la plantilla */
+        .ambient-light-blob {
+            position: fixed;
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.16;
+            pointer-events: none;
+            z-index: 0;
+            transition: all 0.5s ease;
+        }
+        .blob-tl { top: -100px; left: -100px; background: #00E5FF; animation: floatAmbient 12s infinite alternate; }
+        .blob-br { bottom: -100px; right: -100px; background: #00F5D4; animation: floatAmbient 15s infinite alternate-reverse; }
+
+        @keyframes floatAmbient {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, -50px) scale(1.15); }
+        }
+
+        /* Elevación Glassmorphism y 3D en las tarjetas del contenido */
+        section, div, card, .card, .pricing-card, .service-box {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Botón flotante de WhatsApp VIP con pulso neón */
+        .btn-wsp-floating {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: #FFF !important;
+            padding: 14px 22px;
+            border-radius: 999px;
+            font-family: 'Outfit', 'Segoe UI', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            box-shadow: 0 0 25px rgba(37, 211, 102, 0.6);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-wsp-floating:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 0 35px rgba(37, 211, 102, 0.9);
+            background: linear-gradient(135deg, #28E16D, #169E8E);
+        }
+        
+        .wsp-pulse {
+            width: 10px; height: 10px;
+            background: #FFF;
+            border-radius: 50%;
+            animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+        @keyframes ping { 75%, 100% { transform: scale(2); opacity: 0; } }
+    </style>
+
 </head>
 <body>
+
+    <div class="ambient-light-blob blob-tl"></div>
+    <div class="ambient-light-blob blob-br"></div>
+
     <header id="inicio">
         <div class="logo">Aura Dental</div>
         <nav class="nav-links">
@@ -398,5 +470,37 @@
             });
         });
     </script>
+
+    <!-- BOTÓN FLOTANTE COMERCIAL VIP -->
+    <a href="https://wa.me/573000000000?text=Hola,%20visité%20su%20página%20web%20y%20deseo%20agendar%20o%20cotizar%20servicios." target="_blank" class="btn-wsp-floating">
+        <span class="wsp-pulse"></span>
+        💬 Agendar por WhatsApp VIP
+    </a>
+
+    <!-- MOTOR DE ANIMACIONES SCROLL GSAP -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (window.gsap && window.ScrollTrigger) {
+                gsap.registerPlugin(ScrollTrigger);
+                
+                // Animar suavemente cada sección al hacer scroll
+                const secciones = document.querySelectorAll("section, .card, .service-box, .pricing-card, h2");
+                secciones.forEach((el, index) => {
+                    gsap.from(el, {
+                        scrollTrigger: {
+                            trigger: el,
+                            start: "top 88%",
+                        },
+                        opacity: 0,
+                        y: 35,
+                        duration: 0.7,
+                        delay: (index % 3) * 0.1,
+                        ease: "power2.out"
+                    });
+                });
+            }
+        });
+    </script>
+
 </body>
 </html>
