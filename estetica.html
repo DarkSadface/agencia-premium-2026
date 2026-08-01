@@ -48,14 +48,32 @@
         
         .services { padding: 8rem 0; }
         .section-header { margin-bottom: 4rem; border-bottom: 1px solid var(--line-subtle); padding-bottom: 2rem; }
-        .grid-destruct { display: grid; grid-template-columns: repeat(12, 1fr); gap: 2rem; }
-        .service-item { border: 1px solid var(--line-subtle); padding: 3rem; will-change: transform, opacity; background: white; border-radius: 12px; }
-        .service-item:nth-child(1) { grid-column: 1 / 8; }
-        .service-item:nth-child(2) { grid-column: 8 / 13; margin-top: 4rem; }
-        .service-item:nth-child(3) { grid-column: 2 / 7; }
-        .service-item:nth-child(4) { grid-column: 7 / 12; margin-top: -2rem; }
-        .service-item h3 { font-size: 1.5rem; margin-bottom: 1rem; font-weight: 500; }
-        .service-item p { color: #666; line-height: 1.5; }
+        .grid-destruct { 
+            display: grid; 
+            grid-template-columns: repeat(12, 1fr); 
+            gap: 2.5rem; 
+            align-items: start;
+        }
+        .service-item { 
+            border: 1px solid var(--line-subtle); 
+            padding: 2.5rem; 
+            will-change: transform, opacity; 
+            background: white; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .service-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.09);
+        }
+        .service-item h3 { font-size: 1.5rem; margin-bottom: 1rem; font-weight: 600; font-family: 'Outfit', sans-serif; color: #111; }
+        .service-item p { color: #555; line-height: 1.6; font-size: 1.05rem; }
+
+        @media (max-width: 900px) {
+            .grid-destruct { grid-template-columns: 1fr !important; gap: 1.5rem; }
+            .grid-destruct > div { grid-column: 1 / -1 !important; grid-row: auto !important; margin-top: 0 !important; }
+        }
 
         /* Glassmorphism Reserva */
         .glass-section-vogue {
@@ -218,21 +236,31 @@
             <h2>Nuestra Especialidad</h2>
         </div>
         <div class="grid-destruct">
-            <div class="service-item gsap-fade">
+            <div class="service-item gsap-fade" style="grid-column: 1 / 7;">
                 <h3>Armonización Facial</h3>
-                <p>Equilibrio perfecto de tus facciones mediante técnicas no invasivas. Resultados inmediatos, recuperación mínima y una apariencia completamente natural y revitalizada.</p>
+                <p>Equilibrio perfecto de tus facciones mediante techniques no invasivas. Resultados inmediatos, recuperación mínima y una apariencia completamente natural y revitalizada.</p>
             </div>
-            <div class="service-item gsap-fade">
+            <div class="service-item gsap-fade" style="grid-column: 7 / 13; margin-top: 2rem;">
                 <h3>Bioestimulación</h3>
                 <p>Regeneración celular profunda estimulando tu propio colágeno. Retrasamos el reloj biológico desde el interior de la piel hacia afuera.</p>
             </div>
-            <div class="service-item gsap-fade">
-                <h3>Lifting Líquido</h3>
-                <p>Efecto tensor inmediato usando vectores estratégicos. Restaura volúmenes perdidos sin cirugía, redefiniendo el contorno facial con precisión milimétrica.</p>
+            
+            <!-- IMAGEN CLÍNICA DE ALTA FIDELIDAD LLENANDO EL VACÍO EN EL LADO IZQUIERDO -->
+            <div class="gsap-fade" style="grid-column: 1 / 7; min-height: 380px; border-radius: 16px; overflow: hidden; position: relative; box-shadow: 0 18px 45px rgba(0,0,0,0.12); border: 1px solid var(--line-subtle); background: #0e1726;">
+                <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=1000&auto=format&fit=crop" alt="Tratamiento Médico Estético y Bioestimulación" onerror="this.onerror=null; this.src='assets/hero_estetica.jpg'" style="width: 100%; height: 100%; min-height: 380px; object-fit: cover; object-position: center; display: block;">
+                <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(0deg, rgba(4,14,28,0.85) 0%, transparent 100%); padding: 25px 22px; color: white;">
+                    <span style="font-family: 'Outfit', sans-serif; font-size: 0.78rem; font-weight: 700; color: #00E5FF; letter-spacing: 0.12em; text-transform: uppercase;">LÁSER & BIO-COLÁGENO</span>
+                    <h4 style="color: white; font-size: 1.35rem; font-weight: 700; margin-top: 6px; font-family: 'Outfit', sans-serif; text-transform: none;">Innovación Dermatológica No Invasiva</h4>
+                </div>
             </div>
-            <div class="service-item gsap-fade">
+
+            <div class="service-item gsap-fade" style="grid-column: 7 / 13;">
                 <h3>Skin Quality</h3>
                 <p>Perfeccionamiento de la textura y luminosidad epidérmica. Tratamos poros, manchas y líneas finas con protocolos láser de última generación.</p>
+            </div>
+            <div class="service-item gsap-fade" style="grid-column: 1 / 7;">
+                <h3>Lifting Líquido</h3>
+                <p>Efecto tensor inmediato usando vectores estratégicos. Restaura volúmenes perdidos sin cirugía, redefiniendo el contorno facial con precisión milimétrica.</p>
             </div>
         </div>
     </section>
