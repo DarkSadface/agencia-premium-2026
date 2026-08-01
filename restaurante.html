@@ -198,8 +198,8 @@
             max-width: 1250px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-            gap: 5rem;
+            grid-template-columns: 1fr 1.05fr;
+            gap: 4.5rem;
             align-items: center;
         }
 
@@ -420,24 +420,33 @@
         }
         @keyframes ping { 75%, 100% { transform: scale(2); opacity: 0; } }
 
-        /* Responsive Mobile Architecture */
-        @media (max-width: 768px) {
-            .nav-links { gap: 1.5rem; }
-            .nav-links a { font-size: 0.72rem; letter-spacing: 1.5px; }
-            .experiencia-grid { grid-template-columns: 1fr; gap: 3rem; }
+        /* Responsive Architecture: 3-Tier Adaptation (PC, Tablet & Móvil) */
+        @media (max-width: 1024px) {
+            .nav-links { gap: 2rem; }
+            .experiencia-grid { grid-template-columns: 1fr; gap: 3.5rem; max-width: 780px; margin: 0 auto; }
             .exp-text-block { text-align: center; }
             .exp-quote { border-left: none; border-top: 1px solid var(--gold); border-bottom: 1px solid var(--gold); padding: 1.5rem 0; }
-            .exp-image-container { height: 380px; }
-            .menu-card { padding: 1.8rem 1.5rem; }
+            .exp-image-container { height: 420px; width: 100%; max-width: 720px; margin: 0 auto; box-shadow: 0 20px 45px rgba(0, 0, 0, 0.65); }
+        }
+
+        @media (max-width: 768px) {
+            .experiencia-section { padding: 6rem 5%; }
+            .nav-links { gap: 1.25rem; flex-wrap: wrap; justify-content: flex-end; }
+            .nav-links a { font-size: 0.72rem; letter-spacing: 1px; }
+            .experiencia-grid { gap: 2.5rem; }
+            .exp-image-container { height: 270px; border-radius: 10px; width: 100%; }
+            .exp-image-badge { flex-direction: column; text-align: center; gap: 6px; padding: 1rem 0.8rem; }
+            .exp-image-badge span { font-size: 0.75rem !important; letter-spacing: 0.08em !important; }
+            .menu-card { padding: 1.8rem 1.4rem; }
             .item-desc { max-width: 100%; }
             .btn-wsp-floating {
-                right: 14px;
-                bottom: 18px;
-                max-width: calc(100vw - 28px);
-                padding: 12px 18px;
-                font-size: 0.88rem;
+                right: 12px;
+                bottom: 16px;
+                max-width: calc(100vw - 24px);
+                padding: 12px 16px;
+                font-size: 0.85rem;
             }
-            .ambient-light-blob { width: 320px; height: 320px; filter: blur(90px); }
+            .ambient-light-blob { width: 280px; height: 280px; filter: blur(80px); }
         }
     </style>
 </head>
