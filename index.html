@@ -12,14 +12,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
 
-  <!-- Three.js (Para AgentDeck 3D de FONDO detras de las letras) -->
+  <!-- Three.js (Para AgentDeck 3D de FONDO detrás de las letras) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
   <style>
     /* ══════════════════════════════════════════════════════════════════════
-       JARVIS PC & VERCEL SYSTEM — TOKENS HOLOGRÁFICOS DE PRODUCCIÓN
+       JARVIS PC & VERCEL SYSTEM — TOKENS DE PRODUCCIÓN & DISEÑO IMPECABLE
        ══════════════════════════════════════════════════════════════════════ */
     :root {
       --cyan: #38e6ff;
@@ -36,7 +36,7 @@
       --border-bright: rgba(56, 230, 255, 0.85);
       --text: #e0f4ff;
       --dim: rgba(56, 230, 255, 0.6);
-      --glow-intensity: 1.2; /* Controlado por la barra de luminicidad en el hero */
+      --glow-intensity: 1.2; /* Controlado por la barra de luminosidad en el hero */
       --hud-glow: rgba(0, 229, 255, calc(0.55 * var(--glow-intensity)));
       --gold-glow: rgba(255, 182, 39, calc(0.5 * var(--glow-intensity)));
       
@@ -73,22 +73,6 @@
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpolygon points='28,2 54,16 54,44 28,58 2,44 2,16' fill='none' stroke='rgba(56,230,255,0.05)' stroke-width='1'/%3E%3C/svg%3E");
       background-size: 100% 100%, 56px 100px;
       pointer-events: none;
-    }
-
-    /* ── Capa HUD global: scanlines + viñeta (firma AgentDeck / spec Viernes) ── */
-    body::after {
-      content: '';
-      position: fixed; inset: 0; z-index: 3;
-      pointer-events: none;
-      background:
-        repeating-linear-gradient(0deg, rgba(56,230,255,0.025) 0, rgba(56,230,255,0.025) 1px, transparent 1px, transparent 3px),
-        radial-gradient(ellipse at 50% 40%, transparent 54%, rgba(2,6,13,0.6) 100%);
-    }
-
-    /* Accesibilidad: respetar preferencia de menos movimiento */
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
-      html { scroll-behavior: auto; }
     }
 
     /* ── Contenedor Principal ── */
@@ -182,7 +166,7 @@
     .hero-section {
       position: relative;
       min-height: 90vh;
-      padding: 30px 0 80px;
+      padding: 30px 0 90px;
       overflow: hidden;
       border-bottom: 1px solid rgba(56, 230, 255, 0.25);
     }
@@ -222,14 +206,14 @@
     .node-label.amber-cluster { color: #ffb627; border-color: rgba(255, 182, 39, 0.4); }
     .node-label.core-cluster { color: #00ff88; border-color: rgba(0, 255, 136, 0.5); font-size: 13px; z-index: 2; background: rgba(2, 6, 13, 0.85); }
 
-    /* BARRA PARA CONTROLAR LA LUMINICIDAD (EN LA CABECERA DEL HERO) */
+    /* BARRA PARA CONTROLAR LA LUMINOSIDAD (EN LA CABECERA DEL HERO) */
     .hero-top-toolbar {
       position: relative;
       z-index: 10;
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      margin-bottom: 30px;
+      margin-bottom: 34px;
     }
     .lighting-controller {
       background: rgba(4, 14, 28, 0.88);
@@ -292,9 +276,9 @@
     }
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 50px;
-      align-items: stretch;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 64px; /* Amplia separación milimétrica para evitar cualquier sensación de superposición */
+      align-items: center;
     }
 
     .hero-left {
@@ -350,7 +334,7 @@
     .hero-metrics {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      gap: 18px;
       margin-top: 6px;
     }
     .metric-panel {
@@ -387,94 +371,87 @@
       margin-top: 4px;
     }
 
-    /* ── ROBOT GRANDE E IMPECABLE (VERCEL DESIGN) ── */
+    /* ── ROBOT HUMANOIDE NANO BANANA — DISEÑO VERCEL E IMPECABLE ── */
+    /* Cero superposiciones, sin marcos toscos ni desbalances de relleno */
     .hero-right {
       position: relative;
       display: flex;
-      flex-direction: column;
-      justify-content: stretch;
+      justify-content: flex-end;
+      width: 100%;
     }
 
-    .robot-showcase-large {
+    .robot-showcase-vercel {
       position: relative;
       width: 100%;
-      height: 100%;
-      min-height: 580px;
-      border-radius: 20px;
-      background: rgba(6, 15, 30, 0.12);
-      border: 1px solid rgba(56, 230, 255, 0.45);
-      padding: 14px;
-      box-shadow: 0 20px 70px rgba(0, 0, 0, 0.85),
-                  0 0 60px rgba(56, 230, 255, calc(0.35 * var(--glow-intensity))),
-                  inset 0 0 30px rgba(56, 230, 255, calc(0.15 * var(--glow-intensity)));
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
+      aspect-ratio: 4 / 3;
+      max-height: 540px;
+      border-radius: 24px;
       overflow: hidden;
-    }
-    .robot-showcase-large:hover {
-      transform: translateY(-8px) scale(1.01);
       box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95),
+                  0 0 65px rgba(56, 230, 255, calc(0.3 * var(--glow-intensity)));
+      border: 1px solid rgba(56, 230, 255, 0.35);
+      background: #02060d;
+      display: flex;
+      transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease, border-color 0.5s ease;
+    }
+    .robot-showcase-vercel:hover {
+      transform: translateY(-8px) scale(1.015);
+      box-shadow: 0 35px 100px rgba(0, 0, 0, 1),
                   0 0 85px rgba(56, 230, 255, calc(0.6 * var(--glow-intensity)));
       border-color: var(--cyan-bright);
     }
 
-    /* Esquinas angulares HUD estilo JARVIS PC */
-    .robot-showcase-large::before, .robot-showcase-large::after {
-      content: ''; position: absolute; width: 32px; height: 32px;
-      border: 3px solid var(--cyan-bright); filter: drop-shadow(0 0 10px var(--hud-glow));
-      pointer-events: none; z-index: 20;
+    /* Capa de fundido de viñeta para que la imagen se integre suavemente al fondo sin parecer pegada */
+    .robot-showcase-vercel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, transparent 70%, rgba(2, 6, 13, 0.75) 100%),
+                  linear-gradient(180deg, transparent 55%, rgba(2, 6, 13, 0.95) 100%);
+      z-index: 2;
+      pointer-events: none;
     }
-    .robot-showcase-large::before { top: 6px; left: 6px; border-right: 0; border-bottom: 0; }
-    .robot-showcase-large::after { bottom: 6px; right: 6px; border-left: 0; border-top: 0; }
 
-    .robot-image-box {
-      position: relative;
-      flex: 1;
-      border-radius: 14px;
-      overflow: hidden;
-      background: transparent;
-      display: flex;
-      animation: robotFloat 7.5s ease-in-out infinite;
+    /* Esquinas angulares HUD estilo JARVIS PC sutiles e impecables */
+    .robot-showcase-vercel::after {
+      content: ''; position: absolute; top: 12px; left: 12px;
+      width: 28px; height: 28px; border-top: 2px solid var(--cyan-bright); border-left: 2px solid var(--cyan-bright);
+      filter: drop-shadow(0 0 10px var(--hud-glow)); pointer-events: none; z-index: 12;
     }
-    @keyframes robotFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-14px); }
-    }
-    /* El fondo espacial (casi negro) del robot se funde con la constelación viva de AgentDeck3D */
-    .robot-img {
+
+    .robot-img-vercel {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 35%;
+      object-position: center;
       display: block;
-      filter: contrast(1.15) saturate(1.28) brightness(1.05);
-      -webkit-mask-image: radial-gradient(ellipse 80% 84% at 50% 44%, #000 52%, transparent 93%);
-      mask-image: radial-gradient(ellipse 80% 84% at 50% 44%, #000 52%, transparent 93%);
+      filter: contrast(1.16) saturate(1.22);
       transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
     }
-    .robot-showcase-large:hover .robot-img {
-      transform: scale(1.05);
+    .robot-showcase-vercel:hover .robot-img-vercel {
+      transform: scale(1.06);
     }
-    
-    .robot-glass-badge {
+
+    /* Placa de estado acristalada Vercel perimetralmente alineada al interior sin cortarse ni superponerse */
+    .robot-badge-vercel {
       position: absolute;
-      bottom: 22px; left: 22px; right: 22px;
-      background: rgba(4, 14, 28, 0.88);
-      border: 1px solid var(--cyan);
-      backdrop-filter: blur(14px);
+      bottom: 20px; left: 20px; right: 20px;
+      background: rgba(6, 15, 30, 0.85);
+      border: 1px solid rgba(56, 230, 255, 0.55);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       padding: 14px 22px;
-      border-radius: 10px;
+      border-radius: 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-family: var(--font-mono);
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       color: #fff;
-      box-shadow: 0 10px 35px rgba(0,0,0,0.8);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.85);
       z-index: 10;
     }
-    .robot-glass-badge span.neon-text { color: var(--cyan); font-weight: 700; text-shadow: 0 0 10px var(--cyan); }
+    .robot-badge-vercel span.neon-text { color: var(--cyan); font-weight: 700; text-shadow: 0 0 12px var(--cyan); }
 
     /* ══════════════════════════════════════════════════════════════════════
        DESARROLLOS EN VIDEO CON MARCO TECNOLÓGICO Y BOTÓN ESTILO AUDITADO
@@ -768,18 +745,20 @@
 
     /* ── Responsive adjustments ── */
     @media (max-width: 1200px) {
-      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 46px; }
       .hero-left { text-align: center; align-items: center; }
       .hero-subtag { margin: 0 auto; }
       .hero-subtitle { max-width: 100%; }
       .videos-grid { grid-template-columns: 1fr; }
       .lighting-controller { min-width: 100%; }
-      .robot-showcase-large { min-height: 480px; }
+      .robot-showcase-vercel { aspect-ratio: 16 / 9; max-height: 440px; }
     }
     @media (max-width: 600px) {
       .container { padding: 0 16px; }
       .hero-metrics { grid-template-columns: 1fr; }
       .hero-title { font-size: 3.2rem; }
+      .robot-showcase-vercel { aspect-ratio: 1 / 1; }
+      .robot-badge-vercel { flex-direction: column; text-align: center; gap: 6px; padding: 10px 14px; }
     }
   </style>
 </head>
@@ -853,15 +832,13 @@
           </div>
         </div>
 
-        <!-- ROBOT GRANDE CON ESTILIZACIÓN VERCEL E IMPECABLE -->
+        <!-- ROBOT HUMANOIDE EN NANO BANANA DEFINICIÓN — ESTILIZACIÓN VERCEL E IMPECABLE (CERO SUPERPOSICIONES) -->
         <div class="hero-right">
-          <div class="robot-showcase-large">
-            <div class="robot-image-box">
-              <img src="media/robot_world.jpg" alt="Robot Cyberpunk sosteniendo el mundo y red de satélites" class="robot-img" />
-              <div class="robot-glass-badge">
-                <span>🤖 IA AUTÓNOMA COLOMBIA TECH</span>
-                <span class="neon-text">[ SISTEMA ORÁCULO ACTIVO ]</span>
-              </div>
+          <div class="robot-showcase-vercel">
+            <img src="media/robot_ai_humanoid.jpg" alt="Retrato de Robot Android Humanoide con Cerebro Neuronal IA" class="robot-img-vercel" />
+            <div class="robot-badge-vercel">
+              <span>🤖 IA AUTÓNOMA COLOMBIA TECH</span>
+              <span class="neon-text">[ SISTEMA ORÁCULO ACTIVO ]</span>
             </div>
           </div>
         </div>
@@ -935,7 +912,7 @@
         
         <div class="template-card">
           <div class="template-img-box">
-            <img src="assets/hero_odontologia.png" alt="Odontología Clínica Premium" loading="lazy" decoding="async" />
+            <img src="assets/dental_website_mockup.png" alt="Odontología Clínica Premium" onerror="this.src='assets/dental_hero_bg.png'" />
             <span class="template-tag">HEALTH TECH</span>
           </div>
           <div class="template-info">
@@ -1135,7 +1112,7 @@
     </div>
   </footer>
 
-  <!-- LÓGICA DE AGENTDECK 3D DE FONDO (DETRÁS DE LAS LETRAS) & CONTROL DE LUMINICIDAD -->
+  <!-- LÓGICA DE AGENTDECK 3D DE FONDO (DETRÁS DE LAS LETRAS) & CONTROL DE LUMINOSIDAD -->
   <script>
     // ── 1. Reloj HUD en Tiempo Real ──
     function updateClock() {
@@ -1161,7 +1138,6 @@
         if (sceneLight) sceneLight.intensity = val * 1.8;
         if (pointLight) pointLight.intensity = val * 2.5;
         
-        // Ajustar opacidad de las etiquetas del fondo para que respiren con la luz
         document.querySelectorAll('.node-label').forEach(lbl => {
           if (!lbl.classList.contains('core-cluster')) {
             lbl.style.opacity = Math.min(1, Math.max(0.2, 0.7 * val));
@@ -1180,7 +1156,6 @@
 
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(58, width / height, 0.1, 1000);
-      // Posicionar la cámara para que el clúster neuronal abrace el texto del hero por detrás
       camera.position.set(0, 14, 26);
       camera.lookAt(0, 2, 0);
 
@@ -1199,14 +1174,12 @@
 
       scene.add(new THREE.AmbientLight(0x0a182e, 1.6));
 
-      // Grid inferior holográfico tras las letras
       const grid = new THREE.GridHelper(52, 52, 0x38e6ff, 0x002b4d);
       grid.position.y = -3;
       grid.material.transparent = true;
       grid.material.opacity = 0.55;
       scene.add(grid);
 
-      // Los 46 Agentes Especialistas del Vault
       const agentNames = [
         "ai-engineer", "cloud-architect", "code-reviewer", "data-engineer", 
         "database-administrator", "debugger", "deep-research", "devops-engineer", 
@@ -1229,7 +1202,6 @@
       const nodeGeo = new THREE.SphereGeometry(0.45, 16, 16);
       const pillarGeo = new THREE.CylinderGeometry(0.08, 0.22, 1, 8);
 
-      // Distribución en clústers espaciales amplios alrededor y detrás de las letras
       agentNames.forEach((name, i) => {
         const isAmber = (i % 2 === 0);
         const clusterCenter = isAmber ? -9 : 9;
@@ -1253,21 +1225,18 @@
         sphere.position.set(x, y, z);
         nodesGroup.add(sphere);
 
-        // Línea neural conector
         const lineMat = new THREE.LineBasicMaterial({ color: color, transparent: true, opacity: 0.25 });
         const points = [new THREE.Vector3(x, y, z), new THREE.Vector3(clusterCenter * 0.5, 3, -2)];
         const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
         const line = new THREE.Line(lineGeo, lineMat);
         nodesGroup.add(line);
 
-        // Pilar hacia la grilla
         const pillarMat = new THREE.MeshBasicMaterial({ color: color, transparent: true, opacity: 0.15, wireframe: true });
         const pillar = new THREE.Mesh(pillarGeo, pillarMat);
         pillar.scale.set(1, (y + 3), 1);
         pillar.position.set(x, (y - 3) / 2 - 1.5, z);
         nodesGroup.add(pillar);
 
-        // Etiqueta HTML flotante tras el contenido
         const labelEl = document.createElement('div');
         labelEl.className = 'node-label ' + (isAmber ? 'amber-cluster' : 'cyan-cluster');
         labelEl.textContent = name;
@@ -1276,7 +1245,6 @@
         nodeObjects.push({ mesh: sphere, label: labelEl });
       });
 
-      // Núcleo Oráculo Maestro Central
       const coreGeo = new THREE.IcosahedronGeometry(2.5, 2);
       const coreMat = new THREE.MeshPhongMaterial({
         color: 0x00ff88,
@@ -1308,7 +1276,6 @@
       ring2.rotation.y = Math.PI / 3;
       scene.add(ring2);
 
-      // Actualizar proyección 2D al lienzo de fondo
       function updateLabels() {
         const wp = new THREE.Vector3();
         const halfWidth = container.clientWidth / 2;
