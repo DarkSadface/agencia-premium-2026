@@ -1,7 +1,7 @@
 # 🎨 TAREAS DE DISEÑO PREMIUM PARA CLAUDE (ESTILO VERCEL & EXCELENCIA IMPECABLE)
 **De:** Viernes (Gemini / Nano Banana — Asistente de Telemetría & QA Visual)  
 **Para:** Claude (Opus 5 / Sonnet — Agente Supervisor & Arquitecto Principal)  
-**Fecha:** 2026-08-01 (16:10 COT)  
+**Fecha:** 2026-08-01 (16:35 COT)  
 **Estado:** `pendiente_ejecucion (Claude)`
 
 ---
@@ -14,12 +14,12 @@ Como tu compañero en el backend JARVIS, he procesado las capturas del usuario y
 
 ---
 
-## 🔍 DIAGnÓSTICO VISUAL Y TAREAS ASIGNADAS
+## 🔍 DIAGnÓSTICO VISUAL Y TAREAS ASIGNADAS PARA CLAUDE
 
 ### 1. Despacho de Abogados (`abogados.html`)
 - **Fallo Visual Actual:**
   - **Contraste Deficiente en Hero:** El titular principal *"Justicia. Precisión. Discreción."* está renderizado en un tono oscuro/café tenue o azul grisáceo que se mimetiza casi al 100% con el fondo azul oscuro/negro del lienzo. Es ilegible.
-  - **Ausencia de Fondo Impecable (Background Image / Glows Vercel):** El hero es un degradado plano oscuro sin profundidad espaciar, sin malla arquitectónica ni efectos lumínicos institucionales.
+  - **Ausencia de Fondo Impecable (Background Image / Glows Vercel):** El hero es un degradado plano oscuro sin profundidad espacial, sin malla arquitectónica ni efectos lumínicos institucionales.
 - **Requerimientos para Claude (Estilo Vercel Dark Mode Legal):**
   1. **Tipografía de Alto Contraste:** Cambiar el titular a Blanco Puro (`#FFFFFF`) o un gradiente de Oro Ducal reluciente con sombra de texto (`text-shadow: 0 0 30px rgba(255, 182, 39, 0.4)`).
   2. **Fondo Arquitectónico & Glassmorphism:** Incorporar la imagen de alta resolución disponible en `assets/hero_abogados.png` como fondo inmersivo del Hero con un overlay oscuro (`rgba(2, 6, 13, 0.78)`), acompañado de orbes lumínicos sutiles (cian/oro) y bordes de cristal estilo Vercel.
@@ -35,14 +35,17 @@ Como tu compañero en el backend JARVIS, he procesado las capturas del usuario y
 
 ---
 
-## ✅ ACCIONES YA COMPLETadas POR VIERNES EN ESTE CICLO (PARALELO)
-Mientras el usuario te asignaba las páginas de Abogados y Restaurante, también me ordenó solucionar inmediatamente fallos visuales en otras dos páginas del showroom, las cuales ya resolví e inyecté en producción:
+## ✅ ACCIONES YA COMPLETADAS EN CALIENTE POR VIERNES (EN PRODUCCIÓN)
+Mientras el usuario te asignaba las páginas de Abogados y Restaurante, también me ordenó solucionar inmediatamente fallos visuales en tres páginas del showroom, las cuales ya rediseñé e inyecté en producción:
 
-1. **Gimnasio EQUINOX (`gimnasio.html`):**
+1. **Gestión Patrimonial AETHELGARD (`finanzas.html`):**
+   - **Problema:** El usuario reportó *"este también le faltan las imágenes"*, ya que la página era completamente blanca y vacía con solo texto.
+   - **Solución Aplicada:** Conversión total a **Vercel Dark Luxury Mode** (`#04070E` con acentos en Oro Ducal `#D4AF37`). Se integró un hero grid de dos columnas con la imagen de alta resolución `assets/hero_finanzas.jpg` en una torre glassmorphism con insignia suiza, y una segunda fotografía ejecutiva institucional en la sección de Filosofía de Inversión.
+2. **Gimnasio EQUINOX (`gimnasio.html`):**
    - **Problema:** En las secciones *"LA MÁQUINA ERES TÚ"* y *"HIPERTROFIA SINTÉTICA"*, los cuadros de imagen eran simples divs vacíos con rayas grises o gradiente verde oscuro.
-   - **Solución Aplicada:** Reemplacé esos bloques vacíos con fotografías de alto impacto de pesas, jaulas de potencia y rendimiento extremo militar en alta resolución, integrando sombras neón verdosas y rojas.
-2. **Clínica de Estética Vogue (`estetica.html`):**
-   - **Problema:** Al lado de las tarjetas flotantes *"Bioestimulación"* y *"Skin Quality"*, existía una enorme zona en blanco vacía provocada por un grid asimétrico incompleto.
-   - **Solución Aplicada:** Reconfiguré el grid a dos columnas equilibradas e inserté una elegante tarjeta clínica de gran formato en la columna izquierda con foto de tratamiento láser y regeneración celular de colágeno.
+   - **Solución Aplicada:** Reemplazo de bloques vacíos por fotografías de alto impacto de pesas de grado militar y jaulas de potencia con bordes neón.
+3. **Clínica de Estética Vogue (`estetica.html`):**
+   - **Problema:** Al lado de las tarjetas *"Bioestimulación"* y *"Skin Quality"*, existía una enorme zona en blanco vacía provocada por un grid asimétrico incompleto.
+   - **Solución Aplicada:** Reconfiguración de la cuadrícula a dos columnas equilibradas e incrustación de una tarjeta clínica de gran formato (tecnología láser) en la columna izquierda.
 
-> **¡Todo listo para ti, Claude!** Puedes procesar `abogados.html` y `restaurante.html` con total libertad. He desplegado mis arreglos de Gimnasio y Estética en Cloudflare Workers y sincronizado las ramas `gh-pages`, `main` y `master`.
+> **¡El campo está listo y despejado para ti, Claude!** Puedes procesar `abogados.html` y `restaurante.html` con total libertad. He desplegado todos mis arreglos en Cloudflare Workers y sincronizado las ramas `gh-pages`, `main` y `master`.
