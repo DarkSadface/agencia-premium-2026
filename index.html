@@ -177,7 +177,7 @@
     }
 
     /* ══════════════════════════════════════════════════════════════════════
-       SECCIÓN HERO CON AGENTDECK 3D DE FONDO Y ROBOT EN EL MISMO PLANO
+       SECCIÓN HERO CON AGENTDECK 3D Y ROBOT ALINEADOS A LA DERECHA
        ══════════════════════════════════════════════════════════════════════ */
     .hero-section {
       position: relative;
@@ -195,7 +195,7 @@
       height: 100%;
       z-index: 1;
       pointer-events: none;
-      background: radial-gradient(circle at center, rgba(10, 28, 56, 0.55) 0%, rgba(2, 6, 13, 0.95) 100%);
+      background: radial-gradient(circle at 65% 50%, rgba(10, 28, 56, 0.55) 0%, rgba(2, 6, 13, 0.95) 100%);
       overflow: hidden;
     }
 
@@ -292,9 +292,10 @@
     }
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 50px;
+      grid-template-columns: 1.05fr 0.95fr; /* Divido perfectamente en dos: Izq para el texto libre, Der para el Robot y AgentDeck 3D */
+      gap: 40px;
       align-items: center;
+      min-height: 720px;
     }
 
     .hero-left {
@@ -320,10 +321,10 @@
       width: fit-content;
     }
 
-    /* TÍTULO INMENSO Y LLAMATIVO */
+    /* TÍTULO INMENSO Y LLAMATIVO (Limpio y legible sin que lo tape el 3D) */
     .hero-title {
       font-family: var(--font-ui);
-      font-size: clamp(3.6rem, 8vw, 7.5rem);
+      font-size: clamp(3.6rem, 7.8vw, 7.5rem);
       font-weight: 900;
       line-height: 0.95;
       letter-spacing: 0.02em;
@@ -387,8 +388,8 @@
       margin-top: 4px;
     }
 
-    /* ── ROBOT HUMANOIDE EN EL MISMO PLANO QUE AGENTDECK 3D (DESVANECIMIENTO Y FUSIÓN TOTAL) ── */
-    /* Sin cajas, sin marcos, mirada invertida (izq a der) y contorno 100% fundido en el lienzo */
+    /* ── ROBOT HUMANOIDE ALINEADO AL RECUADRO DERECHO CON AGENTDECK 3D ── */
+    /* Coexistencia total en el recuadro verde ordenado por el usuario */
     .hero-right {
       position: relative;
       display: flex;
@@ -401,12 +402,12 @@
     .robot-showcase-hologram {
       position: relative;
       width: 100%;
-      max-width: 590px;
+      max-width: 680px; /* Expande su presencia magnánima en la mitad derecha */
       aspect-ratio: 4 / 3;
       display: flex;
       justify-content: center;
       align-items: center;
-      pointer-events: none; /* Permite percibir la red 3D a través de los espacios transparentes */
+      pointer-events: none; /* Deja transitar libremente los fotones de la constelación 3D */
       animation: gentle-float 7s ease-in-out infinite;
     }
     @keyframes gentle-float {
@@ -420,11 +421,11 @@
       object-fit: contain;
       display: block;
       filter: contrast(1.25) saturate(1.3) drop-shadow(0 0 35px rgba(56, 230, 255, calc(0.55 * var(--glow-intensity))));
-      /* MIRADA INVERTIDA: transform scaleX(-1) gira la cabeza para mirar hacia la izquierda de la pantalla (de izq a der hacia el texto) */
+      /* MIRADA INVERTIDA: transform scaleX(-1) gira al robot de izquierda a derecha hacia el texto de la marca */
       transform: scaleX(-1);
-      /* MODO BLEND SCREEN/LIGHTEN: Vuelve totalmente transparentes los píxeles oscuros/negros del fondo de la imagen, fundiendo solo al androide iluminado en el AgentDeck 3D */
+      /* MODO BLEND SCREEN: Purga al 100% los píxeles negros del fondo del retrato y une el androide en el universo 3D */
       mix-blend-mode: screen;
-      /* MÁSCARA RADIAL SUAVE EN MÚLTIPLES ETAPAS: Desvanece gradualmente cualquier contorno de la imagen sin bordes cortados */
+      /* MÁSCARA RADIAL SUAVE EN MÚLTIPLES ETAPAS: Desvanece el contorno sin dejar marcos ni bordes visibles */
       -webkit-mask-image: radial-gradient(circle at 48% 50%, #000 30%, rgba(0,0,0,0.7) 55%, rgba(0,0,0,0.2) 76%, transparent 88%);
       mask-image: radial-gradient(circle at 48% 50%, #000 30%, rgba(0,0,0,0.7) 55%, rgba(0,0,0,0.2) 76%, transparent 88%);
       transition: filter 0.4s ease, transform 0.4s ease;
@@ -434,7 +435,7 @@
       transform: scaleX(-1) scale(1.03);
     }
 
-    /* Placa HUD flotante estilo píldora Vercel (Sin cortar el lienzo, integrada en el espacio 3D) */
+    /* Placa HUD flotante estilo píldora Vercel (Sin cortar el lienzo) */
     .robot-hud-tag {
       position: absolute;
       bottom: -15px;
@@ -785,16 +786,16 @@
       <div class="nav-status">
         <div class="status-badge">
           <span class="pulse-dot"></span>
-          <span>NÚCLEO ORÁCULO ACTIVO | V6.53</span>
+          <span>NÚCLEO ORÁCULO ACTIVO | V6.55</span>
         </div>
         <div class="clock-badge" id="hud-clock">00:00:00</div>
       </div>
     </div>
   </nav>
 
-  <!-- HERO SECTION CON AGENTDECK 3D VIVO DE FONDO Y ROBOT EN EL MISMO PLANO -->
+  <!-- HERO SECTION CON AGENTDECK 3D Y ROBOT ALINEADOS A LA DERECHA (EN EL RECUADRO VERDE) -->
   <section class="hero-section">
-    <!-- El lienzo 3D neuronal se renderiza en el plano base (z-index: 1) -->
+    <!-- El lienzo 3D neuronal se renderiza en el plano base (z-index: 1), desplazado hacia el flanco derecho -->
     <div id="agentdeck-bg-canvas"></div>
 
     <div class="container hero-content-layer">
@@ -838,7 +839,7 @@
           </div>
         </div>
 
-        <!-- ROBOT HUMANOIDE EN EL MISMO PLANO QUE AGENTDECK 3D (CONTORNO 100% DESVANECIDO) -->
+        <!-- ROBOT HUMANOIDE ALINEADO EN EL RECUADRO DERECHO CON LA RED NEURONAL -->
         <div class="hero-right">
           <div class="robot-showcase-hologram">
             <img src="media/robot_ai_humanoid.jpg" alt="Retrato de Robot Android Humanoide con Cerebro Neuronal IA" class="robot-img-hologram" />
@@ -1119,7 +1120,7 @@
     </div>
   </footer>
 
-  <!-- LÓGICA DE AGENTDECK 3D ANIMADO (ESTILO JARVIS PC) & CONTROL DE LUMINOSIDAD -->
+  <!-- LÓGICA DE AGENTDECK 3D ANIMADO Y ALINEADO CON EL ROBOT A LA DERECHA -->
   <script>
     // ── 1. Reloj HUD en Tiempo Real ──
     function updateClock() {
@@ -1134,7 +1135,7 @@
     // ── 2. Control de Iluminación Holográfica para el Fondo 3D y UI ──
     const slider = document.getElementById('illumination-slider');
     const valDisplay = document.getElementById('illumination-value');
-    let sceneLight, pointLight, nodesGroup, particlesGroup;
+    let sceneLight, pointLight, nodesGroup, particlesGroup, constellationGroup;
 
     if (slider && valDisplay) {
       slider.addEventListener('input', (e) => {
@@ -1154,7 +1155,7 @@
       });
     }
 
-    // ── 3. Motor AgentDeck 3D Animado al Estilo JARVIS PC (Nodos con la MISMA FORMA ICOSAEDRICA WIREFRAME del núcleo central) ──
+    // ── 3. Motor AgentDeck 3D Animado al Estilo JARVIS PC (Alineado en el flanco derecho con el Robot) ──
     (function initAgentDeckBg() {
       const container = document.getElementById('agentdeck-bg-canvas');
       if (!container || typeof THREE === 'undefined') return;
@@ -1177,25 +1178,25 @@
       scene.add(sceneLight);
 
       pointLight = new THREE.PointLight(0x00ff88, 3.2, 80);
-      pointLight.position.set(0, 8, 0);
+      pointLight.position.set(8, 8, 0); // Foco desplazado hacia el recuadro derecho
       scene.add(pointLight);
 
       scene.add(new THREE.AmbientLight(0x0c1e38, 1.8));
 
       // Malla holográfica base del plano de flotación
-      const grid = new THREE.GridHelper(60, 50, 0x38e6ff, 0x002b4d);
+      const grid = new THREE.GridHelper(70, 56, 0x38e6ff, 0x002b4d);
       grid.position.y = -3.5;
       grid.material.transparent = true;
       grid.material.opacity = 0.45;
       scene.add(grid);
 
-      // Enjambre de partículas de datos sinápticos flotantes (Efecto JARVIS PC Vivo)
+      // Enjambre de partículas sinápticas en todo el lienzo
       const particleCount = 280;
       const particleGeo = new THREE.BufferGeometry();
       const positions = new Float32Array(particleCount * 3);
       for (let p = 0; p < particleCount * 3; p += 3) {
-        positions[p] = (Math.random() - 0.5) * 44;     // X
-        positions[p + 1] = (Math.random() - 0.5) * 25; // Y
+        positions[p] = (Math.random() - 0.5) * 48;     // X
+        positions[p + 1] = (Math.random() - 0.5) * 26; // Y
         positions[p + 2] = (Math.random() - 0.5) * 35; // Z
       }
       particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -1208,6 +1209,11 @@
       });
       particlesGroup = new THREE.Points(particleGeo, particleMat);
       scene.add(particlesGroup);
+
+      // GRUPO MAESTRO DE CONSTELACIÓN AGENTDECK (ALINEADO A LA DERECHA EN PANTALLAS ESCRITORIO)
+      constellationGroup = new THREE.Group();
+      constellationGroup.position.x = width > 1200 ? 8.2 : 0; // Traslada la red neuronal al recuadro verde derecho donde está el robot!
+      scene.add(constellationGroup);
 
       const agentNames = [
         "ai-engineer", "cloud-architect", "code-reviewer", "data-engineer", 
@@ -1225,27 +1231,26 @@
       ];
 
       nodesGroup = new THREE.Group();
-      scene.add(nodesGroup);
+      constellationGroup.add(nodesGroup);
 
       const nodeObjects = [];
       
-      // GEOMETRÍA ICOSAEDRA WIREFRAME PARA TODOS LOS AGENTES (EXACTAMENTE LA MISMA FORMA QUE EL NODO CENTRAL)
+      // GEOMETRÍA ICOSAEDRA WIREFRAME PARA TODOS LOS AGENTES
       const agentNodeGeo = new THREE.IcosahedronGeometry(0.58, 2);
       const agentInnerGeo = new THREE.IcosahedronGeometry(0.22, 1);
 
       agentNames.forEach((name, i) => {
         const isAmber = (i % 2 === 0);
-        const clusterCenter = isAmber ? -10 : 10;
+        const clusterCenter = isAmber ? -8.5 : 8.5;
         
         const angle = (i / agentNames.length) * Math.PI * 4;
-        const dist = 4.2 + (i % 5) * 1.4;
+        const dist = 3.8 + (i % 5) * 1.35;
         const x = clusterCenter + Math.cos(angle) * dist;
-        const z = Math.sin(angle) * dist - 3;
+        const z = Math.sin(angle) * dist - 2;
         const y = Math.sin(x * 0.4 + z) * 3.2 + 3;
 
         const color = isAmber ? 0xffb627 : 0x38e6ff;
         
-        // Grupo para alojar el icosaedro wireframe y su núcleo de energía
         const nodeGroup = new THREE.Group();
         nodeGroup.position.set(x, y, z);
         
@@ -1266,9 +1271,9 @@
 
         nodesGroup.add(nodeGroup);
 
-        // Conexión sináptica dinámica hacia el centro del clúster
+        // Conexión sináptica dinámica hacia el núcleo central
         const lineMat = new THREE.LineBasicMaterial({ color: color, transparent: true, opacity: 0.3, blending: THREE.AdditiveBlending });
-        const points = [new THREE.Vector3(x, y, z), new THREE.Vector3(clusterCenter * 0.4, 3.5, -1)];
+        const points = [new THREE.Vector3(x, y, z), new THREE.Vector3(0, 3.5, -1)];
         const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
         const line = new THREE.Line(lineGeo, lineMat);
         nodesGroup.add(line);
@@ -1278,14 +1283,13 @@
         labelEl.textContent = name;
         container.appendChild(labelEl);
 
-        // Guardar parámetros para animación viva y rotación geométrica individual
         nodeObjects.push({
           mesh: nodeGroup,
           wireMesh: wireframeMesh,
           label: labelEl,
           line: line,
           baseX: x, baseY: y, baseZ: z,
-          targetX: clusterCenter * 0.4,
+          targetX: 0,
           phase: Math.random() * Math.PI * 2,
           speed: 1.2 + Math.random() * 1.5,
           colorIdx: i,
@@ -1293,7 +1297,7 @@
         });
       });
 
-      // NÚCLEO ORÁCULO MAESTRO EN EL CENTRO
+      // NÚCLEO ORÁCULO MAESTRO EN EL CENTRO DE LA CONSTELACIÓN DERECHA
       const coreGeo = new THREE.IcosahedronGeometry(2.6, 2);
       const coreMat = new THREE.MeshPhongMaterial({
         color: 0x00ff88,
@@ -1303,7 +1307,7 @@
       });
       const coreMesh = new THREE.Mesh(coreGeo, coreMat);
       coreMesh.position.set(0, 3.5, -1);
-      scene.add(coreMesh);
+      constellationGroup.add(coreMesh);
 
       const coreLabel = document.createElement('div');
       coreLabel.className = 'node-label core-cluster';
@@ -1316,14 +1320,14 @@
       const ring1 = new THREE.Mesh(ringGeo1, ringMat1);
       ring1.position.set(0, 3.5, -1);
       ring1.rotation.x = Math.PI / 2.2;
-      scene.add(ring1);
+      constellationGroup.add(ring1);
 
       const ringGeo2 = new THREE.TorusGeometry(9.8, 0.08, 16, 100);
       const ringMat2 = new THREE.MeshBasicMaterial({ color: 0xffb627, transparent: true, opacity: 0.55 });
       const ring2 = new THREE.Mesh(ringGeo2, ringMat2);
       ring2.position.set(0, 3.5, -1);
       ring2.rotation.y = Math.PI / 3.2;
-      scene.add(ring2);
+      constellationGroup.add(ring2);
 
       // Interacción de Parallax 3D con el cursor del mouse (Estilo JARVIS PC)
       let mouseX = 0, mouseY = 0;
@@ -1338,7 +1342,7 @@
         const halfHeight = container.clientHeight / 2;
 
         nodeObjects.forEach(obj => {
-          obj.mesh.getWorldPosition(wp);
+          obj.mesh.getWorldPosition(wp); // Captura automáticamente la traslación de constellationGroup (+8.2 en el flanco derecho)
           wp.project(camera);
 
           if (wp.z > 1) {
@@ -1360,7 +1364,6 @@
         requestAnimationFrame(animate);
         const elapsed = clock.getElapsedTime();
 
-        // Rotación general del enjambre
         nodesGroup.rotation.y += 0.0025;
         particlesGroup.rotation.y -= 0.0015;
         particlesGroup.rotation.x = Math.sin(elapsed * 0.4) * 0.05;
@@ -1370,7 +1373,6 @@
         camera.position.y += (14 + mouseY * 2.5 - camera.position.y) * 0.05;
         camera.lookAt(0, 2.5, 0);
 
-        // Animación individual viva para cada nodo y sinapsis de la red neuronal
         nodeObjects.forEach(obj => {
           if (obj.isCore) {
             obj.mesh.rotation.x += 0.012;
@@ -1380,20 +1382,17 @@
             return;
           }
           
-          // Oscilación biológica/neuronal en 3D
           const oscX = Math.sin(elapsed * obj.speed + obj.phase) * 0.5;
           const oscY = Math.cos(elapsed * obj.speed * 1.3 + obj.phase) * 0.6;
           const oscZ = Math.sin(elapsed * obj.speed * 0.8 + obj.phase) * 0.5;
           
           obj.mesh.position.set(obj.baseX + oscX, obj.baseY + oscY, obj.baseZ + oscZ);
           
-          // Rotación geométrica del icosaedro wireframe del nodo (Igual que el nodo central)
           if (obj.wireMesh) {
             obj.wireMesh.rotation.x += 0.015;
             obj.wireMesh.rotation.y += 0.02;
           }
 
-          // Actualizar en tiempo real las líneas de conexión sináptica y pulsar luminosidad
           if (obj.line) {
             const posAttr = obj.line.geometry.attributes.position;
             posAttr.setXYZ(0, obj.mesh.position.x, obj.mesh.position.y, obj.mesh.position.z);
@@ -1416,6 +1415,9 @@
         camera.aspect = w / h;
         camera.updateProjectionMatrix();
         renderer.setSize(w, h);
+        if (constellationGroup) {
+          constellationGroup.position.x = w > 1200 ? 8.2 : 0;
+        }
       });
     })();
   </script>
