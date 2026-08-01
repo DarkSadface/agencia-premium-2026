@@ -1103,7 +1103,7 @@
     </div>
   </footer>
 
-  <!-- LÓGICA DE AGENTDECK 3D ANIMADO: NODO MAESTRO SOBRE LA MANO Y EL CEREBRO SIN SOBREPONER -->
+  <!-- LÓGICA DE AGENTDECK 3D ANIMADO: NODO MAESTRO ENCERRANDO EL CEREBRO Y LA MANO DEL ROBOT -->
   <script>
     function updateClock() {
       const el = document.getElementById('hud-clock');
@@ -1158,9 +1158,9 @@
       sceneLight.position.set(18, 32, 22);
       scene.add(sceneLight);
 
-      // Foco esmeralda irradiando suavemente entre el nodo maestro superior y el cerebro resplandeciente
+      // Foco esmeralda iluminando el interior del campo cuántico del cerebro y la mano
       pointLight = new THREE.PointLight(0x00ff88, 1.5, 90);
-      pointLight.position.set(4.2, 5.5, 2.0); 
+      pointLight.position.set(4.2, 2.5, 2.0); 
       scene.add(pointLight);
 
       scene.add(new THREE.AmbientLight(0x0c1e38, 1.4));
@@ -1190,9 +1190,9 @@
       particlesGroup = new THREE.Points(particleGeo, particleMat);
       scene.add(particlesGroup);
 
-      // GRUPO POSICIONADO ENCIMA DE LA MANO Y EL CEREBRO SIN SOBREPONER (X=4.2, Y=6.2, Z=-0.5)
+      // GRUPO POSICIONADO PARA ENCERRAR EXACTAMENTE EL CEREBRO Y LA MANO DEL ROBOT (X=4.2, Y=1.8, Z=-0.5)
       constellationGroup = new THREE.Group();
-      constellationGroup.position.set(width > 1200 ? 4.2 : 0, 6.2, -0.5); 
+      constellationGroup.position.set(width > 1200 ? 4.2 : 0, 1.8, -0.5); 
       scene.add(constellationGroup);
 
       const agentNames = [
@@ -1223,10 +1223,10 @@
         const clusterCenter = isAmber ? -7.5 : 7.5;
         
         const angle = (i / agentNames.length) * Math.PI * 4;
-        const dist = 5.2 + (i % 5) * 1.5;
+        const dist = 5.6 + (i % 5) * 1.5;
         const x = clusterCenter + Math.cos(angle) * dist;
         const z = Math.sin(angle) * dist - 1.0;
-        const y = Math.sin(x * 0.3 + z) * 3.8 - 1.5;
+        const y = Math.sin(x * 0.3 + z) * 3.8 + 1.2;
 
         const color = isAmber ? 0xffb627 : 0x38e6ff;
         
@@ -1275,8 +1275,8 @@
         });
       });
 
-      // NÚCLEO ORÁCULO MAESTRO: FLOTANDO SOBRE LA MANO Y EL CEREBRO SIN SOBREPONER NI OBSTRUIR EL CÓRTEX
-      const coreGeo = new THREE.IcosahedronGeometry(3.2, 3);
+      // NÚCLEO ORÁCULO MAESTRO: ENCERRANDO EL CEREBRO Y LA MANO COMO UN CAMPO CUÁNTICO TRASLUCIDO
+      const coreGeo = new THREE.IcosahedronGeometry(4.6, 3);
       const coreMat = new THREE.MeshPhongMaterial({
         color: 0x00ff88,
         emissive: 0x00ff88,
@@ -1295,14 +1295,14 @@
       container.appendChild(coreLabel);
       nodeObjects.push({ mesh: coreMesh, label: coreLabel, isCore: true });
 
-      const ringGeo1 = new THREE.TorusGeometry(6.8, 0.05, 16, 120);
+      const ringGeo1 = new THREE.TorusGeometry(8.2, 0.05, 16, 120);
       const ringMat1 = new THREE.MeshBasicMaterial({ color: 0x38e6ff, transparent: true, opacity: 0.45 });
       const ring1 = new THREE.Mesh(ringGeo1, ringMat1);
       ring1.position.set(0, 0, 0);
       ring1.rotation.x = Math.PI / 2.2;
       constellationGroup.add(ring1);
 
-      const ringGeo2 = new THREE.TorusGeometry(10.2, 0.06, 16, 120);
+      const ringGeo2 = new THREE.TorusGeometry(11.5, 0.06, 16, 120);
       const ringMat2 = new THREE.MeshBasicMaterial({ color: 0xffb627, transparent: true, opacity: 0.35 });
       const ring2 = new THREE.Mesh(ringGeo2, ringMat2);
       ring2.position.set(0, 0, 0);
@@ -1332,7 +1332,7 @@
 
           const left = (wp.x * halfWidth) + halfWidth;
           const top = -(wp.y * halfHeight) + halfHeight;
-          const offset = obj.isCore ? 50 : 14; 
+          const offset = obj.isCore ? 65 : 14; 
           obj.label.style.left = `${left}px`;
           obj.label.style.top = `${top - offset}px`;
         });
@@ -1395,7 +1395,7 @@
         camera.updateProjectionMatrix();
         renderer.setSize(w, h);
         if (constellationGroup) {
-          constellationGroup.position.set(w > 1200 ? 4.2 : 0, 6.2, -0.5);
+          constellationGroup.position.set(w > 1200 ? 4.2 : 0, 1.8, -0.5);
         }
       });
     })();
