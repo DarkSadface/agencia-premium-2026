@@ -2,187 +2,391 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>L'Étoile Rouge | Michelin Star Restaurant</title>
-    <meta name="description" content="Restaurante de alta cocina con menú de degustación. Una experiencia culinaria inmersiva despojada de artificios, con el enfoque absoluto en el origen.">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>L'Étoile Rouge | Haute Cuisine & Michelin Star Experience</title>
+    <meta name="description" content="Restaurante de alta cocina con menú de degustación. Una experiencia culinaria inmersiva despojada de artificios, con el enfoque absoluto en el origen y la excelencia Vercel Luxury.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;600;700&family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --bg: #ffffff;
-            --text: #111111;
-            --accent: #4a0000;
+            --bg-dark: #0A0607;
+            --bg-surface: #120A0C;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border-gold: rgba(212, 175, 55, 0.22);
+            --gold: #D4AF37;
+            --gold-glow: rgba(212, 175, 55, 0.4);
+            --bordeaux: #8A1C14;
+            --bordeaux-glow: rgba(138, 28, 20, 0.35);
+            --text-main: #F7F1E8;
+            --text-muted: #A39698;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Lato', sans-serif;
-            overflow-x: hidden;
-        }
-        h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 400; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        html, body { overflow-x: hidden; scroll-behavior: smooth; }
         
-        nav {
-            padding: 2.5rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            width: 100%;
-            z-index: 100;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', 'Geist', sans-serif;
+            line-height: 1.7;
         }
-        .logo {
+
+        h1, h2, h3, h4, .serif-title {
             font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            letter-spacing: 3px;
-            color: var(--text);
-            text-decoration: none;
-        }
-        .nav-links { display: flex; gap: 4rem; }
-        .nav-links a {
-            color: var(--text);
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.75rem;
-            opacity: 0.7;
-            transition: opacity 0.3s;
-        }
-        .nav-links a:hover { opacity: 1; color: var(--accent); }
-
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 0 10%;
-            position: relative;
-            background:
-                linear-gradient(rgba(20,12,8,0.5), rgba(20,12,8,0.72)),
-                url('assets/hero_restaurante.png') center/cover no-repeat;
-        }
-        .hero h1 {
-            font-size: 6rem;
-            line-height: 1.1;
-            margin-bottom: 2rem;
-            color: #F7F1E8;
-            text-shadow: 0 2px 30px rgba(0,0,0,0.55);
-            opacity: 0;
-        }
-        .hero p {
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            line-height: 1.8;
-            color: rgba(247,241,232,0.88);
-            max-width: 500px;
-            margin: 0 auto;
-            opacity: 0;
+            font-weight: 600;
+            letter-spacing: 0.02em;
         }
 
-        .menu-section { padding: 12rem 5%; max-width: 800px; margin: 0 auto; }
-        .menu-text h2 {
-            font-size: 3rem;
-            margin-bottom: 4rem;
-            text-align: center;
-            opacity: 0;
-        }
-        .menu-list { list-style: none; }
-        .menu-item {
-            padding: 2.5rem 0;
-            border-bottom: 1px solid #eaeaea;
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            opacity: 0;
-        }
-        .item-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; }
-        .item-price { font-family: 'Lato', sans-serif; letter-spacing: 2px; font-size: 0.9rem; color: #666; }
-
-        .reservas-widget {
-            position: fixed;
-            bottom: 2.5rem;
-            right: 2.5rem;
-            background: var(--text);
-            color: var(--bg);
-            padding: 1rem 2rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.75rem;
-            text-decoration: none;
-            z-index: 999;
-            transition: background-color 0.3s;
-            border: 1px solid var(--text);
-        }
-        .reservas-widget:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
-        .reservas-widget { display: none; } /* fix: quitaba el glitch de caja negra sobre el pill de WhatsApp */
-    </style>
-
-<!-- [INYECCIÓN DE EXCELENCIA VISUAL - EQUIPO DOLAR] -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;600;700&family=Inter:wght@400;600&family=Outfit:wght@400;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
-<style>
-    * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
-    ::-webkit-scrollbar-thumb { background: rgba(150,150,150,0.4); border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: rgba(100,100,100,0.6); }
-    .hero-glow { position: absolute; width: 450px; height: 450px; background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, rgba(0,0,0,0) 70%); top: -100px; left: 50%; transform: translateX(-50%); pointer-events: none; z-index: -1; }
-</style>
-
-
-    <!-- EXPERIENCIA INMERSIVA PREMIUM 2026 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <style>
-        /* Luces ambientales y partículas de fondo en toda la plantilla */
+        /* Ambient Lights & Particles */
         .ambient-light-blob {
             position: fixed;
-            width: 450px;
-            height: 450px;
+            width: 500px;
+            height: 500px;
             border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.16;
+            filter: blur(120px);
             pointer-events: none;
             z-index: 0;
             transition: all 0.5s ease;
         }
-        .blob-tl { top: -100px; left: -100px; background: #00E5FF; animation: floatAmbient 12s infinite alternate; }
-        .blob-br { bottom: -100px; right: -100px; background: #00F5D4; animation: floatAmbient 15s infinite alternate-reverse; }
-
-        /* --- Movil: que nada sobresalga por la derecha (Claude, 96o ciclo) ---
-           Medido a 375x667 con navegador real: el blob de la esquina inferior
-           derecha (right:-100px) ensanchaba el lienzo a 478 px y arrastraba al
-           boton flotante, que quedaba recortado 78 px. En un sitio que se
-           ensena a negocios y se abre sobre todo desde el movil, la llamada a
-           la accion cortada no es un detalle estetico. */
-        html, body { overflow-x: hidden; }
-        @media (max-width: 720px) {
-            .ambient-light-blob { width: 300px; height: 300px; filter: blur(80px); }
-            .blob-tl { top: -80px; left: 0; }
-            .blob-br { bottom: -80px; right: 0; }
-            .btn-wsp-floating {
-                right: 12px;
-                max-width: calc(100vw - 24px);
-                padding: 12px 16px;
-                font-size: 0.85rem;
-            }
-        }
+        .blob-tl { top: -150px; left: -150px; background: radial-gradient(circle, var(--gold) 0%, transparent 70%); opacity: 0.12; animation: floatAmbient 14s infinite alternate; }
+        .blob-br { bottom: -150px; right: -150px; background: radial-gradient(circle, var(--bordeaux) 0%, transparent 70%); opacity: 0.18; animation: floatAmbient 18s infinite alternate-reverse; }
 
         @keyframes floatAmbient {
             0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(50px, -50px) scale(1.15); }
+            100% { transform: translate(60px, -50px) scale(1.18); }
         }
 
-        /* Elevación Glassmorphism y 3D en las tarjetas del contenido */
-        section, div, card, .card, .pricing-card, .service-box {
+        /* Navbar */
+        nav {
+            padding: 1.8rem 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            background: rgba(10, 6, 7, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-gold);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.55rem;
+            letter-spacing: 3px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 700;
+        }
+        .logo span { color: var(--gold); font-style: italic; }
+
+        .nav-links { display: flex; gap: 3.5rem; align-items: center; }
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+        .nav-links a:hover { opacity: 1; color: var(--gold); transform: translateY(-1px); }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 10rem 6% 6rem;
             position: relative;
-            z-index: 1;
+            background:
+                radial-gradient(circle at 50% 50%, rgba(10, 6, 7, 0.4) 0%, rgba(10, 6, 7, 0.95) 85%),
+                linear-gradient(0deg, var(--bg-dark) 0%, rgba(10, 6, 7, 0.5) 50%, var(--bg-dark) 100%),
+                url('assets/hero_restaurante.png') center/cover no-repeat;
+            overflow: hidden;
         }
 
-        /* Botón flotante de WhatsApp VIP con pulso neón */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .michelin-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: rgba(212, 175, 55, 0.12);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            padding: 0.5rem 1.4rem;
+            border-radius: 999px;
+            color: var(--gold);
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+
+        .hero h1 {
+            font-size: clamp(3.5rem, 8vw, 6.5rem);
+            line-height: 1.08;
+            margin-bottom: 1.8rem;
+            color: var(--text-main);
+            text-shadow: 0 4px 40px rgba(0, 0, 0, 0.8);
+        }
+        
+        .hero h1 span {
+            display: block;
+            font-style: italic;
+            color: var(--gold);
+            font-weight: 400;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 1.8vw, 1.25rem);
+            letter-spacing: 0.04em;
+            line-height: 1.8;
+            color: var(--text-muted);
+            max-width: 680px;
+            margin: 0 auto 3rem;
+            font-weight: 300;
+        }
+
+        .btn-gold {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.1rem 2.8rem;
+            background: linear-gradient(135deg, var(--gold) 0%, #B89020 100%);
+            color: #0A0607 !important;
+            font-weight: 700;
+            font-size: 0.88rem;
+            text-decoration: none;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.35);
+            transition: all 0.35s cubic-bezier(0.2, 1, 0.3, 1);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .btn-gold:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 45px rgba(212, 175, 55, 0.5);
+            background: linear-gradient(135deg, #E5C358 0%, #D4AF37 100%);
+        }
+
+        /* La Experiencia Showcase (THE MISSING IMAGE RESOLUTION) */
+        .experiencia-section {
+            padding: 10rem 6%;
+            position: relative;
+            z-index: 2;
+            background: radial-gradient(circle at 80% 50%, rgba(138, 28, 20, 0.12) 0%, transparent 70%);
+            border-top: 1px solid rgba(212, 175, 55, 0.15);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .experiencia-grid {
+            max-width: 1250px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .exp-text-block {
+            text-align: left;
+        }
+
+        .exp-tag {
+            color: var(--gold);
+            font-size: 0.82rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .exp-text-block h2 {
+            font-size: clamp(2.5rem, 5vw, 3.8rem);
+            margin-bottom: 2rem;
+            line-height: 1.2;
+            color: var(--text-main);
+        }
+
+        .exp-text-block p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.9;
+            margin-bottom: 1.8rem;
+        }
+
+        .exp-quote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            color: var(--gold);
+            border-left: 2px solid var(--gold);
+            padding-left: 1.5rem;
+            margin-top: 2.5rem;
+            line-height: 1.6;
+        }
+
+        .exp-image-container {
+            position: relative;
+            height: 520px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-gold);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), 0 0 35px rgba(212, 175, 55, 0.15);
+            background: #110A0B;
+        }
+
+        .exp-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: contrast(1.12) brightness(0.95);
+            transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .exp-image-container:hover img {
+            transform: scale(1.07);
+        }
+
+        .exp-image-badge {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: linear-gradient(0deg, rgba(10,6,7,0.95) 0%, rgba(10,6,7,0.7) 65%, transparent 100%);
+            padding: 2.5rem 2rem 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Menú Degustación */
+        .menu-section {
+            padding: 10rem 6%;
+            max-width: 1050px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .menu-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .menu-header h2 {
+            font-size: clamp(2.8rem, 5vw, 3.8rem);
+            color: var(--text-main);
+            margin-bottom: 1rem;
+        }
+
+        .menu-list {
+            list-style: none;
+            display: grid;
+            gap: 2rem;
+        }
+
+        .menu-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            padding: 2.5rem 3rem;
+            border-radius: 8px;
+            transition: all 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-card::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 3px;
+            background: var(--gold);
+            opacity: 0.4;
+            transition: opacity 0.3s ease;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(212, 175, 55, 0.35);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .menu-card:hover::before { opacity: 1; }
+
+        .menu-item-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.8rem;
+        }
+
+        .item-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .item-price {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 1px;
+        }
+
+        .item-desc {
+            color: var(--text-muted);
+            font-size: 0.98rem;
+            max-width: 80%;
+            line-height: 1.6;
+        }
+
+        /* Contact & Footer (Claude Parity) */
+        .contacto-directo {
+            position: relative;
+            z-index: 5;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 1.5rem 7rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.15);
+            background: #060304;
+        }
+
+        .contacto-directo a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .contacto-directo a:hover { color: var(--gold); transform: translateY(-1px); }
+
+        /* Floating WhatsApp VIP Button */
         .btn-wsp-floating {
             position: fixed;
             bottom: 25px;
@@ -191,7 +395,7 @@
             color: #FFF !important;
             padding: 14px 22px;
             border-radius: 999px;
-            font-family: 'Outfit', 'Segoe UI', sans-serif;
+            font-family: 'Outfit', 'Inter', sans-serif;
             font-weight: 700;
             font-size: 0.95rem;
             text-decoration: none;
@@ -203,13 +407,11 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
-
         .btn-wsp-floating:hover {
             transform: translateY(-4px) scale(1.05);
             box-shadow: 0 0 35px rgba(37, 211, 102, 0.9);
             background: linear-gradient(135deg, #28E16D, #169E8E);
         }
-        
         .wsp-pulse {
             width: 10px; height: 10px;
             background: #FFF;
@@ -217,143 +419,159 @@
             animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
         }
         @keyframes ping { 75%, 100% { transform: scale(2); opacity: 0; } }
-    </style>
 
+        /* Responsive Mobile Architecture */
+        @media (max-width: 768px) {
+            .nav-links { gap: 1.5rem; }
+            .nav-links a { font-size: 0.72rem; letter-spacing: 1.5px; }
+            .experiencia-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .exp-text-block { text-align: center; }
+            .exp-quote { border-left: none; border-top: 1px solid var(--gold); border-bottom: 1px solid var(--gold); padding: 1.5rem 0; }
+            .exp-image-container { height: 380px; }
+            .menu-card { padding: 1.8rem 1.5rem; }
+            .item-desc { max-width: 100%; }
+            .btn-wsp-floating {
+                right: 14px;
+                bottom: 18px;
+                max-width: calc(100vw - 28px);
+                padding: 12px 18px;
+                font-size: 0.88rem;
+            }
+            .ambient-light-blob { width: 320px; height: 320px; filter: blur(90px); }
+        }
+    </style>
 </head>
 <body>
 
+    <!-- Ambient Luxury Light Fields -->
     <div class="ambient-light-blob blob-tl"></div>
     <div class="ambient-light-blob blob-br"></div>
 
+    <!-- Navigation -->
     <nav>
-        <a href="#inicio" class="logo">L'Étoile Rouge</a>
+        <a href="#inicio" class="logo">L'Étoile <span>Rouge</span></a>
         <div class="nav-links">
-            <a href="#menu">Menú</a>
             <a href="#experiencia">Experiencia</a>
-            <a href="#reservas">Contacto</a>
+            <a href="#menu">Degustación</a>
+            <a href="#contacto">Contacto</a>
         </div>
     </nav>
 
+    <!-- Hero Section -->
     <section id="inicio" class="hero">
         <div class="hero-content">
-            <h1 class="fade-element">Sangre<br>y Tierra</h1>
-            <p class="fade-element">Una experiencia culinaria inmersiva despojada de artificios. El enfoque absoluto en el origen.</p>
+            <div class="michelin-badge fade-element">★ ★ ★ GUÍA MICHELÍN & EXCELENCIA VERCEL</div>
+            <h1 class="fade-element">Sangre<br><span>y Tierra</span></h1>
+            <p class="fade-element">Una experiencia culinaria inmersiva despojada de artificios. El enfoque absoluto en el origen, el fuego y la memoria del paladar.</p>
+            <div class="fade-element">
+                <a href="#contacto" class="btn-gold">Reservar Experiencia VIP</a>
+            </div>
         </div>
     </section>
 
+    <!-- La Experiencia (THE MISSING IMAGE SOLVED) -->
+    <section id="experiencia" class="experiencia-section">
+        <div class="experiencia-grid">
+            <div class="exp-text-block fade-element">
+                <span class="exp-tag">Filosofía Gastronómica</span>
+                <h2>La Experiencia Inmersiva</h2>
+                <p>Cada detalle en <strong>L'Étoile Rouge</strong> ha sido milimétricamente curado para ofrecer un santuario sensorial. Sin distracciones, sin superfluidad: solo el arte puro de la gastronomía de alto nivel.</p>
+                <p>Nuestra cocina opera como un laboratorio de respeto por el producto. Conectamos técnicas ancestrales con una vanguardia estética impecable, marinada en nuestra bodega de añadas históricas.</p>
+                <div class="exp-quote">
+                    «Comer no es alimentar el cuerpo; es dialogar en silencio con la memoria del terruño y la pureza del elemento.»
+                </div>
+            </div>
+            <div class="fade-element">
+                <div class="exp-image-container">
+                    <img src="assets/restaurante_plato.jpg" alt="Plato Gourmet Degustación L'Étoile Rouge" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200&auto=format&fit=crop'">
+                    <div class="exp-image-badge">
+                        <span style="font-family: 'Outfit', sans-serif; font-size: 0.82rem; letter-spacing: 0.15em; font-weight: 700; color: #FFF; text-transform: uppercase;">Menú Degustación &bull; Invierno 2026</span>
+                        <span style="display: inline-flex; align-items: center; gap: 6px; color: var(--gold); font-size: 0.8rem; font-weight: 700;">★ 10 TIEMpos</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menú Degustación -->
     <section id="menu" class="menu-section">
-        <div class="menu-text">
-            <h2 class="fade-element">Degustación</h2>
-            <ul class="menu-list">
-                <li class="menu-item fade-element">
-                    <span class="item-name">Ostra Escalfada, Caviar Oscuro</span>
-                    <span class="item-price">$45</span>
-                </li>
-                <li class="menu-item fade-element">
-                    <span class="item-name">Tartar de Ciervo Ahumado</span>
-                    <span class="item-price">$65</span>
-                </li>
-                <li class="menu-item fade-element">
-                    <span class="item-name">Magret de Pato en Frutos Rojos</span>
-                    <span class="item-price">$90</span>
-                </li>
-            </ul>
+        <div class="menu-header fade-element">
+            <span class="exp-tag">El Viaje Sensorial</span>
+            <h2>Degustación Exclusiva</h2>
         </div>
+        
+        <ul class="menu-list">
+            <li class="menu-card fade-element">
+                <div class="menu-item-top">
+                    <span class="item-name">Ostra Escalfada en Emulsión Marina</span>
+                    <span class="item-price">$45</span>
+                </div>
+                <p class="item-desc">Ostra de profundidad escalfada al vapor de hinojo, coronada con perlas de caviar oscuro y rocío de plancton cultivado.</p>
+            </li>
+
+            <li class="menu-card fade-element">
+                <div class="menu-item-top">
+                    <span class="item-name">Tartar de Ciervo Ahumado en Roble</span>
+                    <span class="item-price">$65</span>
+                </div>
+                <p class="item-desc">Corte magro de ciervo madurado en cámara de sal rosa, aliño ancestral con bayas de enebro y humo atrapado en cloche de cristal.</p>
+            </li>
+
+            <li class="menu-card fade-element">
+                <div class="menu-item-top">
+                    <span class="item-name">Magret de Pato Confitado con Frutos Rojos</span>
+                    <span class="item-price">$90</span>
+                </div>
+                <p class="item-desc">Pato de granja ecológica sellado en su propia grasa sobre brasa de vid, reducción intensa de mora salvaje y chalotas caramelizadas.</p>
+            </li>
+
+            <li class="menu-card fade-element">
+                <div class="menu-item-top">
+                    <span class="item-name">Cacao 85%, Texturas de Haba & Oro Comestible</span>
+                    <span class="item-price">$55</span>
+                </div>
+                <p class="item-desc">Esfera de chocolate amargo origen Tumaco, interior de praliné de nuez de macadamia tostada, escamas de flor de sal y oro de 24 quilates.</p>
+            </li>
+        </ul>
     </section>
-    
-    <section id="experiencia" style="padding: 8rem 5%; text-align: center; background: #fafafa;">
-        <h2 class="fade-element" style="font-size: 2.5rem; margin-bottom: 2rem;">La Experiencia</h2>
-        <p class="fade-element" style="max-width: 600px; margin: 0 auto; color: #555; line-height: 1.8;">Cada detalle ha sido curado para ofrecer una inmersión total. Sin distracciones, solo el arte puro de la gastronomía de alto nivel.</p>
-    </section>
 
-    <a href="#reservas" id="reservas" class="reservas-widget">Reservas Sin Fricción</a>
+    <!-- Contacto Directo VIP -->
+    <div id="contacto" class="contacto-directo">
+        <a href="tel:+573000000000">&#128222; +57 300 000 0000</a>
+        <a href="mailto:operadororangeicff23@gmail.com">&#9993; operadororangeicff23@gmail.com</a>
+        <span style="color: var(--text-muted); opacity: 0.7;">&copy; 2026 L'Étoile Rouge &bull; Todos los derechos reservados.</span>
+    </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script>
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Invisible Technology Animations (Subtle Fades)
-        gsap.utils.toArray('.fade-element').forEach(element => {
-            gsap.to(element, {
-                scrollTrigger: {
-                    trigger: element,
-                    start: "top 85%",
-                },
-                opacity: 1,
-                y: 0,
-                duration: 1.2,
-                ease: "power2.out"
-            });
-            gsap.set(element, { opacity: 0, y: 15 });
-        });
-    </script>
-
-    <!-- BOTÓN FLOTANTE COMERCIAL VIP -->
-    <a href="https://wa.me/573000000000?text=Hola,%20visité%20su%20página%20web%20y%20deseo%20agendar%20o%20cotizar%20servicios." target="_blank" class="btn-wsp-floating">
+    <!-- Botón Flotante WhatsApp VIP -->
+    <a href="https://wa.me/573000000000?text=Hola,%20visité%20su%20restaurante%20L'Étoile%20Rouge%20y%20deseo%20agendar%20una%20mesa%20o%20evento%20privado." target="_blank" class="btn-wsp-floating">
         <span class="wsp-pulse"></span>
-        💬 Agendar por WhatsApp VIP
+        💬 Reservar por WhatsApp VIP
     </a>
 
-    <!-- MOTOR DE ANIMACIONES SCROLL GSAP -->
+    <!-- GSAP & ScrollTrigger Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             if (window.gsap && window.ScrollTrigger) {
                 gsap.registerPlugin(ScrollTrigger);
-                
-                // Animar suavemente cada sección al hacer scroll
-                const secciones = document.querySelectorAll("section, .card, .service-box, .pricing-card, h2");
-                secciones.forEach((el, index) => {
-                    gsap.from(el, {
+
+                gsap.utils.toArray('.fade-element, .menu-card').forEach((element, i) => {
+                    gsap.from(element, {
                         scrollTrigger: {
-                            trigger: el,
+                            trigger: element,
                             start: "top 88%",
+                            toggleActions: "play none none reverse"
                         },
                         opacity: 0,
-                        y: 35,
-                        duration: 0.7,
-                        delay: (index % 3) * 0.1,
-                        ease: "power2.out"
+                        y: 40,
+                        duration: 0.8,
+                        delay: (i % 3) * 0.1,
+                        ease: "power3.out"
                     });
                 });
             }
         });
     </script>
-
-
-    <!-- REPARACION CONTACTO/FORMULARIO (Claude, 97o ciclo) -->
-    <style>
-        .contacto-directo {
-            position: relative; z-index: 5;
-            display: flex; flex-wrap: wrap; gap: 1.5rem;
-            align-items: center; justify-content: center;
-            padding: 1.6rem 1rem 5.5rem;
-            font-family: inherit; font-size: 0.95rem;
-            border-top: 1px solid currentColor;
-        }
-        .contacto-directo { border-color: rgba(128,128,128,0.25); }
-        .contacto-directo a {
-            color: inherit; text-decoration: none; opacity: 0.85;
-            display: inline-flex; align-items: center; gap: 0.5rem;
-        }
-        .contacto-directo a:hover { opacity: 1; text-decoration: underline; }
-    </style>
-
-    <div class="contacto-directo">
-        <!-- Telefono: marcador de posicion unico del producto (573000000000).
-             Sustituir por el numero real del cliente en el CTA y aqui. -->
-        <a href="tel:+573000000000">&#128222; +57 300 000 0000</a>
-        <a href="mailto:operadororangeicff23@gmail.com">&#9993; operadororangeicff23@gmail.com</a>
-    </div>
-
-    <!-- REPARACION CONTACTO/FORMULARIO (Claude, 97o ciclo)
-         Medido a 375x667: los enlaces de esta barra terminaban en x=475
-         con viewport 375 y, con overflow-x:hidden, quedaban inalcanzables. -->
-    <style>
-        @media (max-width: 720px) {
-            .nav-links { gap: 1.25rem; flex-wrap: wrap; justify-content: flex-end; }
-            .nav-links a, .nav-links span { font-size: 0.78rem; letter-spacing: 1px; }
-        }
-    </style>
 </body>
 </html>
