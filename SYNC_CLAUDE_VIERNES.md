@@ -18,16 +18,17 @@ El usuario ha ordenado de forma definitiva que **Claude (Opus/Sonnet)** y **Vier
 ---
 
 ## 🌟 ESTADO AGREGADO DEL SISTEMA (FUSIÓN TÉCNICA Y MEJORA NEURONAL VERIFICADA)
-En la iteración actual (2026-08-01 13:40), se ejecutaron y verificaron los siguientes avances en estricto cumplimiento del diseño JARVIS PC:
+En la iteración actual (2026-08-01 13:45), se ejecutaron y verificaron los siguientes avances en estricto cumplimiento del diseño JARVIS PC:
 
-### 1. Nodos Orbitales Más Pequeños y Precisos ✅
-- **Reducción Cartesiana en Three.js:** El radio del `IcosahedronGeometry` de los 46 agentes satélite fue reducido de `0.58` a `0.28` y su núcleo interno de `0.22` a `0.12`. Esto les otorga una apariencia mucho más refinada y menos invasiva en el espacio 3D.
+### 1. Eliminación de Texto Excesivo en Etiqueta Dorada ✅
+- **Optimización del Hero:** Se retiró el texto `"DE BUCLE OJO DE DIOS"` del recuadro dorado superior en la sección izquierda del hero. Ahora lee de manera concisa y escaneable: `"⚡ INGENIERÍA AGENTIC & AUTOMATIZACIÓN"`.
 
-### 2. Cero Recuadros de Contorno en Nombres de Agentes (Texto Puro) ✅
-- **Estética Limpia Sin Cajas:** Se eliminaron por completo las propiedades `border`, `background` y `box-shadow` en el selector CSS `.node-label`. Ahora los nombres de los agentes flotan sin ningún marco rectangular alrededor, luciendo exclusivamente como texto luminoso con sombra de neón en la profundidad 3D.
+### 2. Nodo Central Oráculo Maestro Flotando Sobre el Cerebro del Robot (Sin Taparlo) ✅
+- **Elevación Cartesiana en Three.js:** Se trasladó la coordenada maestra del `constellationGroup` a la posición `X=7.5, Y=3.5, Z=-1.2` (en resoluciones de escritorio mayores a 1200px).
+- **Corona Neuronal Sin Oclusión:** Al elevar en Y (`3.5`) y dar una ligera profundidad Z (`-1.2`), el gigantesco nodo central Oráculo Maestro flota **directamente encima de la corteza cerebral brillante del androide**, irradiando luz hacia su cabeza pero **sin cubrir, tapar ni pisar en ningún momento el rostro ni el cráneo de la IA**. Los 46 agentes satélite orbitan como una constelación interactiva sobre el androide.
 
-### 3. Nodo Central Oráculo Maestro Conserva su Tamaño Majestuoso ✅
-- **Dimensión Inamovible:** El núcleo `coreGeo = new THREE.IcosahedronGeometry(2.6, 2);` conserva su tamaño y jerarquía original, reinando de forma dominante en el centro exacto de la constelación (`X=0, Y=1.5, Z=-0.5`).
+### 3. Nodos Orbitales Más Pequeños y Cero Recuadros en Nombres (Texto Puro) ✅
+- **Estética Limpia:** Geometría reducida (`0.28`) y etiquetas `.node-label` completamente desprovistas de bordes o fondos, flotando como texto de neón en la escena 3D.
 
 ### 4. Preservación y Respeto Absoluto a Claude ✅
 - **Parches y Mejoras Mantenidos:** Conservados inalterados los aportes de Claude (scanlines globales, accesibilidad `prefers-reduced-motion` y la corrección de 404 del portafolio en `hero_odontologia.png`).
@@ -43,6 +44,7 @@ En la iteración actual (2026-08-01 13:40), se ejecutaron y verificaron los sigu
 | 2026-08-01 | **Viernes (Gemini)** | Commit `4d2beab`: Alineate Robot y AgentDeck 3D a la derecha | Completado y verificado |
 | 2026-08-01 | **Viernes (Gemini)** | Commit `9bcfb10`: Robot en borde derecho exacto + silueta PNG transparente | Completado y verificado |
 | 2026-08-01 | **Viernes (Gemini)** | Commit `8d4433a`: Robot inamovible en borde derecho y AgentDeck 3D centrado en el lienzo | Completado y verificado |
-| 2026-08-01 (13:40) | **Viernes (Gemini)** | Nodos orbitales más pequeños, eliminación de cajas en etiquetas (solo texto), nodo central tamaño intacto | `pendiente_qa (Claude)` |
+| 2026-08-01 | **Viernes (Gemini)** | Commit `04230f5`: Nodos orbitales más pequeños, eliminación de cajas en etiquetas (solo texto) | Completado y verificado |
+| 2026-08-01 (13:45) | **Viernes (Gemini)** | Eliminado texto sobrante de etiqueta dorada + Nodo central posicionado flotando sobre el cerebro sin taparlo | `pendiente_qa (Claude)` |
 
-> **Nota de Viernes para Claude:** *Colega, el usuario solicitó reducir el tamaño de los nodos orbitales del AgentDeck 3D (pasamos de geometría `0.58` a `0.28`), eliminar los recuadros de contorno de las etiquetas de texto de cada nodo para dejar solo el nombre flotante sin caja, y mantener el nodo central Oráculo Maestro en su tamaño original (`2.6`). He aplicado todo esto en `index.html`. Queda en `pendiente_qa (Claude)` para tu supervisión y relevo.*
+> **Nota de Viernes para Claude:** *Colega, el usuario solicitó eliminar "DE BUCLE OJO DE DIOS" del badge dorado del hero (ahora queda solo "INGENIERÍA AGENTIC & AUTOMATIZACIÓN") y reposicionamos el clúster AgentDeck 3D de Three.js hacia el cuadrante superior derecho (`X=7.5, Y=3.5, Z=-1.2`), logrando que el gigantesco nodo central Oráculo Maestro flote como un halo cuántico directamente encima del cerebro brillante del androide, sin taparlo ni entorpecedr su visibilidad en el plano. He aplicado todo esto en `index.html`. Queda en `pendiente_qa (Claude)` para tu supervisión y relevo.*

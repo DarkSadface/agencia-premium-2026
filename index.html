@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
 
-  <!-- Three.js (Para AgentDeck 3D Centrado en el Lienzo) -->
+  <!-- Three.js (Para AgentDeck 3D Sobre Cerebro AI) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -177,7 +177,7 @@
     }
 
     /* ══════════════════════════════════════════════════════════════════════
-       SECCIÓN HERO: ROBOT ANCLADO AL BORDE DERECHO EXACTO & AGENTDECK CENTRADO
+       SECCIÓN HERO: ROBOT ANCLADO DERECHA & AGENTDECK SOBRE EL CEREBRO
        ══════════════════════════════════════════════════════════════════════ */
     .hero-section {
       position: relative;
@@ -190,7 +190,7 @@
       justify-content: center;
     }
 
-    /* EL AGENTDECK 3D EN EL FONDO INTERACTIVO (z-index: 1) - CENTRADO MATEMÁTICAMENTE */
+    /* EL AGENTDECK 3D EN EL FONDO INTERACTIVO (z-index: 1) */
     #agentdeck-bg-canvas {
       position: absolute;
       inset: 0;
@@ -226,7 +226,6 @@
     .node-label.core-cluster { color: #00ff88; font-size: 13px; z-index: 9; text-shadow: 0 0 10px #00ff88, 0 0 22px #00ff88, 0 2px 6px rgba(0,0,0,1); }
 
     /* ── SILUETA DEL ROBOT HUMANOIDE ANCLADA INTACTA AL BORDE DERECHO DEL MONITOR ── */
-    /* Tal cual solicitaste: se mantiene con la espalda justo al ras del límite derecho de pantalla! */
     .robot-showcase-hologram {
       position: absolute;
       right: -10px;
@@ -779,9 +778,9 @@
     </div>
   </nav>
 
-  <!-- HERO SECTION: ROBOT ANCLADO AL BORDE DERECHO Y AGENTDECK CENTRADO -->
+  <!-- HERO SECTION: ROBOT ANCLADO DERECHA Y AGENTDECK SOBRE CEREBRO IA -->
   <section class="hero-section">
-    <!-- El lienzo 3D neuronal se renderiza en el centro neurálgico del viewport -->
+    <!-- El lienzo 3D neuronal se renderiza sobre el cerebro del androide sin tapar su cabeza -->
     <div id="agentdeck-bg-canvas"></div>
 
     <!-- SILUETA PURA DEL ROBOT ANCLADA EN EL BORDE DERECHO REAL (SE MANTIENE AHÍ EXAMINANDO EL AGENTDECK) -->
@@ -806,7 +805,7 @@
       <div class="hero-grid">
         <div class="hero-left">
           <div class="hero-subtag">
-            <span>⚡ INGENIERÍA AGENTIC & AUTOMATIZACIÓN DE BUCLE OJO DE DIOS</span>
+            <span>⚡ INGENIERÍA AGENTIC & AUTOMATIZACIÓN</span>
           </div>
           <h1 class="hero-title">COLOMBIA TECH SYSTEMS</h1>
           <p class="hero-subtitle">
@@ -1103,7 +1102,7 @@
     </div>
   </footer>
 
-  <!-- LÓGICA DE AGENTDECK 3D ANIMADO EN EL CENTRO EXACTO DEL LIENZO -->
+  <!-- LÓGICA DE AGENTDECK 3D ANIMADO EN POSICIÓN CELESTIAL SOBRE EL CEREBRO DEL ANDROIDE -->
   <script>
     function updateClock() {
       const el = document.getElementById('hud-clock');
@@ -1157,9 +1156,9 @@
       sceneLight.position.set(18, 32, 22);
       scene.add(sceneLight);
 
-      // Foco de luz verde en el centro exacto iluminando el Oráculo y irradiando sobre el Robot a la derecha
+      // Foco de luz verde en posición superior irradiando sobre el Oráculo Maestro y el cerebro del Androide
       pointLight = new THREE.PointLight(0x00ff88, 3.4, 90);
-      pointLight.position.set(0, 8, 2); 
+      pointLight.position.set(7.5, 9, 3); 
       scene.add(pointLight);
 
       scene.add(new THREE.AmbientLight(0x0c1e38, 1.8));
@@ -1189,9 +1188,9 @@
       particlesGroup = new THREE.Points(particleGeo, particleMat);
       scene.add(particlesGroup);
 
-      // GRUPO MAESTRO DE CONSTELACIÓN CENTRADO EN EL LIENZO (X=0, Y=1.5, Z=-0.5)
+      // GRUPO MAESTRO POSICIONADO HIGH-ABOVE SOBRE EL CEREBRO DEL ROBOT (X=7.5, Y=3.5, Z=-1.2)
       constellationGroup = new THREE.Group();
-      constellationGroup.position.set(0, 1.5, -0.5); 
+      constellationGroup.position.set(width > 1200 ? 7.5 : 0, 3.5, -1.2); 
       scene.add(constellationGroup);
 
       const agentNames = [
@@ -1214,7 +1213,6 @@
 
       const nodeObjects = [];
       
-      // Nodos orbitales más pequeños y sutiles según directiva (de 0.58 a 0.28)
       const agentNodeGeo = new THREE.IcosahedronGeometry(0.28, 2);
       const agentInnerGeo = new THREE.IcosahedronGeometry(0.12, 1);
 
@@ -1275,7 +1273,7 @@
         });
       });
 
-      // NÚCLEO ORÁCULO MAESTRO EN EL CENTRO EXACTO (CONSERVA SU TAMAÑO MAJESTUOSO 2.6 INTACTO)
+      // NÚCLEO ORÁCULO MAESTRO EN EL CENTRO DE CONSTELACIÓN (FLOTANDO HIGH SOBRE CEREBRO ANDROIDE)
       const coreGeo = new THREE.IcosahedronGeometry(2.6, 2);
       const coreMat = new THREE.MeshPhongMaterial({
         color: 0x00ff88,
@@ -1330,7 +1328,7 @@
 
           const left = (wp.x * halfWidth) + halfWidth;
           const top = -(wp.y * halfHeight) + halfHeight;
-          const offset = obj.isCore ? 35 : 14; // Ajuste proporcional sin cajas de contorno
+          const offset = obj.isCore ? 35 : 14; 
           obj.label.style.left = `${left}px`;
           obj.label.style.top = `${top - offset}px`;
         });
@@ -1393,7 +1391,7 @@
         camera.updateProjectionMatrix();
         renderer.setSize(w, h);
         if (constellationGroup) {
-          constellationGroup.position.set(0, 1.5, -0.5);
+          constellationGroup.position.set(w > 1200 ? 7.5 : 0, 3.5, -1.2);
         }
       });
     })();
