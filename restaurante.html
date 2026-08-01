@@ -58,19 +58,24 @@
             justify-content: center;
             text-align: center;
             padding: 0 10%;
+            position: relative;
+            background:
+                linear-gradient(rgba(20,12,8,0.5), rgba(20,12,8,0.72)),
+                url('assets/hero_restaurante.png') center/cover no-repeat;
         }
         .hero h1 {
             font-size: 6rem;
             line-height: 1.1;
             margin-bottom: 2rem;
-            color: var(--text);
+            color: #F7F1E8;
+            text-shadow: 0 2px 30px rgba(0,0,0,0.55);
             opacity: 0;
         }
         .hero p {
             font-size: 1.1rem;
             letter-spacing: 1px;
             line-height: 1.8;
-            color: #555;
+            color: rgba(247,241,232,0.88);
             max-width: 500px;
             margin: 0 auto;
             opacity: 0;
@@ -111,6 +116,7 @@
             border: 1px solid var(--text);
         }
         .reservas-widget:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+        .reservas-widget { display: none; } /* fix: quitaba el glitch de caja negra sobre el pill de WhatsApp */
     </style>
 
 <!-- [INYECCIÓN DE EXCELENCIA VISUAL - EQUIPO DOLAR] -->

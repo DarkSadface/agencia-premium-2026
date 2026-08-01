@@ -50,6 +50,10 @@
             flex-direction: column;
             justify-content: center;
             padding: 0 10%;
+            position: relative;
+            background:
+                linear-gradient(90deg, rgba(11,19,43,0.95) 0%, rgba(11,19,43,0.78) 46%, rgba(11,19,43,0.42) 100%),
+                url('assets/hero_abogados.png') center/cover no-repeat;
         }
         .hero h1 {
             font-size: 7vw;
@@ -114,6 +118,7 @@
             transition: background-color 0.3s;
         }
         .reservas-widget:hover { background: var(--accent); color: var(--bg); }
+        .reservas-widget { display: none; } /* fix: quitaba el glitch de caja negra sobre el pill de WhatsApp */
     </style>
 
 <!-- [INYECCIÓN DE EXCELENCIA VISUAL - EQUIPO DOLAR] -->
@@ -130,7 +135,7 @@
 </style>
 
     <style>
-        :root { --primary: #D4AF37; --bg: #0B132B; --surface: rgba(255, 255, 255, 0.04); }
+        :root { --primary: #D4AF37; --bg: #0B132B; --surface: rgba(255, 255, 255, 0.04); --text: #F5F3EC; --muted: #A9B2C0; }
         body { background: var(--bg); color: #F8F9FA; font-family: 'Playfair Display', serif; scroll-behavior: smooth; }
         .glass-card { background: var(--surface); backdrop-filter: blur(14px); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 12px; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         .glass-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15); }
