@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
 
-  <!-- Three.js (Para AgentDeck 3D de FONDO detrás de las letras) -->
+  <!-- Three.js (Para AgentDeck 3D En el Mismo Plano del Cerebro del Robot) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -36,7 +36,7 @@
       --border-bright: rgba(56, 230, 255, 0.85);
       --text: #e0f4ff;
       --dim: rgba(56, 230, 255, 0.6);
-      --glow-intensity: 1.2; /* Controlado por la barra de luminosidad en el hero */
+      --glow-intensity: 1.2;
       --hud-glow: rgba(0, 229, 255, calc(0.55 * var(--glow-intensity)));
       --gold-glow: rgba(255, 182, 39, calc(0.5 * var(--glow-intensity)));
       
@@ -75,7 +75,7 @@
       pointer-events: none;
     }
 
-    /* ── Capa HUD Global (Aporte Claude: scanlines sutiles + viñeta, firma AgentDeck) ── */
+    /* ── Capa HUD Global (Aporte Claude: scanlines sutiles + viñeta) ── */
     body::after {
       content: '';
       position: fixed; inset: 0; z-index: 3;
@@ -177,7 +177,7 @@
     }
 
     /* ══════════════════════════════════════════════════════════════════════
-       SECCIÓN HERO CON AGENTDECK 3D Y ROBOT ALINEADOS A LA DERECHA
+       SECCIÓN HERO CON ROBOT ANCLADO AL BORDE DERECHO EXACTO & AGENTDECK 3D
        ══════════════════════════════════════════════════════════════════════ */
     .hero-section {
       position: relative;
@@ -185,9 +185,12 @@
       padding: 30px 0 90px;
       overflow: hidden;
       border-bottom: 1px solid rgba(56, 230, 255, 0.25);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
-    /* EL AGENTDECK 3D COMO FONDO ANIMADO AL ESTILO JARVIS PC */
+    /* EL AGENTDECK 3D EN EL FONDO INTERACTIVO (z-index: 1) */
     #agentdeck-bg-canvas {
       position: absolute;
       inset: 0;
@@ -199,7 +202,7 @@
       overflow: hidden;
     }
 
-    /* ETIQUETAS DE NODOS FLOTANTES EN LA RED NEURONAL VIVA */
+    /* ETIQUETAS DE NODOS FLOTANTES (z-index: 8, delante de los rayos y dedos del Robot para profundidad 3D total) */
     .node-label {
       position: absolute;
       font-family: var(--font-mono);
@@ -211,25 +214,88 @@
       pointer-events: none;
       transform: translate(-50%, -50%);
       transition: opacity 0.25s ease, transform 0.1s linear;
-      z-index: 1;
+      z-index: 8;
       text-shadow: 0 0 10px currentColor;
       border: 1px solid currentColor;
-      background: rgba(2, 6, 13, 0.75);
-      box-shadow: 0 0 12px rgba(0,0,0,0.85);
-      opacity: calc(0.78 * var(--glow-intensity));
+      background: rgba(2, 6, 13, 0.82);
+      box-shadow: 0 0 14px rgba(0,0,0,0.9);
+      opacity: calc(0.8 * var(--glow-intensity));
     }
-    .node-label.cyan-cluster { color: #38e6ff; border-color: rgba(56, 230, 255, 0.45); }
-    .node-label.amber-cluster { color: #ffb627; border-color: rgba(255, 182, 39, 0.45); }
-    .node-label.core-cluster { color: #00ff88; border-color: rgba(0, 255, 136, 0.65); font-size: 13px; z-index: 2; background: rgba(2, 6, 13, 0.92); }
+    .node-label.cyan-cluster { color: #38e6ff; border-color: rgba(56, 230, 255, 0.5); }
+    .node-label.amber-cluster { color: #ffb627; border-color: rgba(255, 182, 39, 0.5); }
+    .node-label.core-cluster { color: #00ff88; border-color: rgba(0, 255, 136, 0.75); font-size: 13px; z-index: 9; background: rgba(2, 6, 13, 0.95); }
 
-    /* BARRA PARA CONTROLAR LA LUMINOSIDAD (EN LA CABECERA DEL HERO) */
+    /* ── SILUETA DEL ROBOT HUMANOIDE ALINEADA AL BORDE DERECHO DE LA PANTALLA ── */
+    /* La espalda está al ras del borde del monitor; solo quedan el robot y el cerebro en el mismo plano que AgentDeck! */
+    .robot-showcase-hologram {
+      position: absolute;
+      right: -10px; /* La espalda comienza exactamente en el límite derecho del viewport */
+      top: 52%;
+      transform: translateY(-50%);
+      width: 47vw;
+      max-width: 800px;
+      min-width: 500px;
+      aspect-ratio: 4 / 3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      pointer-events: none; /* Deja pasar clicks al lienzo de Three.js y permite interactuar */
+      z-index: 5; /* Cohabita entre el plano Three.js y las etiquetas flotantes HUD */
+      animation: gentle-float 8s ease-in-out infinite;
+    }
+    @keyframes gentle-float {
+      0%, 100% { transform: translateY(-50%) translateY(0px); }
+      50% { transform: translateY(-50%) translateY(-14px); }
+    }
+
+    /* SILUETA PURA PNG SIN FONDO + BLEND SCREEN PARA INTEGRACIÓN CUÁNTICA CON AGENTDECK */
+    .robot-img-hologram {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: right center; /* Fuerza a la espalda a mantenerse pegada 100% al borde derecho */
+      display: block;
+      filter: contrast(1.2) saturate(1.35) drop-shadow(0 0 40px rgba(56, 230, 255, calc(0.65 * var(--glow-intensity))));
+      /* MIRADA INVERTIDA: transform scaleX(-1) para que el rostro y la mano con el cerebro miren hacia la izquierda (al centro del lienzo) */
+      transform: scaleX(-1);
+      /* MODO BLEND SCREEN: Garantiza que cualquier reflejo del vacío quede 100% fundido en la red sináptica de Three.js */
+      mix-blend-mode: screen;
+      transition: filter 0.4s ease, transform 0.4s ease;
+    }
+
+    /* Placa HUD flotante bajo la mano del robot (estilo Vercel) */
+    .robot-hud-tag {
+      position: absolute;
+      bottom: 25px;
+      left: 48%;
+      transform: translateX(-50%);
+      background: rgba(4, 14, 28, 0.9);
+      border: 1px solid var(--cyan);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 10px 26px;
+      border-radius: 99px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      color: #ffffff;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 25px rgba(56, 230, 255, calc(0.45 * var(--glow-intensity)));
+      white-space: nowrap;
+      pointer-events: auto;
+      z-index: 15;
+    }
+    .robot-hud-tag span.neon-text { color: var(--cyan-bright); font-weight: 700; text-shadow: 0 0 12px var(--cyan); }
+
+    /* BARRA PARA CONTROLAR LA LUMINOSIDAD (CABECERA DEL HERO) */
     .hero-top-toolbar {
       position: relative;
-      z-index: 10;
+      z-index: 12;
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      margin-bottom: 34px;
+      margin-bottom: 24px;
     }
     .lighting-controller {
       background: rgba(4, 14, 28, 0.88);
@@ -285,17 +351,17 @@
       text-align: right;
     }
 
-    /* CONTENIDO HERO (z-index: 10) */
+    /* CONTENIDO HERO IZQUIERDO (z-index: 10) */
     .hero-content-layer {
       position: relative;
       z-index: 10;
+      width: 100%;
     }
     .hero-grid {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr; /* Divido perfectamente en dos: Izq para el texto libre, Der para el Robot y AgentDeck 3D */
-      gap: 40px;
+      display: flex;
       align-items: center;
-      min-height: 720px;
+      min-height: 680px;
+      width: 54%; /* Deja el 46% derecho del ancho total en exclusiva para el universo 3D y el Robot */
     }
 
     .hero-left {
@@ -303,6 +369,7 @@
       flex-direction: column;
       justify-content: center;
       gap: 26px;
+      width: 100%;
     }
 
     .hero-subtag {
@@ -321,7 +388,6 @@
       width: fit-content;
     }
 
-    /* TÍTULO INMENSO Y LLAMATIVO (Limpio y legible sin que lo tape el 3D) */
     .hero-title {
       font-family: var(--font-ui);
       font-size: clamp(3.6rem, 7.8vw, 7.5rem);
@@ -388,78 +454,6 @@
       margin-top: 4px;
     }
 
-    /* ── ROBOT HUMANOIDE ALINEADO AL RECUADRO DERECHO CON AGENTDECK 3D ── */
-    /* Coexistencia total en el recuadro verde ordenado por el usuario */
-    .hero-right {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      height: 100%;
-    }
-
-    .robot-showcase-hologram {
-      position: relative;
-      width: 100%;
-      max-width: 680px; /* Expande su presencia magnánima en la mitad derecha */
-      aspect-ratio: 4 / 3;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      pointer-events: none; /* Deja transitar libremente los fotones de la constelación 3D */
-      animation: gentle-float 7s ease-in-out infinite;
-    }
-    @keyframes gentle-float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-12px); }
-    }
-
-    .robot-img-hologram {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-      filter: contrast(1.25) saturate(1.3) drop-shadow(0 0 35px rgba(56, 230, 255, calc(0.55 * var(--glow-intensity))));
-      /* MIRADA INVERTIDA: transform scaleX(-1) gira al robot de izquierda a derecha hacia el texto de la marca */
-      transform: scaleX(-1);
-      /* MODO BLEND SCREEN: Purga al 100% los píxeles negros del fondo del retrato y une el androide en el universo 3D */
-      mix-blend-mode: screen;
-      /* MÁSCARA RADIAL SUAVE EN MÚLTIPLES ETAPAS: Desvanece el contorno sin dejar marcos ni bordes visibles */
-      -webkit-mask-image: radial-gradient(circle at 48% 50%, #000 30%, rgba(0,0,0,0.7) 55%, rgba(0,0,0,0.2) 76%, transparent 88%);
-      mask-image: radial-gradient(circle at 48% 50%, #000 30%, rgba(0,0,0,0.7) 55%, rgba(0,0,0,0.2) 76%, transparent 88%);
-      transition: filter 0.4s ease, transform 0.4s ease;
-    }
-    .robot-showcase-hologram:hover .robot-img-hologram {
-      filter: contrast(1.3) saturate(1.4) drop-shadow(0 0 65px rgba(56, 230, 255, calc(0.85 * var(--glow-intensity))));
-      transform: scaleX(-1) scale(1.03);
-    }
-
-    /* Placa HUD flotante estilo píldora Vercel (Sin cortar el lienzo) */
-    .robot-hud-tag {
-      position: absolute;
-      bottom: -15px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(4, 12, 26, 0.88);
-      border: 1px solid var(--cyan);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      padding: 10px 24px;
-      border-radius: 99px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      font-family: var(--font-mono);
-      font-size: 0.88rem;
-      color: #ffffff;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 25px rgba(56, 230, 255, calc(0.4 * var(--glow-intensity)));
-      white-space: nowrap;
-      pointer-events: auto;
-      z-index: 15;
-    }
-    .robot-hud-tag span.neon-text { color: var(--cyan-bright); font-weight: 700; text-shadow: 0 0 12px var(--cyan); }
-
     /* ══════════════════════════════════════════════════════════════════════
        DESARROLLOS EN VIDEO CON MARCO TECNOLÓGICO Y BOTÓN ESTILO AUDITADO
        ══════════════════════════════════════════════════════════════════════ */
@@ -493,7 +487,6 @@
       margin-bottom: 80px;
     }
 
-    /* MARCO CYBERPUNK PARA LOS VIDEOS ("añade un marco") */
     .video-frame-card {
       background: #060e1a;
       border: 2px solid var(--border-bright);
@@ -752,20 +745,20 @@
 
     /* ── Responsive adjustments ── */
     @media (max-width: 1200px) {
-      .hero-grid { grid-template-columns: 1fr; gap: 46px; }
+      .hero-grid { width: 100%; min-height: auto; margin-bottom: 400px; }
       .hero-left { text-align: center; align-items: center; }
       .hero-subtag { margin: 0 auto; }
       .hero-subtitle { max-width: 100%; }
       .videos-grid { grid-template-columns: 1fr; }
       .lighting-controller { min-width: 100%; }
-      .robot-showcase-hologram { aspect-ratio: 16 / 9; max-height: 420px; }
+      .robot-showcase-hologram { position: absolute; right: 50%; top: auto; bottom: -20px; transform: translateX(50%); width: 92vw; max-width: 580px; min-width: 320px; }
+      .robot-img-hologram { object-position: center; }
     }
     @media (max-width: 600px) {
       .container { padding: 0 16px; }
       .hero-metrics { grid-template-columns: 1fr; }
       .hero-title { font-size: 3.2rem; }
-      .robot-showcase-hologram { aspect-ratio: 1 / 1; }
-      .robot-hud-tag { font-size: 0.78rem; padding: 8px 16px; gap: 8px; flex-wrap: wrap; justify-content: center; }
+      .robot-hud-tag { font-size: 0.76rem; padding: 8px 16px; gap: 8px; flex-wrap: wrap; justify-content: center; bottom: 5px; }
     }
   </style>
 </head>
@@ -793,10 +786,19 @@
     </div>
   </nav>
 
-  <!-- HERO SECTION CON AGENTDECK 3D Y ROBOT ALINEADOS A LA DERECHA (EN EL RECUADRO VERDE) -->
+  <!-- HERO SECTION CON SILUETA DEL ROBOT ANCLADA AL BORDE DERECHO EXACTO Y EN EL MISMO PLANO AGENTDECK -->
   <section class="hero-section">
-    <!-- El lienzo 3D neuronal se renderiza en el plano base (z-index: 1), desplazado hacia el flanco derecho -->
+    <!-- El lienzo 3D neuronal se renderiza al fondo, sincronizando sus nodos icosaédricos alrededor de la mano del Robot -->
     <div id="agentdeck-bg-canvas"></div>
+
+    <!-- SILUETA PURA DEL ROBOT ANCLADA EN EL BORDE DERECHO REAL (SU ESPALDA COMIENZA EN LA ORILLA DE LA PANTALLA) -->
+    <div class="robot-showcase-hologram">
+      <img src="media/robot_ai_humanoid_transparent.png" alt="Silueta Pura de Robot Android con Cerebro Neuronal IA" class="robot-img-hologram" />
+      <div class="robot-hud-tag">
+        <span>🤖 IA AUTÓNOMA COLOMBIA TECH</span>
+        <span class="neon-text">[ ORÁCULO ACTIVO ]</span>
+      </div>
+    </div>
 
     <div class="container hero-content-layer">
       <!-- BARRA DE CONTROL DE ILUMINACIÓN HOLOGRÁFICA EN LA PARTE SUPERIOR -->
@@ -836,17 +838,6 @@
               <span>Ver Producción & Automatización En Vivo</span>
               <span class="arrow-icon">➔</span>
             </a>
-          </div>
-        </div>
-
-        <!-- ROBOT HUMANOIDE ALINEADO EN EL RECUADRO DERECHO CON LA RED NEURONAL -->
-        <div class="hero-right">
-          <div class="robot-showcase-hologram">
-            <img src="media/robot_ai_humanoid.jpg" alt="Retrato de Robot Android Humanoide con Cerebro Neuronal IA" class="robot-img-hologram" />
-            <div class="robot-hud-tag">
-              <span>🤖 IA AUTÓNOMA COLOMBIA TECH</span>
-              <span class="neon-text">[ ORÁCULO ACTIVO ]</span>
-            </div>
           </div>
         </div>
       </div>
@@ -919,7 +910,6 @@
         
         <div class="template-card">
           <div class="template-img-box">
-            <!-- Fix 404 Odontologia aportado y preservado en colaboración con Claude -->
             <img src="assets/hero_odontologia.png" alt="Odontología Clínica Premium" loading="lazy" decoding="async" />
             <span class="template-tag">HEALTH TECH</span>
           </div>
@@ -1122,7 +1112,6 @@
 
   <!-- LÓGICA DE AGENTDECK 3D ANIMADO Y ALINEADO CON EL ROBOT A LA DERECHA -->
   <script>
-    // ── 1. Reloj HUD en Tiempo Real ──
     function updateClock() {
       const el = document.getElementById('hud-clock');
       if (el) {
@@ -1132,7 +1121,6 @@
     }
     setInterval(updateClock, 75);
 
-    // ── 2. Control de Iluminación Holográfica para el Fondo 3D y UI ──
     const slider = document.getElementById('illumination-slider');
     const valDisplay = document.getElementById('illumination-value');
     let sceneLight, pointLight, nodesGroup, particlesGroup, constellationGroup;
@@ -1155,7 +1143,6 @@
       });
     }
 
-    // ── 3. Motor AgentDeck 3D Animado al Estilo JARVIS PC (Alineado en el flanco derecho con el Robot) ──
     (function initAgentDeckBg() {
       const container = document.getElementById('agentdeck-bg-canvas');
       if (!container || typeof THREE === 'undefined') return;
@@ -1177,25 +1164,23 @@
       sceneLight.position.set(18, 32, 22);
       scene.add(sceneLight);
 
-      pointLight = new THREE.PointLight(0x00ff88, 3.2, 80);
-      pointLight.position.set(8, 8, 0); // Foco desplazado hacia el recuadro derecho
+      pointLight = new THREE.PointLight(0x00ff88, 3.4, 90);
+      pointLight.position.set(8, 7, 1); // Luz verde intensa irradiando en el flanco derecho (Cerebro del Robot)
       scene.add(pointLight);
 
       scene.add(new THREE.AmbientLight(0x0c1e38, 1.8));
 
-      // Malla holográfica base del plano de flotación
       const grid = new THREE.GridHelper(70, 56, 0x38e6ff, 0x002b4d);
       grid.position.y = -3.5;
       grid.material.transparent = true;
       grid.material.opacity = 0.45;
       scene.add(grid);
 
-      // Enjambre de partículas sinápticas en todo el lienzo
       const particleCount = 280;
       const particleGeo = new THREE.BufferGeometry();
       const positions = new Float32Array(particleCount * 3);
       for (let p = 0; p < particleCount * 3; p += 3) {
-        positions[p] = (Math.random() - 0.5) * 48;     // X
+        positions[p] = (Math.random() - 0.5) * 50;     // X
         positions[p + 1] = (Math.random() - 0.5) * 26; // Y
         positions[p + 2] = (Math.random() - 0.5) * 35; // Z
       }
@@ -1210,9 +1195,9 @@
       particlesGroup = new THREE.Points(particleGeo, particleMat);
       scene.add(particlesGroup);
 
-      // GRUPO MAESTRO DE CONSTELACIÓN AGENTDECK (ALINEADO A LA DERECHA EN PANTALLAS ESCRITORIO)
+      // GRUPO MAESTRO DE CONSTELACIÓN ALINEADO CON EL CEREBRO Y LA MANO DEL ROBOT EN LA DERECHA
       constellationGroup = new THREE.Group();
-      constellationGroup.position.x = width > 1200 ? 8.2 : 0; // Traslada la red neuronal al recuadro verde derecho donde está el robot!
+      constellationGroup.position.set(width > 1200 ? 7.8 : 0, 1.2, -0.5); 
       scene.add(constellationGroup);
 
       const agentNames = [
@@ -1235,19 +1220,18 @@
 
       const nodeObjects = [];
       
-      // GEOMETRÍA ICOSAEDRA WIREFRAME PARA TODOS LOS AGENTES
       const agentNodeGeo = new THREE.IcosahedronGeometry(0.58, 2);
       const agentInnerGeo = new THREE.IcosahedronGeometry(0.22, 1);
 
       agentNames.forEach((name, i) => {
         const isAmber = (i % 2 === 0);
-        const clusterCenter = isAmber ? -8.5 : 8.5;
+        const clusterCenter = isAmber ? -8.0 : 8.0;
         
         const angle = (i / agentNames.length) * Math.PI * 4;
-        const dist = 3.8 + (i % 5) * 1.35;
+        const dist = 3.6 + (i % 5) * 1.35;
         const x = clusterCenter + Math.cos(angle) * dist;
-        const z = Math.sin(angle) * dist - 2;
-        const y = Math.sin(x * 0.4 + z) * 3.2 + 3;
+        const z = Math.sin(angle) * dist - 1.5;
+        const y = Math.sin(x * 0.4 + z) * 3.2 + 2.5;
 
         const color = isAmber ? 0xffb627 : 0x38e6ff;
         
@@ -1271,8 +1255,7 @@
 
         nodesGroup.add(nodeGroup);
 
-        // Conexión sináptica dinámica hacia el núcleo central
-        const lineMat = new THREE.LineBasicMaterial({ color: color, transparent: true, opacity: 0.3, blending: THREE.AdditiveBlending });
+        const lineMat = new THREE.LineBasicMaterial({ color: color, transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending });
         const points = [new THREE.Vector3(x, y, z), new THREE.Vector3(0, 3.5, -1)];
         const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
         const line = new THREE.Line(lineGeo, lineMat);
@@ -1302,7 +1285,7 @@
       const coreMat = new THREE.MeshPhongMaterial({
         color: 0x00ff88,
         emissive: 0x00ff88,
-        emissiveIntensity: 0.9,
+        emissiveIntensity: 0.95,
         wireframe: true
       });
       const coreMesh = new THREE.Mesh(coreGeo, coreMat);
@@ -1316,20 +1299,19 @@
       nodeObjects.push({ mesh: coreMesh, label: coreLabel, isCore: true });
 
       const ringGeo1 = new THREE.TorusGeometry(6.4, 0.06, 16, 100);
-      const ringMat1 = new THREE.MeshBasicMaterial({ color: 0x38e6ff, transparent: true, opacity: 0.7 });
+      const ringMat1 = new THREE.MeshBasicMaterial({ color: 0x38e6ff, transparent: true, opacity: 0.75 });
       const ring1 = new THREE.Mesh(ringGeo1, ringMat1);
       ring1.position.set(0, 3.5, -1);
       ring1.rotation.x = Math.PI / 2.2;
       constellationGroup.add(ring1);
 
       const ringGeo2 = new THREE.TorusGeometry(9.8, 0.08, 16, 100);
-      const ringMat2 = new THREE.MeshBasicMaterial({ color: 0xffb627, transparent: true, opacity: 0.55 });
+      const ringMat2 = new THREE.MeshBasicMaterial({ color: 0xffb627, transparent: true, opacity: 0.6 });
       const ring2 = new THREE.Mesh(ringGeo2, ringMat2);
       ring2.position.set(0, 3.5, -1);
       ring2.rotation.y = Math.PI / 3.2;
       constellationGroup.add(ring2);
 
-      // Interacción de Parallax 3D con el cursor del mouse (Estilo JARVIS PC)
       let mouseX = 0, mouseY = 0;
       window.addEventListener('mousemove', (e) => {
         mouseX = (e.clientX / window.innerWidth) * 2 - 1;
@@ -1342,7 +1324,7 @@
         const halfHeight = container.clientHeight / 2;
 
         nodeObjects.forEach(obj => {
-          obj.mesh.getWorldPosition(wp); // Captura automáticamente la traslación de constellationGroup (+8.2 en el flanco derecho)
+          obj.mesh.getWorldPosition(wp);
           wp.project(camera);
 
           if (wp.z > 1) {
@@ -1368,7 +1350,6 @@
         particlesGroup.rotation.y -= 0.0015;
         particlesGroup.rotation.x = Math.sin(elapsed * 0.4) * 0.05;
 
-        // Movimiento de cámara parallax suave al estilo JARVIS
         camera.position.x += (mouseX * 4.0 - camera.position.x) * 0.05;
         camera.position.y += (14 + mouseY * 2.5 - camera.position.y) * 0.05;
         camera.lookAt(0, 2.5, 0);
@@ -1397,7 +1378,7 @@
             const posAttr = obj.line.geometry.attributes.position;
             posAttr.setXYZ(0, obj.mesh.position.x, obj.mesh.position.y, obj.mesh.position.z);
             posAttr.needsUpdate = true;
-            obj.line.material.opacity = 0.15 + ((Math.sin(elapsed * 3.5 + obj.colorIdx) + 1) / 2) * 0.35;
+            obj.line.material.opacity = 0.18 + ((Math.sin(elapsed * 3.5 + obj.colorIdx) + 1) / 2) * 0.35;
           }
         });
 
@@ -1416,7 +1397,7 @@
         camera.updateProjectionMatrix();
         renderer.setSize(w, h);
         if (constellationGroup) {
-          constellationGroup.position.x = w > 1200 ? 8.2 : 0;
+          constellationGroup.position.set(w > 1200 ? 7.8 : 0, 1.2, -0.5);
         }
       });
     })();
