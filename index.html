@@ -12,15 +12,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
 
-  <!-- Three.js (Para AgentDeck 3D Visualizer) -->
+  <!-- Three.js (Para AgentDeck 3D Visualizer con Nodos Labeled) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <!-- GSAP Animation Engine -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
   <style>
     /* ══════════════════════════════════════════════════════════════════════
-       JARVIS PC & VERCEL SYSTEM — PALETA Y TOKENS HOLOGRÁFICOS DE PRODUCCIÓN
+       JARVIS PC & VERCEL SYSTEM — TOKENS DE PRODUCCIÓN & DISEÑO IMPECABLE
        ══════════════════════════════════════════════════════════════════════ */
     :root {
       --cyan: #38e6ff;
@@ -31,13 +30,13 @@
       --orange: #ff6a00;
       --purple: #a855f7;
       --dark: #02060d;
-      --panel: rgba(4, 14, 28, 0.82);
-      --panel-hover: rgba(10, 24, 46, 0.95);
-      --border: rgba(56, 230, 255, 0.32);
+      --panel: rgba(6, 15, 30, 0.78);
+      --panel-hover: rgba(12, 26, 48, 0.95);
+      --border: rgba(56, 230, 255, 0.28);
       --border-bright: rgba(56, 230, 255, 0.85);
       --text: #e0f4ff;
       --dim: rgba(56, 230, 255, 0.6);
-      --glow-intensity: 1; /* Modificado en tiempo real por barra de iluminación */
+      --glow-intensity: 1; /* Regulable en tiempo real por barra de iluminación */
       --hud-glow: rgba(0, 229, 255, calc(0.55 * var(--glow-intensity)));
       --gold-glow: rgba(255, 182, 39, calc(0.5 * var(--glow-intensity)));
       
@@ -76,21 +75,11 @@
       pointer-events: none;
     }
 
-    /* ── Scanline Láser Atmosférico ── */
-    .scanline {
-      position: fixed; left: 0; top: 0; width: 100%; height: 2px; z-index: 50;
-      background: linear-gradient(90deg, transparent, var(--cyan-bright), transparent);
-      opacity: calc(0.6 * var(--glow-intensity));
-      animation: scan 6s linear infinite;
-      pointer-events: none;
-    }
-    @keyframes scan { 0%{top: -2px} 100%{top: 100%} }
-
     /* ── Contenedor Principal ── */
     .container {
-      max-width: 1540px;
+      max-width: 1580px;
       margin: 0 auto;
-      padding: 0 32px;
+      padding: 0 36px;
       position: relative;
       z-index: 2;
     }
@@ -99,7 +88,7 @@
     .hud-nav {
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 1000;
       background: rgba(2, 6, 13, 0.85);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
@@ -172,22 +161,23 @@
     }
 
     /* ══════════════════════════════════════════════════════════════════════
-       SECCIÓN HERO: TÍTULO GIGANTE + ROBOT A UN COSTADO
+       SECCIÓN HERO: TÍTULO INMENSO + ROBOT GRANDE IMPECABLE (VERCEL DESIGN)
        ══════════════════════════════════════════════════════════════════════ */
     .hero-section {
-      padding: 80px 0 60px;
+      padding: 60px 0 70px;
       position: relative;
     }
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
+      grid-template-columns: 1.1fr 0.9fr;
       gap: 50px;
-      align-items: center;
+      align-items: stretch;
     }
 
     .hero-left {
       display: flex;
       flex-direction: column;
+      justify-content: center;
       gap: 28px;
     }
 
@@ -207,10 +197,10 @@
       width: fit-content;
     }
 
-    /* TÍTULO MÁS GRANDE Y LLAMATIVO */
+    /* TÍTULO INMENSO, POTENTE Y LLAMATIVO */
     .hero-title {
       font-family: var(--font-ui);
-      font-size: clamp(3.8rem, 8.5vw, 7.8rem);
+      font-size: clamp(3.6rem, 8vw, 7.5rem);
       font-weight: 900;
       line-height: 0.95;
       letter-spacing: 0.02em;
@@ -224,12 +214,12 @@
 
     .hero-subtitle {
       font-family: var(--font-tx);
-      font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+      font-size: clamp(1.35rem, 2.2vw, 1.85rem);
       font-weight: 600;
       color: var(--text);
       opacity: 0.92;
-      line-height: 1.4;
-      max-width: 90%;
+      line-height: 1.45;
+      max-width: 95%;
     }
     .hero-subtitle span { color: var(--cyan); font-weight: 700; text-shadow: 0 0 12px var(--hud-glow); }
 
@@ -237,7 +227,7 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 16px;
-      margin-top: 10px;
+      margin-top: 6px;
     }
     .metric-panel {
       background: var(--panel);
@@ -246,14 +236,19 @@
       position: relative;
       border-left: 3px solid var(--cyan);
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .metric-panel:hover {
+      background: var(--panel-hover);
+      border-color: var(--cyan-bright);
     }
     .metric-panel::after {
       content: ''; position: absolute; top: 2px; right: 2px;
-      width: 10px; height: 10px; border-top: 2px solid var(--cyan); border-right: 2px solid var(--cyan);
+      width: 8px; height: 8px; border-top: 2px solid var(--cyan); border-right: 2px solid var(--cyan);
     }
     .metric-val {
       font-family: var(--font-mono);
-      font-size: 1.85rem;
+      font-size: 1.95rem;
       font-weight: 700;
       color: var(--cyan-bright);
       text-shadow: 0 0 15px var(--hud-glow);
@@ -267,94 +262,103 @@
       margin-top: 4px;
     }
 
-    /* ── COSTADO DERECHO: ROBOT EN MÁXIMA CALIDAD CON MARCO HOLOGRÁFICO ── */
+    /* ── ROBOT GRANDE E IMPECABLE (ESTILIZADO VERCEL & APPLE DESIGN) ── */
     .hero-right {
       position: relative;
       display: flex;
-      justify-content: center;
-      align-items: center;
+      flex-direction: column;
+      justify-content: stretch;
     }
 
-    .robot-showcase {
+    .robot-showcase-large {
       position: relative;
       width: 100%;
-      max-width: 650px;
-      border-radius: 12px;
-      background: rgba(6, 14, 26, 0.9);
-      border: 2px solid var(--cyan);
-      padding: 16px;
-      box-shadow: 0 0 50px rgba(56, 230, 255, calc(0.35 * var(--glow-intensity))),
-                  inset 0 0 30px rgba(56, 230, 255, calc(0.2 * var(--glow-intensity)));
-      transform: perspective(1000px) rotateY(-5deg);
-      transition: transform 0.5s ease, box-shadow 0.5s ease;
-    }
-    .robot-showcase:hover {
-      transform: perspective(1000px) rotateY(0deg) scale(1.02);
-      box-shadow: 0 0 80px rgba(56, 230, 255, calc(0.6 * var(--glow-intensity)));
-    }
-
-    /* Esquinas angulares HUD estilo Iron Man */
-    .robot-showcase::before, .robot-showcase::after {
-      content: ''; position: absolute; width: 28px; height: 28px;
-      border: 3px solid var(--cyan-bright); filter: drop-shadow(0 0 8px var(--hud-glow));
-      pointer-events: none; z-index: 10;
-    }
-    .robot-showcase::before { top: -4px; left: -4px; border-right: 0; border-bottom: 0; }
-    .robot-showcase::after { bottom: -4px; right: -4px; border-left: 0; border-top: 0; }
-
-    .robot-image-container {
-      position: relative;
-      border-radius: 8px;
+      height: 100%;
+      min-height: 580px;
+      border-radius: 20px;
+      background: rgba(6, 15, 30, 0.65);
+      border: 1px solid rgba(56, 230, 255, 0.45);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 14px;
+      box-shadow: 0 20px 70px rgba(0, 0, 0, 0.85),
+                  0 0 60px rgba(56, 230, 255, calc(0.35 * var(--glow-intensity))),
+                  inset 0 0 30px rgba(56, 230, 255, calc(0.15 * var(--glow-intensity)));
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
       overflow: hidden;
-      max-height: 520px;
+    }
+    .robot-showcase-large:hover {
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95),
+                  0 0 85px rgba(56, 230, 255, calc(0.6 * var(--glow-intensity)));
+      border-color: var(--cyan-bright);
+    }
+
+    /* Esquinas angulares HUD estilo JARVIS PC */
+    .robot-showcase-large::before, .robot-showcase-large::after {
+      content: ''; position: absolute; width: 32px; height: 32px;
+      border: 3px solid var(--cyan-bright); filter: drop-shadow(0 0 10px var(--hud-glow));
+      pointer-events: none; z-index: 20;
+    }
+    .robot-showcase-large::before { top: 6px; left: 6px; border-right: 0; border-bottom: 0; }
+    .robot-showcase-large::after { bottom: 6px; right: 6px; border-left: 0; border-top: 0; }
+
+    .robot-image-box {
+      position: relative;
+      flex: 1;
+      border-radius: 14px;
+      overflow: hidden;
       background: #02060d;
+      display: flex;
     }
     .robot-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center 35%;
       display: block;
-      filter: contrast(1.15) saturate(1.2);
+      filter: contrast(1.18) saturate(1.25);
+      transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .robot-showcase-large:hover .robot-img {
+      transform: scale(1.05);
     }
     
-    /* Overlay holográfico con haz de luz de escaneo */
-    .robot-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(180deg, transparent 70%, rgba(2, 6, 13, 0.9) 100%);
-      pointer-events: none;
-    }
-    .robot-badge {
+    .robot-glass-badge {
       position: absolute;
-      bottom: 20px; left: 20px; right: 20px;
-      background: rgba(4, 14, 28, 0.92);
+      bottom: 22px; left: 22px; right: 22px;
+      background: rgba(4, 14, 28, 0.88);
       border: 1px solid var(--cyan);
-      backdrop-filter: blur(10px);
-      padding: 12px 18px;
-      border-radius: 6px;
+      backdrop-filter: blur(14px);
+      padding: 14px 22px;
+      border-radius: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-family: var(--font-mono);
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: #fff;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      box-shadow: 0 10px 35px rgba(0,0,0,0.8);
+      z-index: 10;
     }
-    .robot-badge span.neon-text { color: var(--cyan); font-weight: 700; text-shadow: 0 0 10px var(--cyan); }
+    .robot-glass-badge span.neon-text { color: var(--cyan); font-weight: 700; text-shadow: 0 0 10px var(--cyan); }
     
     /* ══════════════════════════════════════════════════════════════════════
-       AGENTDECK 3D VISUALIZER & BARRA DE CONTROL DE ILUMINACIÓN
+       AGENTDECK 3D GRANDE: RED NEURONAL REAL DE 46 AGENTES CON NODOS Y ETIQUETAS
        ══════════════════════════════════════════════════════════════════════ */
     .agentdeck-section {
-      padding: 50px 0 70px;
+      padding: 30px 0 80px;
       position: relative;
       z-index: 10;
     }
     .agentdeck-box {
-      background: rgba(4, 14, 28, 0.9);
-      border: 2px solid var(--border);
-      border-radius: 14px;
-      padding: 32px;
-      box-shadow: 0 10px 50px rgba(0,0,0,0.8), 0 0 40px rgba(56, 230, 255, calc(0.2 * var(--glow-intensity)));
+      background: rgba(6, 15, 30, 0.85);
+      border: 2px solid var(--border-bright);
+      border-radius: 20px;
+      padding: 36px;
+      box-shadow: 0 20px 80px rgba(0,0,0,0.9), 0 0 60px rgba(56, 230, 255, calc(0.25 * var(--glow-intensity)));
       position: relative;
       overflow: hidden;
     }
@@ -364,59 +368,60 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 20px;
-      border-bottom: 1px solid rgba(56, 230, 255, 0.2);
-      padding-bottom: 20px;
+      gap: 24px;
+      border-bottom: 1px solid rgba(56, 230, 255, 0.25);
+      padding-bottom: 22px;
       margin-bottom: 24px;
     }
     .agentdeck-title-group {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 18px;
     }
     .agentdeck-icon {
-      width: 44px; height: 44px;
-      background: rgba(56, 230, 255, 0.1);
-      border: 1px solid var(--cyan);
-      border-radius: 8px;
+      width: 50px; height: 50px;
+      background: rgba(56, 230, 255, 0.12);
+      border: 2px solid var(--cyan);
+      border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
-      color: var(--cyan);
-      font-size: 1.5rem;
-      box-shadow: 0 0 15px var(--hud-glow);
+      color: var(--cyan-bright);
+      font-size: 1.8rem;
+      box-shadow: 0 0 20px var(--hud-glow);
     }
     .agentdeck-title h2 {
       font-family: var(--font-ui);
-      font-size: 1.6rem;
+      font-size: 1.8rem;
       color: #fff;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      text-shadow: 0 0 15px var(--hud-glow);
+      text-shadow: 0 0 20px var(--hud-glow);
     }
     .agentdeck-title p {
       font-family: var(--font-tx);
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       color: var(--dim);
+      margin-top: 2px;
     }
 
-    /* BARRA PARA CONTROLAR LA ILUMINACIÓN */
+    /* BARRA PARA CONTROLAR LA ILUMINACIÓN Y BRILLO HUD */
     .lighting-controller {
-      background: rgba(2, 6, 13, 0.85);
+      background: rgba(2, 6, 13, 0.9);
       border: 1px solid var(--cyan);
-      padding: 12px 24px;
-      border-radius: 8px;
+      padding: 14px 28px;
+      border-radius: 10px;
       display: flex;
       align-items: center;
-      gap: 18px;
-      box-shadow: 0 0 20px rgba(56, 230, 255, 0.25);
-      min-width: 340px;
+      gap: 20px;
+      box-shadow: 0 0 25px rgba(56, 230, 255, 0.35);
+      min-width: 360px;
     }
     .lighting-label {
       font-family: var(--font-mono);
-      font-size: 0.85rem;
-      color: var(--gold);
+      font-size: 0.9rem;
+      color: var(--cyan-bright);
       letter-spacing: 0.1em;
       white-space: nowrap;
-      text-shadow: 0 0 8px var(--gold-glow);
+      text-shadow: 0 0 10px var(--hud-glow);
     }
     .lighting-slider {
       flex: 1;
@@ -424,49 +429,75 @@
       width: 100%;
       height: 6px;
       border-radius: 3px;
-      background: rgba(56, 230, 255, 0.25);
+      background: rgba(56, 230, 255, 0.3);
       outline: none;
       cursor: pointer;
     }
     .lighting-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
       background: var(--cyan-bright);
       border: 2px solid #ffffff;
-      box-shadow: 0 0 15px var(--cyan), 0 0 25px var(--cyan);
+      box-shadow: 0 0 15px var(--cyan), 0 0 30px var(--cyan);
       cursor: pointer;
-      transition: transform 0.1s;
+      transition: transform 0.15s;
     }
-    .lighting-slider::-webkit-slider-thumb:hover { transform: scale(1.2); }
+    .lighting-slider::-webkit-slider-thumb:hover { transform: scale(1.25); }
     .lighting-value {
       font-family: var(--font-mono);
-      font-size: 0.95rem;
+      font-size: 1rem;
       color: #ffffff;
       font-weight: 700;
-      min-width: 50px;
+      min-width: 55px;
       text-align: right;
     }
 
     #agentdeck-canvas-container {
       width: 100%;
-      height: 380px;
-      background: rgba(2, 6, 13, 0.7);
-      border-radius: 8px;
+      height: 680px; /* AGENTDECK GRANDE CON EXPANDIDA RED NEURONAL */
+      background: radial-gradient(circle at center, rgba(10, 28, 56, 0.8) 0%, rgba(2, 6, 13, 0.95) 100%);
+      border-radius: 14px;
       position: relative;
       overflow: hidden;
-      border: 1px solid rgba(56, 230, 255, 0.15);
+      border: 1px solid rgba(56, 230, 255, 0.2);
+      box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.8);
     }
+
+    /* ETIQUETAS DE NODOS FLOTANTES (COMO EN JARVIS PC) */
+    .node-label {
+      position: absolute;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.2s, transform 0.2s;
+      z-index: 10;
+      text-shadow: 0 0 8px currentColor;
+      border: 1px solid currentColor;
+      background: rgba(2, 6, 13, 0.75);
+      box-shadow: 0 0 10px rgba(0,0,0,0.8);
+    }
+    .node-label.cyan-cluster { color: #38e6ff; border-color: rgba(56, 230, 255, 0.4); }
+    .node-label.amber-cluster { color: #ffb627; border-color: rgba(255, 182, 39, 0.4); }
+    .node-label.core-cluster { color: #00ff88; border-color: rgba(0, 255, 136, 0.5); font-size: 13px; z-index: 20; background: rgba(2, 6, 13, 0.9); }
+
     .agentdeck-footer-badges {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 16px;
+      margin-top: 20px;
       font-family: var(--font-mono);
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       color: var(--dim);
+      flex-wrap: wrap;
+      gap: 15px;
     }
 
     /* ══════════════════════════════════════════════════════════════════════
@@ -474,21 +505,21 @@
        ══════════════════════════════════════════════════════════════════════ */
     .section-title-wrapper {
       text-align: center;
-      margin: 60px 0 40px;
+      margin: 70px 0 44px;
     }
     .section-subtitle-tag {
       font-family: var(--font-mono);
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       color: var(--green);
-      letter-spacing: 0.2em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       display: inline-block;
       margin-bottom: 8px;
-      text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+      text-shadow: 0 0 12px rgba(0, 255, 136, 0.5);
     }
     .section-main-title {
       font-family: var(--font-ui);
-      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-size: clamp(2.3rem, 4.2vw, 3.6rem);
       font-weight: 800;
       color: #fff;
       text-shadow: 0 0 25px var(--hud-glow);
@@ -506,10 +537,10 @@
     .video-frame-card {
       background: #060e1a;
       border: 2px solid var(--border-bright);
-      border-radius: 16px;
-      padding: 24px;
+      border-radius: 18px;
+      padding: 26px;
       position: relative;
-      box-shadow: 0 15px 45px rgba(0,0,0,0.8), 0 0 40px rgba(56, 230, 255, calc(0.25 * var(--glow-intensity)));
+      box-shadow: 0 18px 50px rgba(0,0,0,0.85), 0 0 45px rgba(56, 230, 255, calc(0.28 * var(--glow-intensity)));
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -517,30 +548,29 @@
     }
     .video-frame-card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 70px rgba(56, 230, 255, calc(0.5 * var(--glow-intensity)));
+      box-shadow: 0 24px 70px rgba(0,0,0,0.95), 0 0 80px rgba(56, 230, 255, calc(0.55 * var(--glow-intensity)));
       border-color: var(--cyan);
     }
 
-    /* Esquinas decorativas del marco */
     .video-frame-card::before, .video-frame-card::after {
-      content: ''; position: absolute; width: 24px; height: 24px;
-      border: 3px solid var(--cyan-bright); filter: drop-shadow(0 0 6px var(--hud-glow));
+      content: ''; position: absolute; width: 26px; height: 26px;
+      border: 3px solid var(--cyan-bright); filter: drop-shadow(0 0 8px var(--hud-glow));
       pointer-events: none; z-index: 10;
     }
-    .video-frame-card::before { top: 6px; left: 6px; border-right: 0; border-bottom: 0; }
-    .video-frame-card::after { bottom: 6px; right: 6px; border-left: 0; border-top: 0; }
+    .video-frame-card::before { top: 7px; left: 7px; border-right: 0; border-bottom: 0; }
+    .video-frame-card::after { bottom: 7px; right: 7px; border-left: 0; border-top: 0; }
 
     .video-top-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
       background: rgba(2, 6, 13, 0.9);
-      padding: 8px 14px;
-      border-radius: 6px;
-      border: 1px solid rgba(56, 230, 255, 0.2);
-      margin-bottom: 16px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(56, 230, 255, 0.25);
+      margin-bottom: 18px;
       font-family: var(--font-mono);
-      font-size: 0.8rem;
+      font-size: 0.82rem;
     }
     .video-title-pill {
       color: var(--cyan-bright);
@@ -551,22 +581,22 @@
     .video-status-indicator {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       color: var(--green);
     }
 
     .video-player-container {
       position: relative;
       width: 100%;
-      border-radius: 8px;
+      border-radius: 10px;
       overflow: hidden;
       background: #000;
-      border: 1px solid rgba(56, 230, 255, 0.3);
-      box-shadow: inset 0 0 20px rgba(56, 230, 255, 0.2);
+      border: 1px solid rgba(56, 230, 255, 0.35);
+      box-shadow: inset 0 0 25px rgba(56, 230, 255, 0.25);
     }
     .video-player-container video {
       width: 100%;
-      height: 380px;
+      height: 400px;
       object-fit: contain;
       display: block;
       background: #02060d;
@@ -574,14 +604,14 @@
 
     .video-desc {
       font-family: var(--font-tx);
-      font-size: 1.1rem;
+      font-size: 1.12rem;
       color: var(--text);
-      margin: 18px 0;
-      line-height: 1.5;
+      margin: 20px 0;
+      line-height: 1.55;
     }
 
     /* ══════════════════════════════════════════════════════════════════════
-       BOTONES EXACTOS A LA IMAGEN REF (VER PRODUCCIÓN EN VIVO ➔)
+       BOTONES EXACTOS A LA CAPTURA (VER PRODUCCIÓN EN VIVO ➔)
        ══════════════════════════════════════════════════════════════════════ */
     .btn-live-action {
       background: #091322;
@@ -595,7 +625,7 @@
       align-items: center;
       font-family: var(--font-tx);
       font-weight: 700;
-      font-size: 1.15rem;
+      font-size: 1.18rem;
       letter-spacing: 0.05em;
       transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
       box-shadow: 0 4px 15px rgba(0,0,0,0.5);
@@ -603,13 +633,13 @@
       margin-top: auto;
     }
     .btn-live-action .arrow-icon {
-      font-size: 1.3rem;
+      font-size: 1.35rem;
       transition: transform 0.35s ease, color 0.35s ease;
     }
     .btn-live-action:hover {
-      background: rgba(56, 230, 255, 0.12);
+      background: rgba(56, 230, 255, 0.14);
       border-color: var(--cyan);
-      box-shadow: 0 0 25px rgba(56, 230, 255, calc(0.45 * var(--glow-intensity)));
+      box-shadow: 0 0 28px rgba(56, 230, 255, calc(0.5 * var(--glow-intensity)));
       color: #fff;
     }
     .btn-live-action:hover .arrow-icon {
@@ -623,38 +653,38 @@
     .portfolio-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-      gap: 32px;
+      gap: 34px;
       margin-bottom: 90px;
     }
 
     .template-card {
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 22px;
+      border-radius: 16px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
       gap: 18px;
       position: relative;
       overflow: hidden;
       transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.65);
     }
     .template-card:hover {
       background: var(--panel-hover);
       border-color: var(--cyan);
       transform: translateY(-6px);
-      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.8), 0 0 35px rgba(56, 230, 255, calc(0.3 * var(--glow-intensity)));
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.85), 0 0 40px rgba(56, 230, 255, calc(0.35 * var(--glow-intensity)));
     }
 
     .template-img-box {
       width: 100%;
-      height: 220px;
-      border-radius: 8px;
+      height: 230px;
+      border-radius: 10px;
       overflow: hidden;
       position: relative;
       background: #02060d;
-      border: 1px solid rgba(56, 230, 255, 0.15);
+      border: 1px solid rgba(56, 230, 255, 0.18);
     }
     .template-img-box img {
       width: 100%; height: 100%;
@@ -666,119 +696,120 @@
     }
     .template-tag {
       position: absolute; top: 12px; right: 12px;
-      background: rgba(2, 6, 13, 0.88);
+      background: rgba(2, 6, 13, 0.9);
       border: 1px solid var(--cyan);
       color: var(--cyan-bright);
       font-family: var(--font-mono);
-      font-size: 0.75rem;
-      padding: 4px 10px;
-      border-radius: 4px;
+      font-size: 0.76rem;
+      padding: 5px 12px;
+      border-radius: 5px;
       letter-spacing: 0.1em;
+      box-shadow: 0 0 10px rgba(56, 230, 255, 0.3);
     }
 
     .template-info h3 {
       font-family: var(--font-ui);
-      font-size: 1.35rem;
+      font-size: 1.4rem;
       color: #fff;
       letter-spacing: 0.05em;
       margin-bottom: 8px;
     }
     .template-info p {
       font-family: var(--font-tx);
-      font-size: 1.05rem;
+      font-size: 1.08rem;
       color: var(--text);
-      opacity: 0.85;
-      line-height: 1.45;
+      opacity: 0.88;
+      line-height: 1.5;
     }
 
     /* ══════════════════════════════════════════════════════════════════════
        REDES SOCIALES VERIFICADAS & CONECTADAS (MÓVIL POCO F6 / ADB)
        ══════════════════════════════════════════════════════════════════════ */
     .social-section {
-      background: rgba(4, 14, 28, 0.9);
+      background: rgba(6, 15, 30, 0.88);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 50px 40px;
+      border-radius: 20px;
+      padding: 50px 44px;
       margin-bottom: 80px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+      box-shadow: 0 15px 50px rgba(0,0,0,0.85);
       position: relative;
     }
     .social-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin-top: 30px;
+      gap: 22px;
+      margin-top: 32px;
     }
     .social-card {
       background: #091322;
       border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 12px;
-      padding: 20px;
+      border-radius: 14px;
+      padding: 22px;
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 18px;
       text-decoration: none;
       transition: all 0.3s ease;
     }
     .social-card:hover {
-      background: rgba(56, 230, 255, 0.1);
+      background: rgba(56, 230, 255, 0.12);
       border-color: var(--cyan);
       transform: translateX(6px);
-      box-shadow: 0 0 20px rgba(56, 230, 255, calc(0.3 * var(--glow-intensity)));
+      box-shadow: 0 0 25px rgba(56, 230, 255, calc(0.35 * var(--glow-intensity)));
     }
     .social-icon {
-      width: 46px; height: 46px;
+      width: 50px; height: 50px;
       background: rgba(255, 255, 255, 0.05);
-      border-radius: 10px;
+      border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
       color: var(--cyan-bright);
-      font-size: 1.5rem;
-      border: 1px solid rgba(56, 230, 255, 0.3);
+      font-size: 1.6rem;
+      border: 1px solid rgba(56, 230, 255, 0.35);
     }
     .social-info h4 {
       font-family: var(--font-tx);
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       font-weight: 700;
       color: #fff;
     }
     .social-info p {
       font-family: var(--font-mono);
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       color: var(--dim);
     }
 
     /* ── FOOTER HOLOGRÁFICO ── */
     footer {
       border-top: 1px solid var(--border);
-      padding: 40px 0;
+      padding: 44px 0;
       background: rgba(2, 6, 13, 0.95);
       text-align: center;
       font-family: var(--font-mono);
       color: var(--dim);
-      font-size: 0.9rem;
+      font-size: 0.92rem;
     }
     footer span { color: var(--cyan); font-weight: 700; }
 
     /* ── Responsive adjustments ── */
-    @media (max-width: 1100px) {
+    @media (max-width: 1200px) {
       .hero-grid { grid-template-columns: 1fr; gap: 40px; }
       .hero-left { text-align: center; align-items: center; }
       .hero-subtag { margin: 0 auto; }
       .hero-subtitle { max-width: 100%; }
       .videos-grid { grid-template-columns: 1fr; }
       .lighting-controller { min-width: 100%; }
+      .robot-showcase-large { min-height: 480px; }
+      #agentdeck-canvas-container { height: 580px; }
     }
     @media (max-width: 600px) {
       .container { padding: 0 16px; }
       .hero-metrics { grid-template-columns: 1fr; }
       .hero-title { font-size: 3.2rem; }
+      #agentdeck-canvas-container { height: 500px; }
     }
   </style>
 </head>
 <body>
-
-  <!-- Scanline Atmosférico -->
-  <div class="scanline"></div>
 
   <!-- Navegación Superior -->
   <nav class="hud-nav">
@@ -804,7 +835,7 @@
 
   <main class="container">
     
-    <!-- HERO SECTION: TÍTULO INMENSO + ROBOT A UN COSTADO -->
+    <!-- HERO SECTION: TÍTULO INMENSO + ROBOT GRANDE IMPECABLE -->
     <section class="hero-section">
       <div class="hero-grid">
         <div class="hero-left">
@@ -829,7 +860,7 @@
               <div class="metric-label">Alucinación Fable 5</div>
             </div>
           </div>
-          <div style="margin-top: 10px; width: 100%;">
+          <div style="margin-top: 12px; width: 100%;">
             <a href="#videos-desarrollos" class="btn-live-action">
               <span>Ver Producción & Automatización En Vivo</span>
               <span class="arrow-icon">➔</span>
@@ -837,13 +868,12 @@
           </div>
         </div>
 
-        <!-- ROBOT A UN COSTADO CON MARCO Y MÁXIMA CALIDAD -->
+        <!-- ROBOT GRANDE CON ESTILIZACIÓN VERCEL E IMPECABLE -->
         <div class="hero-right">
-          <div class="robot-showcase">
-            <div class="robot-image-container">
-              <img src="media/robot_world.jpg" alt="Robot Cyberpunk sosteniendo el mundo con satélites en órbita" class="robot-img" />
-              <div class="robot-overlay"></div>
-              <div class="robot-badge">
+          <div class="robot-showcase-large">
+            <div class="robot-image-box">
+              <img src="media/robot_world.jpg" alt="Robot Cyberpunk sosteniendo el mundo y red de satélites" class="robot-img" />
+              <div class="robot-glass-badge">
                 <span>🤖 IA AUTÓNOMA COLOMBIA TECH</span>
                 <span class="neon-text">[ SISTEMA ORÁCULO ACTIVO ]</span>
               </div>
@@ -853,33 +883,36 @@
       </div>
     </section>
 
-    <!-- AGENTDECK 3D VISUALIZER & BARRA PARA CONTROLAR LA ILUMINACIÓN -->
+    <!-- AGENTDECK 3D GRANDE: RED NEURONAL REAL DE 46 AGENTES CON NODOS Y ETIQUETAS -->
     <section class="agentdeck-section" id="agentdeck">
       <div class="agentdeck-box">
         <div class="agentdeck-header">
           <div class="agentdeck-title-group">
             <div class="agentdeck-icon">🌐</div>
             <div class="agentdeck-title">
-              <h2>AgentDeck 3D — Red Neuronal & Telemetría Oráculo</h2>
-              <p>Visualización interactiva en tiempo real de los 46 Agentes Especialistas y Flotas Claude/Gemini.</p>
+              <h2>AgentDeck 3D — Oráculo Maestro & Red Neuronal Labeled</h2>
+              <p>Visualización espacial de los 46 Agentes Especialistas de nuestro Vault en Clústers Telemétricos (Estilo JARVIS PC).</p>
             </div>
           </div>
 
-          <!-- BARRA DE CONTROL DE ILUMINACIÓN HOLOGRÁFICA -->
+          <!-- BARRA DE CONTROL DE ILUMINACIÓN HOLOGRÁFICA Y BRILLO HUD -->
           <div class="lighting-controller">
-            <span class="lighting-label">⚡ ILUMINACIÓN HUD:</span>
-            <input type="range" id="illumination-slider" class="lighting-slider" min="0.2" max="2.5" step="0.1" value="1.2" />
+            <span class="lighting-label">⚡ BRILLO HUD & AGENTDECK:</span>
+            <input type="range" id="illumination-slider" class="lighting-slider" min="0.3" max="2.5" step="0.1" value="1.2" />
             <span id="illumination-value" class="lighting-value">120%</span>
           </div>
         </div>
 
-        <!-- Canvas Three.js de AgentDeck 3D -->
-        <div id="agentdeck-canvas-container"></div>
+        <!-- Canvas Three.js de AgentDeck 3D con Nodos Labeled -->
+        <div id="agentdeck-canvas-container">
+          <!-- Las etiquetas HTML flotantes de los 46 agentes son generadas aquí dinámicamente -->
+        </div>
 
         <div class="agentdeck-footer-badges">
           <span>🛡️ PROTOCOLO ANTI-ALUCINACIÓN FABLE 5 ACTIVO</span>
           <span>🔮 MODO AUTÓNOMO YOLO | COLOMBIA TECH SYNC</span>
           <span>📡 PUERTOS TELEMETRÍA 9200-9211 EN LÍNEA</span>
+          <span>⚡ CLÚSTER DUAL: AMBAR (INFRA/NOC) & CIAN (IA/CLOUD)</span>
         </div>
       </div>
     </section>
@@ -947,10 +980,9 @@
 
       <div class="portfolio-grid">
         
-        <!-- Odontología -->
         <div class="template-card">
           <div class="template-img-box">
-            <img src="assets/hero_odontologia.png" alt="Odontología Clínica Premium" onerror="this.onerror=null; this.src='assets/hero_odontologia.png'" />
+            <img src="assets/dental_website_mockup.png" alt="Odontología Clínica Premium" onerror="this.src='assets/dental_hero_bg.png'" />
             <span class="template-tag">HEALTH TECH</span>
           </div>
           <div class="template-info">
@@ -963,7 +995,6 @@
           </a>
         </div>
 
-        <!-- Abogados & Corporativa -->
         <div class="template-card">
           <div class="template-img-box">
             <img src="assets/hero_abogados.png" alt="Firma Legal Corporativa" />
@@ -979,7 +1010,6 @@
           </a>
         </div>
 
-        <!-- Restaurante Michelin -->
         <div class="template-card">
           <div class="template-img-box">
             <img src="assets/hero_restaurante.png" alt="Gastronomía & Alta Cocina" />
@@ -995,7 +1025,6 @@
           </a>
         </div>
 
-        <!-- Spa & Wellness -->
         <div class="template-card">
           <div class="template-img-box">
             <img src="assets/hero_spa.png" alt="Spa & Bienestar Arquitectónico" />
@@ -1011,7 +1040,6 @@
           </a>
         </div>
 
-        <!-- Inmobiliaria & Bienes Raíces -->
         <div class="template-card">
           <div class="template-img-box">
             <img src="assets/hero_inmobiliaria.jpg" alt="Real Estate & Inmobiliaria" />
@@ -1027,7 +1055,6 @@
           </a>
         </div>
 
-        <!-- Arquitectura & Construcción -->
         <div class="template-card">
           <div class="template-img-box">
             <img src="assets/hero_arquitectura.jpg" alt="Arquitectura & Urbanismo" />
@@ -1043,7 +1070,6 @@
           </a>
         </div>
 
-        <!-- Centro de Alto Rendimiento -->
         <div class="template-card">
           <div class="template-img-box">
             <img src="assets/hero_gimnasio.jpg" alt="Gimnasio & Alto Rendimiento" />
@@ -1059,7 +1085,6 @@
           </a>
         </div>
 
-        <!-- Estética Avanzada -->
         <div class="template-card">
           <div class="template-img-box">
             <img src="assets/hero_estetica.jpg" alt="Estética Avanzada & Láser" />
@@ -1075,7 +1100,6 @@
           </a>
         </div>
 
-        <!-- Consultoría Financiera -->
         <div class="template-card">
           <div class="template-img-box">
             <img src="assets/hero_finanzas.jpg" alt="Consultoría Financiera & Banca" />
@@ -1091,7 +1115,6 @@
           </a>
         </div>
 
-        <!-- Autos Exclusivos -->
         <div class="template-card">
           <div class="template-img-box">
             <img src="assets/hero_autos.jpg" alt="Automóviles de Lujo & Superdeportivos" />
@@ -1114,7 +1137,7 @@
     <section class="social-section" id="redes-sociales">
       <div class="section-title-wrapper" style="margin-top:0;">
         <span class="section-subtitle-tag">CONECTIVIDAD MÓVIL POCO F6 / DEPURACIÓN ADB</span>
-        <h2 class="section-main-title" style="font-size:2.2rem;">Canales Oficiales Verificados</h2>
+        <h2 class="section-main-title" style="font-size:2.4rem;">Canales Oficiales Verificados</h2>
       </div>
       
       <div class="social-grid">
@@ -1155,11 +1178,11 @@
   <footer>
     <div class="container">
       <p>&copy; 2026 <span>COLOMBIA TECH SYSTEMS</span> — Todos los derechos reservados.</p>
-      <p style="margin-top: 6px; font-size: 0.8rem; opacity: 0.7;">Arquitectura JARVIS PC & Prometeus NOC | Desplegado con Modo Autónomo en Cloudflare Edge.</p>
+      <p style="margin-top: 8px; font-size: 0.85rem; opacity: 0.7;">Arquitectura JARVIS PC & Prometeus NOC | Desplegado con Modo Autónomo en Cloudflare Edge.</p>
     </div>
   </footer>
 
-  <!-- LÓGICA DE AGENTDECK 3D & CONTROL DE ILUMINACIÓN -->
+  <!-- LÓGICA DE AGENTDECK 3D CON NODOS LABELED & CONTROL DE ILUMINACIÓN -->
   <script>
     // ── 1. Reloj HUD en Tiempo Real ──
     function updateClock() {
@@ -1182,23 +1205,22 @@
         document.documentElement.style.setProperty('--glow-intensity', val);
         valDisplay.textContent = Math.round(val * 100) + '%';
         
-        // Ajustar luces de Three.js en tiempo real
-        if (sceneLight) sceneLight.intensity = val * 1.5;
-        if (pointLight) pointLight.intensity = val * 2;
+        if (sceneLight) sceneLight.intensity = val * 1.6;
+        if (pointLight) pointLight.intensity = val * 2.2;
       });
     }
 
-    // ── 3. Motor AgentDeck 3D (Three.js) ──
+    // ── 3. Motor AgentDeck 3D con Nodos Labeled de los 46 Agentes ──
     (function initAgentDeck() {
       const container = document.getElementById('agentdeck-canvas-container');
       if (!container || typeof THREE === 'undefined') return;
 
-      const width = container.clientWidth || 800;
-      const height = container.clientHeight || 380;
+      const width = container.clientWidth || 1000;
+      const height = container.clientHeight || 680;
 
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(55, width / height, 0.1, 1000);
-      camera.position.set(0, 8, 16);
+      camera.position.set(0, 10, 22);
       camera.lookAt(0, 1, 0);
 
       const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -1206,67 +1228,101 @@
       renderer.setPixelRatio(window.devicePixelRatio);
       container.appendChild(renderer.domElement);
 
-      // Luces de la escena
-      sceneLight = new THREE.DirectionalLight(0x38e6ff, 1.8);
-      sceneLight.position.set(10, 20, 15);
+      sceneLight = new THREE.DirectionalLight(0x38e6ff, 2);
+      sceneLight.position.set(12, 25, 18);
       scene.add(sceneLight);
 
-      pointLight = new THREE.PointLight(0x00ff88, 2, 50);
-      pointLight.position.set(0, 5, 0);
+      pointLight = new THREE.PointLight(0x00ff88, 2.5, 60);
+      pointLight.position.set(0, 6, 0);
       scene.add(pointLight);
 
-      scene.add(new THREE.AmbientLight(0x0a182e, 1.2));
+      scene.add(new THREE.AmbientLight(0x0a182e, 1.4));
 
       // Grid inferior holográfico de JARVIS
-      const grid = new THREE.GridHelper(30, 30, 0x38e6ff, 0x003366);
-      grid.position.y = -0.5;
+      const grid = new THREE.GridHelper(36, 36, 0x38e6ff, 0x002b4d);
+      grid.position.y = -2;
       grid.material.transparent = true;
-      grid.material.opacity = 0.6;
+      grid.material.opacity = 0.65;
       scene.add(grid);
 
-      // Crear nodos de los 46 Agentes Especialistas en red circular
+      // Los 46 Agentes Especialistas Reales del Vault
+      const agentNames = [
+        "ai-engineer", "cloud-architect", "code-reviewer", "data-engineer", 
+        "database-administrator", "debugger", "deep-research", "devops-engineer", 
+        "ecc-architect", "ecc-code-reviewer", "ecc-security-reviewer", "electronics-engineer", 
+        "embedded-systems", "frontend-developer", "fullstack-developer", "gemini-pro-multimodal", 
+        "gemini-veo-video", "golang-pro", "grafana-obsidian-master", "incident-responder", 
+        "iot-engineer", "java-architect", "kubernetes-specialist", "linux-sysadmin", 
+        "mcp-developer", "mobile-developer", "multi-agent-coordinator", "network-engineer", 
+        "penetration-tester", "pkm-specialist", "powershell-expert", "prompt-engineer", 
+        "python-pro", "qa-expert", "rust-engineer", "security-auditor", 
+        "seo-specialist", "sql-pro", "structured-cabling", "super-power", 
+        "task-distributor", "task-observer", "typescript-pro", "windows-infra-admin", 
+        "workflow-orchestrator", "agent-github-hunter"
+      ];
+
       nodesGroup = new THREE.Group();
       scene.add(nodesGroup);
 
-      const agentCount = 46;
-      const radius = 8;
+      const nodeObjects = [];
+      const nodeGeo = new THREE.SphereGeometry(0.4, 16, 16);
+      const pillarGeo = new THREE.CylinderGeometry(0.08, 0.2, 1, 8);
 
-      const nodeGeo = new THREE.SphereGeometry(0.35, 16, 16);
-      const pillarGeo = new THREE.CylinderGeometry(0.1, 0.25, 1, 8);
+      // Clúster 1 (Ambar/Izquierda), Clúster 2 (Cian/Derecha) como en la captura
+      agentNames.forEach((name, i) => {
+        const isAmber = (i % 2 === 0);
+        const clusterCenter = isAmber ? -6.5 : 6.5;
+        
+        // Distribución espacial orgánica alrededor de los clústers
+        const angle = (i / agentNames.length) * Math.PI * 4;
+        const dist = 3.2 + (i % 5) * 1.1;
+        const x = clusterCenter + Math.cos(angle) * dist;
+        const z = Math.sin(angle) * dist - 2;
+        const y = Math.sin(x * 0.5 + z) * 2.2 + 2.5;
 
-      for (let i = 0; i < agentCount; i++) {
-        const angle = (i / agentCount) * Math.PI * 2;
-        const x = Math.cos(angle) * radius * (0.6 + Math.random() * 0.6);
-        const z = Math.sin(angle) * radius * (0.6 + Math.random() * 0.6);
-        const y = Math.sin(x + z) * 1.5 + 1.5;
-
-        // Color cian brillante o verde telemetría
-        const color = i % 4 === 0 ? 0x00ff88 : (i % 7 === 0 ? 0xffb627 : 0x38e6ff);
+        const color = isAmber ? 0xffb627 : 0x38e6ff;
         const nodeMat = new THREE.MeshPhongMaterial({
           color: color,
           emissive: color,
-          emissiveIntensity: 0.6,
+          emissiveIntensity: 0.7,
           transparent: true,
-          opacity: 0.9
+          opacity: 0.95
         });
 
         const sphere = new THREE.Mesh(nodeGeo, nodeMat);
         sphere.position.set(x, y, z);
         nodesGroup.add(sphere);
 
-        // Pilar de enlace con el suelo
-        const pillarMat = new THREE.MeshBasicMaterial({ color: color, transparent: true, opacity: 0.25, wireframe: true });
-        const pillar = new THREE.Mesh(pillarGeo, pillarMat);
-        pillar.scale.set(1, y * 2, 1);
-        pillar.position.set(x, y / 2 - 0.5, z);
-        nodesGroup.add(pillar);
-      }
+        // Línea neural hacia el centro de su clúster
+        const lineMat = new THREE.LineBasicMaterial({ color: color, transparent: true, opacity: 0.25 });
+        const points = [];
+        points.push(new THREE.Vector3(x, y, z));
+        points.push(new THREE.Vector3(clusterCenter, 2.5, 0));
+        const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
+        const line = new THREE.Line(lineGeo, lineMat);
+        nodesGroup.add(line);
 
-      // Núcleo Oráculo Maestro Central
-      const coreGeo = new THREE.IcosahedronGeometry(1.8, 1);
+        // Pilar hacia el suelo
+        const pillarMat = new THREE.MeshBasicMaterial({ color: color, transparent: true, opacity: 0.15, wireframe: true });
+        const pillar = new THREE.Mesh(pillarGeo, pillarMat);
+        pillar.scale.set(1, (y + 2), 1);
+        pillar.position.set(x, (y - 2) / 2 - 1, z);
+        nodesGroup.add(pillar);
+
+        // Crear etiqueta HTML flotante
+        const labelEl = document.createElement('div');
+        labelEl.className = 'node-label ' + (isAmber ? 'amber-cluster' : 'cyan-cluster');
+        labelEl.textContent = name;
+        container.appendChild(labelEl);
+
+        nodeObjects.push({ mesh: sphere, label: labelEl });
+      });
+
+      // Núcleo Oráculo Maestro Central (Verde/Cian Espejito)
+      const coreGeo = new THREE.IcosahedronGeometry(2.2, 2);
       const coreMat = new THREE.MeshPhongMaterial({
-        color: 0x38e6ff,
-        emissive: 0x00ccff,
+        color: 0x00ff88,
+        emissive: 0x00ff88,
         emissiveIntensity: 0.8,
         wireframe: true
       });
@@ -1274,26 +1330,69 @@
       coreMesh.position.set(0, 2.5, 0);
       scene.add(coreMesh);
 
-      // Anillo orbital externo
-      const ringGeo = new THREE.TorusGeometry(3.5, 0.08, 16, 100);
-      const ringMat = new THREE.MeshBasicMaterial({ color: 0xffb627, transparent: true, opacity: 0.7 });
-      const ring = new THREE.Mesh(ringGeo, ringMat);
-      ring.position.set(0, 2.5, 0);
-      ring.rotation.x = Math.PI / 3;
-      scene.add(ring);
+      const coreLabel = document.createElement('div');
+      coreLabel.className = 'node-label core-cluster';
+      coreLabel.textContent = '⚡ ORÁCULO MAESTRO';
+      container.appendChild(coreLabel);
+      nodeObjects.push({ mesh: coreMesh, label: coreLabel, isCore: true });
 
-      // Animación continua del 3D Canvas
+      // Anillos de energía orbitales
+      const ringGeo1 = new THREE.TorusGeometry(5, 0.06, 16, 100);
+      const ringMat1 = new THREE.MeshBasicMaterial({ color: 0x38e6ff, transparent: true, opacity: 0.6 });
+      const ring1 = new THREE.Mesh(ringGeo1, ringMat1);
+      ring1.position.set(0, 2.5, 0);
+      ring1.rotation.x = Math.PI / 2.5;
+      scene.add(ring1);
+
+      const ringGeo2 = new THREE.TorusGeometry(8, 0.08, 16, 100);
+      const ringMat2 = new THREE.MeshBasicMaterial({ color: 0xffb627, transparent: true, opacity: 0.5 });
+      const ring2 = new THREE.Mesh(ringGeo2, ringMat2);
+      ring2.position.set(0, 2.5, 0);
+      ring2.rotation.y = Math.PI / 3;
+      scene.add(ring2);
+
+      // Proyectar coordenadas 3D al espacio HTML 2D para mover las etiquetas
+      function updateLabels() {
+        const wp = new THREE.Vector3();
+        const halfWidth = container.clientWidth / 2;
+        const halfHeight = container.clientHeight / 2;
+
+        nodeObjects.forEach(obj => {
+          obj.mesh.getWorldPosition(wp);
+          wp.project(camera);
+
+          // Si el nodo está detrás de la cámara, ocultar etiqueta
+          if (wp.z > 1) {
+            obj.label.style.display = 'none';
+            return;
+          }
+          obj.label.style.display = 'block';
+
+          const left = (wp.x * halfWidth) + halfWidth;
+          const top = -(wp.y * halfHeight) + halfHeight;
+          obj.label.style.left = `${left}px`;
+          obj.label.style.top = `${top - 20}px`;
+          
+          // Efecto de profundidad (atenuar los más lejanos)
+          const dist = camera.position.distanceTo(obj.mesh.position);
+          const opacity = Math.max(0.25, Math.min(1, 1 - (dist - 14) / 22));
+          obj.label.style.opacity = obj.isCore ? 1 : opacity;
+        });
+      }
+
       function animate() {
         requestAnimationFrame(animate);
-        nodesGroup.rotation.y += 0.004;
+        nodesGroup.rotation.y += 0.0025;
         coreMesh.rotation.x += 0.01;
         coreMesh.rotation.y += 0.015;
-        ring.rotation.z += 0.02;
+        ring1.rotation.z += 0.015;
+        ring2.rotation.x -= 0.01;
+        
         renderer.render(scene, camera);
+        updateLabels();
       }
       animate();
 
-      // Ajustar al redimensionar ventana
       window.addEventListener('resize', () => {
         const w = container.clientWidth;
         const h = container.clientHeight;
