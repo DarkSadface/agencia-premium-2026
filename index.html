@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
   <title>COLOMBIA TECH SYSTEMS | IA Autónoma & Automatización Operativa</title>
   <meta name="description" content="Ingeniería de Software B2B, Automatización Prometeus, Sistemas de Inteligencia Artificial Autónoma JARVIS y Arquitectura de Alta Precisión." />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,5 95,27 95,73 50,95 5,73 5,27' fill='%2302060d' stroke='%2338e6ff' stroke-width='6'/%3E%3Ccircle cx='50' cy='50' r='18' fill='%2300ff88'/%3E%3C/svg%3E" />
@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
 
-  <!-- Three.js (Para AgentDeck 3D Sobre Cerebro AI) -->
+  <!-- Three.js & GSAP (Para AgentDeck 3D y Telemetría Responsive) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -36,7 +36,7 @@
       --border-bright: rgba(56, 230, 255, 0.85);
       --text: #e0f4ff;
       --dim: rgba(56, 230, 255, 0.6);
-      /* INTENSIDAD LUMÍNICA REDUCIDA A LA MITAD PARA UN CONTRASTE PERFECTO CON EL CEREBRO DEL ROBOT */
+      /* INTENSIDAD LUMÍNICA REDUCIDA A LA MITAD PARA CONTRASTE PERFECTO CON EL CEREBRO DEL ROBOT */
       --glow-intensity: 0.6;
       --hud-glow: rgba(0, 229, 255, calc(0.55 * var(--glow-intensity)));
       --gold-glow: rgba(255, 182, 39, calc(0.5 * var(--glow-intensity)));
@@ -49,19 +49,14 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
-    html {
+    html, body {
       scroll-behavior: smooth;
       background-color: var(--dark);
       color: var(--text);
       font-family: var(--font-base);
       overflow-x: hidden;
-    }
-
-    body {
+      width: 100%;
       position: relative;
-      background: var(--dark);
-      min-height: 100vh;
-      overflow-x: hidden;
       line-height: 1.6;
     }
 
@@ -86,48 +81,54 @@
         radial-gradient(ellipse at 50% 40%, transparent 54%, rgba(2,6,13,0.6) 100%);
     }
 
-    /* Accesibilidad (Aporte Claude): respetar preferencia de menos movimiento */
+    /* Accesibilidad: respetar preferencia de menos movimiento */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
       html { scroll-behavior: auto; }
     }
 
-    /* ── Contenedor Principal ── */
+    /* ── Contenedor Principal Responsive ── */
     .container {
       max-width: 1580px;
       margin: 0 auto;
-      padding: 0 36px;
+      padding: 0 clamp(18px, 4vw, 36px);
       position: relative;
       z-index: 2;
+      width: 100%;
     }
 
-    /* ── Navegación Superior HUD ── */
+    /* ── Navegación Superior HUD (Paridad PC / Tablet / Móvil) ── */
     .hud-nav {
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: rgba(2, 6, 13, 0.85);
+      background: rgba(2, 6, 13, 0.88);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
-      padding: 14px 0;
+      padding: 12px 0;
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
     }
     .nav-content {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
     }
     .nav-brand {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       text-decoration: none;
+      min-width: fit-content;
     }
     .nav-hexagon {
-      width: 40px; height: 40px;
+      width: clamp(34px, 4.5vw, 40px);
+      height: clamp(34px, 4.5vw, 40px);
       position: relative;
       display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
     }
     .nav-hexagon svg {
       width: 100%; height: 100%;
@@ -135,29 +136,30 @@
     }
     .nav-title {
       font-family: var(--font-ui);
-      font-size: 1.25rem;
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
       font-weight: 800;
       color: #fff;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.12em;
       text-shadow: 0 0 15px var(--hud-glow);
     }
     .nav-status {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: clamp(10px, 2vw, 20px);
+      flex-wrap: wrap;
     }
     .status-badge {
       font-family: var(--font-mono);
-      font-size: 0.82rem;
+      font-size: clamp(0.72rem, 1.5vw, 0.82rem);
       background: rgba(0, 255, 136, 0.1);
       color: var(--green);
       border: 1px solid rgba(0, 255, 136, 0.4);
-      padding: 6px 14px;
+      padding: 5px 12px;
       border-radius: 4px;
       display: flex;
       align-items: center;
       gap: 8px;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       box-shadow: 0 0 12px rgba(0, 255, 136, 0.2);
     }
     .pulse-dot {
@@ -166,24 +168,25 @@
       border-radius: 50%;
       box-shadow: 0 0 10px var(--green);
       animation: pulse 1.5s infinite;
+      flex-shrink: 0;
     }
     @keyframes pulse { 0%,100%{transform: scale(1); opacity: 1;} 50%{transform: scale(1.4); opacity: 0.5;} }
     
     .clock-badge {
       font-family: var(--font-mono);
-      font-size: 1.05rem;
+      font-size: clamp(0.9rem, 1.8vw, 1.05rem);
       color: var(--cyan);
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       text-shadow: 0 0 10px var(--hud-glow);
     }
 
     /* ══════════════════════════════════════════════════════════════════════
-       SECCIÓN HERO: ROBOT ANCLADO DERECHA & AGENTDECK SOBRE EL CEREBRO
+       SECCIÓN HERO: ROBOT ANCLADO & AGENTDECK SOBRE CEREBRO IA (RESPONSIVE)
        ══════════════════════════════════════════════════════════════════════ */
     .hero-section {
       position: relative;
-      min-height: 92vh;
-      padding: 30px 0 90px;
+      min-height: 90vh;
+      padding: 24px 0 90px;
       overflow: hidden;
       border-bottom: 1px solid rgba(56, 230, 255, 0.25);
       display: flex;
@@ -203,11 +206,11 @@
       overflow: hidden;
     }
 
-    /* ETIQUETAS DE NODOS FLOTANTES (z-index: 8) — SIN RECUADROS DE CONTORNO, SOLO TEXTO PURO FIABLE */
+    /* ETIQUETAS DE NODOS FLOTANTES (z-index: 8) — SIN RECUADROS, TEXTO NÍTIDO */
     .node-label {
       position: absolute;
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: clamp(10px, 1.2vw, 11px);
       font-weight: 700;
       padding: 0 !important;
       border-radius: 0 !important;
@@ -224,17 +227,15 @@
     }
     .node-label.cyan-cluster { color: #38e6ff; }
     .node-label.amber-cluster { color: #ffb627; }
-    .node-label.core-cluster { color: #00ff88; font-size: 14px; z-index: 9; text-shadow: 0 0 10px #00ff88, 0 0 25px #00ff88, 0 2px 6px rgba(0,0,0,1); font-weight: 800; }
+    .node-label.core-cluster { color: #00ff88; font-size: clamp(12px, 1.5vw, 14px); z-index: 9; text-shadow: 0 0 10px #00ff88, 0 0 25px #00ff88, 0 2px 6px rgba(0,0,0,1); font-weight: 800; }
 
-    /* ── SILUETA DEL ROBOT HUMANOIDE ANCLADA INTACTA AL BORDE DERECHO DEL MONITOR ── */
+    /* ── SILUETA DEL ROBOT HUMANOIDE: ALINEADA EN PC, TABLET Y MÓVIL ── */
     .robot-showcase-hologram {
       position: absolute;
       right: -10px;
       top: 52%;
       transform: translateY(-50%);
-      width: 47vw;
-      max-width: 800px;
-      min-width: 500px;
+      width: clamp(450px, 47vw, 800px);
       aspect-ratio: 4 / 3;
       display: flex;
       justify-content: center;
@@ -248,7 +249,7 @@
       50% { transform: translateY(-50%) translateY(-14px); }
     }
 
-    /* IMAGEN MASTER JARVIS: SIN SCALE(-1) PORQUE YA FUE RENDERIZADA Y ORIENTADA EN PYTHON CON EL EMBLEMA EN EL BRAZO */
+    /* IMAGEN MASTER JARVIS: SIN SCALE(-1) PORQUE YA FUE RENDERIZADA AL DERECHO CON EL LOGO EN EL BRAZO */
     .robot-img-hologram {
       width: 100%;
       height: 100%;
@@ -269,13 +270,13 @@
       border: 1px solid var(--cyan);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      padding: 10px 26px;
+      padding: clamp(6px, 1.5vw, 10px) clamp(16px, 3vw, 26px);
       border-radius: 99px;
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: clamp(8px, 2vw, 16px);
       font-family: var(--font-mono);
-      font-size: 0.88rem;
+      font-size: clamp(0.75rem, 1.5vw, 0.88rem);
       color: #ffffff;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 25px rgba(56, 230, 255, calc(0.45 * var(--glow-intensity)));
       white-space: nowrap;
@@ -292,26 +293,27 @@
       justify-content: flex-end;
       align-items: center;
       margin-bottom: 24px;
+      width: 100%;
     }
     .lighting-controller {
       background: rgba(4, 14, 28, 0.88);
       border: 1px solid var(--cyan);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      padding: 12px 28px;
+      padding: 10px clamp(14px, 2vw, 28px);
       border-radius: 12px;
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: clamp(10px, 2vw, 18px);
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.85), 0 0 25px rgba(56, 230, 255, calc(0.35 * var(--glow-intensity)));
-      min-width: 420px;
+      width: clamp(290px, 45vw, 440px);
       max-width: 100%;
     }
     .lighting-label {
       font-family: var(--font-mono);
-      font-size: 0.88rem;
+      font-size: clamp(0.75rem, 1.4vw, 0.88rem);
       color: var(--cyan-bright);
-      letter-spacing: 0.08em;
+      letter-spacing: 0.05em;
       white-space: nowrap;
       text-shadow: 0 0 10px var(--hud-glow);
     }
@@ -340,10 +342,10 @@
     .lighting-slider::-webkit-slider-thumb:hover { transform: scale(1.25); }
     .lighting-value {
       font-family: var(--font-mono);
-      font-size: 1rem;
+      font-size: clamp(0.85rem, 1.5vw, 1rem);
       color: #ffffff;
       font-weight: 700;
-      min-width: 55px;
+      min-width: 45px;
       text-align: right;
     }
 
@@ -356,15 +358,15 @@
     .hero-grid {
       display: flex;
       align-items: center;
-      min-height: 680px;
-      width: 54%;
+      min-height: clamp(520px, 60vh, 680px);
+      width: 55%;
     }
 
     .hero-left {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 26px;
+      gap: clamp(18px, 3vw, 26px);
       width: 100%;
     }
 
@@ -373,20 +375,20 @@
       align-items: center;
       gap: 10px;
       font-family: var(--font-mono);
-      font-size: 0.92rem;
+      font-size: clamp(0.78rem, 1.5vw, 0.92rem);
       color: var(--gold);
       background: rgba(255, 182, 39, 0.12);
       border-left: 4px solid var(--gold);
       padding: 8px 16px;
       text-transform: uppercase;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.12em;
       box-shadow: 0 0 20px var(--gold-glow);
       width: fit-content;
     }
 
     .hero-title {
       font-family: var(--font-ui);
-      font-size: clamp(3.6rem, 7.8vw, 7.5rem);
+      font-size: clamp(2.8rem, 6.5vw, 7.5rem);
       font-weight: 900;
       line-height: 0.95;
       letter-spacing: 0.02em;
@@ -400,7 +402,7 @@
 
     .hero-subtitle {
       font-family: var(--font-tx);
-      font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+      font-size: clamp(1.15rem, 2vw, 1.85rem);
       font-weight: 600;
       color: var(--text);
       opacity: 0.94;
@@ -413,13 +415,14 @@
     .hero-metrics {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
+      gap: clamp(10px, 1.5vw, 18px);
       margin-top: 6px;
+      width: 100%;
     }
     .metric-panel {
       background: var(--panel);
       border: 1px solid var(--border);
-      padding: 16px 20px;
+      padding: clamp(12px, 2vw, 16px) clamp(12px, 2vw, 20px);
       position: relative;
       border-left: 3px solid var(--cyan);
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.65);
@@ -436,17 +439,17 @@
     }
     .metric-val {
       font-family: var(--font-mono);
-      font-size: 1.95rem;
+      font-size: clamp(1.4rem, 2.5vw, 1.95rem);
       font-weight: 700;
       color: var(--cyan-bright);
       text-shadow: 0 0 15px var(--hud-glow);
     }
     .metric-label {
       font-family: var(--font-tx);
-      font-size: 0.95rem;
+      font-size: clamp(0.78rem, 1.2vw, 0.95rem);
       color: var(--dim);
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       margin-top: 4px;
     }
 
@@ -455,13 +458,14 @@
        ══════════════════════════════════════════════════════════════════════ */
     .section-title-wrapper {
       text-align: center;
-      margin: 70px 0 44px;
+      margin: clamp(40px, 7vw, 70px) 0 clamp(28px, 5vw, 44px);
+      width: 100%;
     }
     .section-subtitle-tag {
       font-family: var(--font-mono);
-      font-size: 0.92rem;
+      font-size: clamp(0.75rem, 1.4vw, 0.92rem);
       color: var(--green);
-      letter-spacing: 0.22em;
+      letter-spacing: clamp(0.12em, 2vw, 0.22em);
       text-transform: uppercase;
       display: inline-block;
       margin-bottom: 8px;
@@ -469,31 +473,33 @@
     }
     .section-main-title {
       font-family: var(--font-ui);
-      font-size: clamp(2.3rem, 4.2vw, 3.6rem);
+      font-size: clamp(1.8rem, 4vw, 3.6rem);
       font-weight: 800;
       color: #fff;
       text-shadow: 0 0 25px var(--hud-glow);
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
     }
 
     .videos-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 40px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: clamp(24px, 3.5vw, 40px);
       margin-bottom: 80px;
+      width: 100%;
     }
 
     .video-frame-card {
       background: #060e1a;
       border: 2px solid var(--border-bright);
       border-radius: 18px;
-      padding: 26px;
+      padding: clamp(16px, 3vw, 26px);
       position: relative;
       box-shadow: 0 18px 50px rgba(0,0,0,0.85), 0 0 45px rgba(56, 230, 255, calc(0.28 * var(--glow-intensity)));
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       transition: transform 0.4s ease, box-shadow 0.4s ease;
+      width: 100%;
     }
     .video-frame-card:hover {
       transform: translateY(-8px);
@@ -519,12 +525,14 @@
       border: 1px solid rgba(56, 230, 255, 0.25);
       margin-bottom: 18px;
       font-family: var(--font-mono);
-      font-size: 0.82rem;
+      font-size: clamp(0.72rem, 1.3vw, 0.82rem);
+      flex-wrap: wrap;
+      gap: 8px;
     }
     .video-title-pill {
       color: var(--cyan-bright);
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
     }
     .video-status-indicator {
@@ -542,10 +550,11 @@
       background: #000;
       border: 1px solid rgba(56, 230, 255, 0.35);
       box-shadow: inset 0 0 25px rgba(56, 230, 255, 0.25);
+      aspect-ratio: 16 / 9;
     }
     .video-player-container video {
       width: 100%;
-      height: 400px;
+      height: 100%;
       object-fit: contain;
       display: block;
       background: #02060d;
@@ -553,9 +562,9 @@
 
     .video-desc {
       font-family: var(--font-tx);
-      font-size: 1.12rem;
+      font-size: clamp(1rem, 1.4vw, 1.12rem);
       color: var(--text);
-      margin: 20px 0;
+      margin: 18px 0;
       line-height: 1.55;
     }
 
@@ -563,7 +572,7 @@
       background: #091322;
       border: 1px solid rgba(255, 255, 255, 0.18);
       border-radius: 10px;
-      padding: 14px 24px;
+      padding: clamp(12px, 2vw, 14px) clamp(18px, 3vw, 24px);
       color: #ffffff;
       text-decoration: none;
       display: flex;
@@ -571,12 +580,13 @@
       align-items: center;
       font-family: var(--font-tx);
       font-weight: 700;
-      font-size: 1.18rem;
+      font-size: clamp(1.05rem, 1.5vw, 1.18rem);
       letter-spacing: 0.05em;
       transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
       box-shadow: 0 4px 15px rgba(0,0,0,0.5);
       cursor: pointer;
       margin-top: auto;
+      width: 100%;
     }
     .btn-live-action .arrow-icon {
       font-size: 1.35rem;
@@ -594,20 +604,21 @@
     }
 
     /* ══════════════════════════════════════════════════════════════════════
-       SHOWROOM DE PLANTILLAS B2B REALES
+       SHOWROOM DE PLANTILLAS B2B REALES (RESPONSIVE)
        ══════════════════════════════════════════════════════════════════════ */
     .portfolio-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-      gap: 34px;
+      grid-template-columns: repeat(auto-fit, minmax(clamp(280px, 80vw, 360px), 1fr));
+      gap: clamp(20px, 3vw, 34px);
       margin-bottom: 90px;
+      width: 100%;
     }
 
     .template-card {
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 24px;
+      padding: clamp(18px, 2.5vw, 24px);
       display: flex;
       flex-direction: column;
       gap: 18px;
@@ -615,6 +626,7 @@
       overflow: hidden;
       transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
       box-shadow: 0 12px 35px rgba(0, 0, 0, 0.65);
+      width: 100%;
     }
     .template-card:hover {
       background: var(--panel-hover);
@@ -625,7 +637,7 @@
 
     .template-img-box {
       width: 100%;
-      height: 230px;
+      height: clamp(190px, 25vw, 230px);
       border-radius: 10px;
       overflow: hidden;
       position: relative;
@@ -655,14 +667,14 @@
 
     .template-info h3 {
       font-family: var(--font-ui);
-      font-size: 1.4rem;
+      font-size: clamp(1.2rem, 1.8vw, 1.4rem);
       color: #fff;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       margin-bottom: 8px;
     }
     .template-info p {
       font-family: var(--font-tx);
-      font-size: 1.08rem;
+      font-size: clamp(0.98rem, 1.4vw, 1.08rem);
       color: var(--text);
       opacity: 0.88;
       line-height: 1.5;
@@ -675,14 +687,15 @@
       background: rgba(6, 15, 30, 0.88);
       border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 50px 44px;
+      padding: clamp(28px, 5vw, 50px) clamp(20px, 4vw, 44px);
       margin-bottom: 80px;
       box-shadow: 0 15px 50px rgba(0,0,0,0.85);
       position: relative;
+      width: 100%;
     }
     .social-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(clamp(250px, 75vw, 280px), 1fr));
       gap: 22px;
       margin-top: 32px;
     }
@@ -690,7 +703,7 @@
       background: #091322;
       border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 14px;
-      padding: 22px;
+      padding: clamp(16px, 2.5vw, 22px);
       display: flex;
       align-items: center;
       gap: 18px;
@@ -704,23 +717,25 @@
       box-shadow: 0 0 25px rgba(56, 230, 255, calc(0.35 * var(--glow-intensity)));
     }
     .social-icon {
-      width: 50px; height: 50px;
+      width: clamp(44px, 6vw, 50px);
+      height: clamp(44px, 6vw, 50px);
       background: rgba(255, 255, 255, 0.05);
       border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
       color: var(--cyan-bright);
-      font-size: 1.6rem;
+      font-size: clamp(1.3rem, 2vw, 1.6rem);
       border: 1px solid rgba(56, 230, 255, 0.35);
+      flex-shrink: 0;
     }
     .social-info h4 {
       font-family: var(--font-tx);
-      font-size: 1.25rem;
+      font-size: clamp(1.1rem, 1.5vw, 1.25rem);
       font-weight: 700;
       color: #fff;
     }
     .social-info p {
       font-family: var(--font-mono);
-      font-size: 0.88rem;
+      font-size: clamp(0.78rem, 1.2vw, 0.88rem);
       color: var(--dim);
     }
 
@@ -732,26 +747,79 @@
       text-align: center;
       font-family: var(--font-mono);
       color: var(--dim);
-      font-size: 0.92rem;
+      font-size: clamp(0.82rem, 1.4vw, 0.92rem);
     }
     footer span { color: var(--cyan); font-weight: 700; }
 
-    /* ── Responsive adjustments ── */
-    @media (max-width: 1200px) {
-      .hero-grid { width: 100%; min-height: auto; margin-bottom: 400px; }
-      .hero-left { text-align: center; align-items: center; }
-      .hero-subtag { margin: 0 auto; }
-      .hero-subtitle { max-width: 100%; }
-      .videos-grid { grid-template-columns: 1fr; }
-      .lighting-controller { min-width: 100%; }
-      .robot-showcase-hologram { position: absolute; right: 50%; top: auto; bottom: -20px; transform: translateX(50%); width: 92vw; max-width: 580px; min-width: 320px; }
-      .robot-img-hologram { object-position: center; }
+    /* ══════════════════════════════════════════════════════════════════════
+       PARIDAD TOTAL DE DISEÑO: PC, TABLET Y MÓVIL (ALINEACIÓN EXACTA)
+       ══════════════════════════════════════════════════════════════════════ */
+    @media (max-width: 1100px) {
+      .hero-grid { 
+        width: 100%; 
+        min-height: auto; 
+        margin-bottom: clamp(380px, 55vw, 480px); 
+      }
+      .hero-left { 
+        text-align: center; 
+        align-items: center; 
+      }
+      .hero-subtag { 
+        margin: 0 auto; 
+      }
+      .hero-subtitle { 
+        max-width: 100%; 
+      }
+      .videos-grid { 
+        grid-template-columns: 1fr; 
+      }
+      .lighting-controller { 
+        width: 100%; 
+        justify-content: center;
+      }
+      .robot-showcase-hologram { 
+        position: absolute; 
+        right: 50%; 
+        top: auto; 
+        bottom: -10px; 
+        transform: translateX(50%); 
+        width: clamp(340px, 85vw, 620px); 
+      }
+      .robot-img-hologram { 
+        object-position: center; 
+      }
     }
-    @media (max-width: 600px) {
-      .container { padding: 0 16px; }
-      .hero-metrics { grid-template-columns: 1fr; }
-      .hero-title { font-size: 3.2rem; }
-      .robot-hud-tag { font-size: 0.76rem; padding: 8px 16px; gap: 8px; flex-wrap: wrap; justify-content: center; bottom: 5px; }
+
+    @media (max-width: 650px) {
+      .hero-metrics { 
+        grid-template-columns: 1fr; 
+        gap: 12px; 
+      }
+      .hero-grid {
+        margin-bottom: clamp(310px, 80vw, 360px);
+      }
+      .robot-showcase-hologram {
+        bottom: -5px;
+        width: 95vw;
+        min-width: 290px;
+      }
+      .robot-hud-tag { 
+        font-size: 0.74rem; 
+        padding: 6px 14px; 
+        gap: 6px; 
+        flex-wrap: wrap; 
+        justify-content: center; 
+        bottom: 10px; 
+        width: 88%;
+      }
+      .nav-content {
+        justify-content: center;
+        text-align: center;
+      }
+      .nav-status {
+        justify-content: center;
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -779,12 +847,12 @@
     </div>
   </nav>
 
-  <!-- HERO SECTION: ROBOT ANCLADO DERECHA Y AGENTDECK SOBRE CEREBRO IA -->
+  <!-- HERO SECTION: ROBOT ANCLADO & AGENTDECK SOBRE CEREBRO IA -->
   <section class="hero-section">
-    <!-- El lienzo 3D neuronal encierra el cerebro y la mano del androide en escala cuasi-esférica -->
+    <!-- El lienzo 3D neuronal encierra el cerebro y la mano en PC, Tablet y Móvil -->
     <div id="agentdeck-bg-canvas"></div>
 
-    <!-- SILUETA MASTER DEL ROBOT CON EL LOGOTIPO HAGONO Y TEXTO 'JARVIS' EN EL BRAZO TITANIO -->
+    <!-- SILUETA MASTER DEL ROBOT CON EL EMBLEMA 'JARVIS' EN EL BRAZO TITANIO -->
     <div class="robot-showcase-hologram">
       <img src="media/robot_ai_humanoid_jarvis.png" alt="Silueta Pura de Robot Android con Cerebro Neuronal IA y Emblema JARVIS" class="robot-img-hologram" />
       <div class="robot-hud-tag">
@@ -794,7 +862,7 @@
     </div>
 
     <div class="container hero-content-layer">
-      <!-- BARRA DE CONTROL DE ILUMINACIÓN HOLOGRÁFICA (POR DEFECTO A LA MITAD DE INTENSIDAD: 60%) -->
+      <!-- BARRA DE CONTROL DE ILUMINACIÓN HOLOGRÁFICA (POR DEFECTO AL 60%) -->
       <div class="hero-top-toolbar">
         <div class="lighting-controller">
           <span class="lighting-label">⚡ ILUMINACIÓN AGENTDECK FONDO:</span>
@@ -1058,7 +1126,7 @@
     <section class="social-section" id="redes-sociales">
       <div class="section-title-wrapper" style="margin-top:0;">
         <span class="section-subtitle-tag">CONECTIVIDAD MÓVIL POCO F6 / DEPURACIÓN ADB</span>
-        <h2 class="section-main-title" style="font-size:2.4rem;">Canales Oficiales Verificados</h2>
+        <h2 class="section-main-title" style="font-size:clamp(1.6rem, 3.2vw, 2.4rem);">Canales Oficiales Verificados</h2>
       </div>
       
       <div class="social-grid">
@@ -1103,7 +1171,7 @@
     </div>
   </footer>
 
-  <!-- LÓGICA DE AGENTDECK 3D ANIMADO: NODO MAESTRO ENCERRANDO EL CEREBRO Y LA MANO DEL ROBOT -->
+  <!-- LÓGICA DE AGENTDECK 3D ANIMADO CON PARIDAD EXACTA PARA PC, TABLET Y MÓVIL -->
   <script>
     function updateClock() {
       const el = document.getElementById('hud-clock');
@@ -1153,12 +1221,10 @@
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       container.appendChild(renderer.domElement);
 
-      // INTENSIDAD LUMÍNICA REDUCIDA A LA MITAD PARA NO SATURAR EL BRILLO DEL CEREBRO
       sceneLight = new THREE.DirectionalLight(0x38e6ff, 1.2);
       sceneLight.position.set(18, 32, 22);
       scene.add(sceneLight);
 
-      // Foco esmeralda iluminando el interior del campo cuántico del cerebro y la mano
       pointLight = new THREE.PointLight(0x00ff88, 1.5, 90);
       pointLight.position.set(4.2, 2.5, 2.0); 
       scene.add(pointLight);
@@ -1175,9 +1241,9 @@
       const particleGeo = new THREE.BufferGeometry();
       const positions = new Float32Array(particleCount * 3);
       for (let p = 0; p < particleCount * 3; p += 3) {
-        positions[p] = (Math.random() - 0.5) * 50;     // X
-        positions[p + 1] = (Math.random() - 0.5) * 26; // Y
-        positions[p + 2] = (Math.random() - 0.5) * 35; // Z
+        positions[p] = (Math.random() - 0.5) * 50;     
+        positions[p + 1] = (Math.random() - 0.5) * 26; 
+        positions[p + 2] = (Math.random() - 0.5) * 35; 
       }
       particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
       const particleMat = new THREE.PointsMaterial({
@@ -1190,10 +1256,31 @@
       particlesGroup = new THREE.Points(particleGeo, particleMat);
       scene.add(particlesGroup);
 
-      // GRUPO POSICIONADO PARA ENCERRAR EXACTAMENTE EL CEREBRO Y LA MANO DEL ROBOT (X=4.2, Y=1.8, Z=-0.5)
       constellationGroup = new THREE.Group();
-      constellationGroup.position.set(width > 1200 ? 4.2 : 0, 1.8, -0.5); 
       scene.add(constellationGroup);
+
+      // FUNCIÓN MAESTRA DE PARIDAD ENTRE PC, TABLET Y MÓVIL (POCO F6 / ADB / iPAD / DESKTOP)
+      // Garantiza que en cualquier dispositivo, el nodo central siempre encierra la mano y el cerebro del robot
+      function alignNodeWithRobot(w, h) {
+        if (!constellationGroup || !pointLight) return;
+        if (w >= 1100) {
+          // PC / Escritorio (Layout horizontal): cerebro y mano a la derecha (X=4.2, Y=1.8, Z=-0.5)
+          constellationGroup.position.set(4.2, 1.8, -0.5);
+          constellationGroup.scale.set(1, 1, 1);
+          pointLight.position.set(4.2, 2.5, 2.0);
+        } else if (w >= 650) {
+          // Tablet / Pantallas Medianas (Layout apilado): robot centrado en la parte inferior
+          constellationGroup.position.set(-0.6, -0.2, -0.5);
+          constellationGroup.scale.set(0.85, 0.85, 0.85);
+          pointLight.position.set(-0.6, 0.5, 2.0);
+        } else {
+          // Móvil / Poco F6 / Smartphones: robot centrado en la base del hero
+          constellationGroup.position.set(-0.35, -0.9, -0.5);
+          constellationGroup.scale.set(0.65, 0.65, 0.65);
+          pointLight.position.set(-0.35, -0.2, 2.0);
+        }
+      }
+      alignNodeWithRobot(width, height);
 
       const agentNames = [
         "ai-engineer", "cloud-architect", "code-reviewer", "data-engineer", 
@@ -1319,6 +1406,7 @@
         const wp = new THREE.Vector3();
         const halfWidth = container.clientWidth / 2;
         const halfHeight = container.clientHeight / 2;
+        const isMobile = window.innerWidth < 650;
 
         nodeObjects.forEach(obj => {
           obj.mesh.getWorldPosition(wp);
@@ -1332,7 +1420,7 @@
 
           const left = (wp.x * halfWidth) + halfWidth;
           const top = -(wp.y * halfHeight) + halfHeight;
-          const offset = obj.isCore ? 65 : 14; 
+          const offset = obj.isCore ? (isMobile ? 42 : 65) : (isMobile ? 10 : 14); 
           obj.label.style.left = `${left}px`;
           obj.label.style.top = `${top - offset}px`;
         });
@@ -1394,9 +1482,7 @@
         camera.aspect = w / h;
         camera.updateProjectionMatrix();
         renderer.setSize(w, h);
-        if (constellationGroup) {
-          constellationGroup.position.set(w > 1200 ? 4.2 : 0, 1.8, -0.5);
-        }
+        alignNodeWithRobot(w, h);
       });
     })();
   </script>

@@ -18,14 +18,19 @@ El usuario ha ordenado de forma definitiva que **Claude (Opus/Sonnet)** y **Vier
 ---
 
 ## 🌟 ESTADO AGREGADO DEL SISTEMA (FUSIÓN TÉCNICA Y ARQUITECTURA NEURONAL VERIFICADA)
-En la iteración actual (2026-08-01 14:40), se ejecutaron y verificaron los siguientes avances en estricto cumplimiento del diseño JARVIS PC y las instrucciones del usuario:
+En la iteración actual (2026-08-01 14:45), se ejecutaron y verificaron los siguientes avances en estricto cumplimiento del diseño JARVIS PC y las instrucciones del usuario:
 
-### 1. Nodo Central Oráculo Maestro ENCERRANDO EL CEREBRO Y LA MANO DEL ROBOT ✅
-- **Cámara Cuántica Cuasi-Esférica (Esfera de Dyson Neuronal):** Se ubicó el nodo central (*Oráculo Maestro*) en el epicentro exacto de la mano extendida y el cerebro azul flotante del androide (`X=4.2, Y=1.8, Z=-0.5` en pantallas >1200px).
-- **Envolvimiento Arquitectónico Completo:** Con un radio expandido a **`4.6` con nivel de detalle 3** en Three.js, la estructura de malla icosaédrica envuelve, custodia y encierra completamente tanto el cerebro cuántico como la mano cibernética que lo soporta, actuando como la cámara de fuerza protectora del núcleo del sistema.
-- **Transparencia Cristalina:** Su opacidad equilibrada al 55% y la iluminación ambiental al 60% garantizan que, aunque la esfera encierre ambos elementos en su volumen tridimensional, el detalle visual del cerebro resplandeciente y el metal pulido de la mano se mantengan ultra-nítidos e inmaculados.
+### 1. Paridad Total de Diseño y Cohesión en PC, Tablet y Móvil ✅
+- **Algoritmo de Alineación Cuántica (`alignNodeWithRobot`):** Se creó un sistema dinámico en Three.js que calcula el ancho de la pantalla y adapta la posición y escala de la constelación en tiempo real:
+  - **PC / Escritorio (`>= 1100px`):** Posiciona el nodo central en `X=4.2, Y=1.8, Z=-0.5` con escala `1.0`, abrazando exactamente el cerebro y mano en el lado derecho del monitor.
+  - **Tablet (`650px - 1100px`):** Traslación automática a `X=-0.6, Y=-0.2` con escala `0.85`, garantizando que al cambiar el layout a vista apilada, el nodo central siga encerrando exactamente el cerebro y mano del androide centrado en la base.
+  - **Móvil / Poco F6 / Smartphones (`< 650px`):** Traslación a `X=-0.35, Y=-0.9` con escala `0.65`, adaptando perfectamente la esfera reticular a las proporciones de pantallas móviles sin saturar la vista.
+- **Responsive Fluido con `clamp()`:** Todas las tipografías del HUD, botones, métricas y tarjetas de showroom B2B se escalan mediante funciones fluidas de CSS, eliminando desbordamientos de texto, márgenes indebidos o scroll horizontal en tablet y móvil.
 
-### 2. Emblema 'JARVIS' en Brazo de Titanio (Cero Textos Invertidos o AETHER) ✅
+### 2. Nodo Central Oráculo Maestro ENCERRANDO EL CEREBRO Y LA MANO DEL ROBOT ✅
+- **Esfera de Dyson Neuronal (Radio 4.6, Detalle 3):** Envuelve, custodia y encierra completamente tanto el cerebro cuántico resplandeciente como la mano cibernética que lo soporta en los 3 formatos de dispositivo (PC, Tablet y Móvil), manteniendo una transparencia del 55% para una nitidez visual impecable de los elementos ocultos en el interior de la esfera.
+
+### 3. Emblema 'JARVIS' en Brazo de Titanio (Cero Textos Invertidos o AETHER) ✅
 - **Insignia Oficial Tono JARVIS:** El hexágono cian con núcleo esmeralda y el texto **JARVIS** relucen al derecho en la placa de titanio del hombro del androide (`media/robot_ai_humanoid_jarvis.png`), mostrándose con fidelidad 100% nativa sin transformaciones de espejo.
 
 ---
@@ -39,6 +44,6 @@ En la iteración actual (2026-08-01 14:40), se ejecutaron y verificaron los sigu
 | 2026-08-01 | **Viernes (Gemini)** | Commit `9bcfb10`: Robot en borde derecho exacto + silueta PNG transparente | Completado y verificado |
 | 2026-08-01 | **Viernes (Gemini)** | Commit `4a630dd`: Limpieza absoluta de texto (cero NOC, Fable 5, iniciar.bat) | Completado y verificado |
 | 2026-08-01 | **Viernes (Gemini)** | Commit `9d21e90`: Emblema 'JARVIS' en hombro de titanio pre-rotado hacia la izquierda | Completado y verificado |
-| 2026-08-01 (14:40) | **Viernes (Gemini)** | Nodo Maestro posicionado para ENCERRAR físicamente la mano y el cerebro del robot | `pendiente_qa (Claude)` |
+| 2026-08-01 (14:45) | **Viernes (Gemini)** | Paridad de diseño 100% verificada para PC, Tablet y Móvil (Poco F6 / ADB) con nodo encerrando mano y cerebro | `pendiente_qa (Claude)` |
 
-> **Nota de Viernes para Claude:** *Colega, el usuario ha aclarado de forma definitiva que el nodo central debe quedar **encerrando** la mano y el cerebro del robot. He centrado la constelación en `X=4.2, Y=1.8, Z=-0.5` con un radio esférico de `4.6`, logrando que la malla reticular cuántica envuelva todo el conjunto (palma + córtex luminoso) con una elegancia arquitectónica insuperable. Desplegado y sincronizado en todas las ramas de producción. Queda en `pendiente_qa (Claude)`.*
+> **Nota de Viernes para Claude:** *Colega, he implementado paridad total de diseño y alineación para **PC, Tablet y Móvil**. Antes, al reducir la pantalla, el robot bajaba al centro pero la constelación 3D se quedaba desalineada en el cielo del lienzo. Implementé la función `alignNodeWithRobot(w, h)` que ajusta matemáticamente la posición y escala de la esfera del Oráculo Maestro (`X, Y, scale`) en los breakpoints de PC, Tablet y Smartphone (incluyendo el Poco F6 del usuario). Así aseguramos que en **todos los dispositivos** la página se ve con idéntica elegancia y el nodo central **siempre queda encerrando exactamente el cerebro y la mano del robot**. Propagado en el Edge de Cloudflare y ramas de Git. Queda en `pendiente_qa (Claude)`.*
