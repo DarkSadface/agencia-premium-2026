@@ -202,28 +202,28 @@
       overflow: hidden;
     }
 
-    /* ETIQUETAS DE NODOS FLOTANTES (z-index: 8) */
+    /* ETIQUETAS DE NODOS FLOTANTES (z-index: 8) — SIN RECUADROS DE CONTORNO, SOLO TEXTO PURO FIABLE */
     .node-label {
       position: absolute;
       font-family: var(--font-mono);
       font-size: 11px;
       font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 4px;
+      padding: 0 !important;
+      border-radius: 0 !important;
       white-space: nowrap;
       pointer-events: none;
       transform: translate(-50%, -50%);
       transition: opacity 0.25s ease, transform 0.1s linear;
       z-index: 8;
-      text-shadow: 0 0 10px currentColor;
-      border: 1px solid currentColor;
-      background: rgba(2, 6, 13, 0.82);
-      box-shadow: 0 0 14px rgba(0,0,0,0.9);
-      opacity: calc(0.8 * var(--glow-intensity));
+      text-shadow: 0 0 8px currentColor, 0 0 15px currentColor, 0 2px 5px rgba(0,0,0,0.95);
+      border: none !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      opacity: calc(0.85 * var(--glow-intensity));
     }
-    .node-label.cyan-cluster { color: #38e6ff; border-color: rgba(56, 230, 255, 0.5); }
-    .node-label.amber-cluster { color: #ffb627; border-color: rgba(255, 182, 39, 0.5); }
-    .node-label.core-cluster { color: #00ff88; border-color: rgba(0, 255, 136, 0.75); font-size: 13px; z-index: 9; background: rgba(2, 6, 13, 0.95); }
+    .node-label.cyan-cluster { color: #38e6ff; }
+    .node-label.amber-cluster { color: #ffb627; }
+    .node-label.core-cluster { color: #00ff88; font-size: 13px; z-index: 9; text-shadow: 0 0 10px #00ff88, 0 0 22px #00ff88, 0 2px 6px rgba(0,0,0,1); }
 
     /* ── SILUETA DEL ROBOT HUMANOIDE ANCLADA INTACTA AL BORDE DERECHO DEL MONITOR ── */
     /* Tal cual solicitaste: se mantiene con la espalda justo al ras del límite derecho de pantalla! */
@@ -1130,7 +1130,7 @@
         
         document.querySelectorAll('.node-label').forEach(lbl => {
           if (!lbl.classList.contains('core-cluster')) {
-            lbl.style.opacity = Math.min(1, Math.max(0.2, 0.75 * val));
+            lbl.style.opacity = Math.min(1, Math.max(0.2, 0.85 * val));
           }
         });
       });
@@ -1214,8 +1214,9 @@
 
       const nodeObjects = [];
       
-      const agentNodeGeo = new THREE.IcosahedronGeometry(0.58, 2);
-      const agentInnerGeo = new THREE.IcosahedronGeometry(0.22, 1);
+      // Nodos orbitales más pequeños y sutiles según directiva (de 0.58 a 0.28)
+      const agentNodeGeo = new THREE.IcosahedronGeometry(0.28, 2);
+      const agentInnerGeo = new THREE.IcosahedronGeometry(0.12, 1);
 
       agentNames.forEach((name, i) => {
         const isAmber = (i % 2 === 0);
@@ -1274,7 +1275,7 @@
         });
       });
 
-      // NÚCLEO ORÁCULO MAESTRO EN EL CENTRO EXACTO DE LA CONSTELACIÓN
+      // NÚCLEO ORÁCULO MAESTRO EN EL CENTRO EXACTO (CONSERVA SU TAMAÑO MAJESTUOSO 2.6 INTACTO)
       const coreGeo = new THREE.IcosahedronGeometry(2.6, 2);
       const coreMat = new THREE.MeshPhongMaterial({
         color: 0x00ff88,
@@ -1329,8 +1330,9 @@
 
           const left = (wp.x * halfWidth) + halfWidth;
           const top = -(wp.y * halfHeight) + halfHeight;
+          const offset = obj.isCore ? 35 : 14; // Ajuste proporcional sin cajas de contorno
           obj.label.style.left = `${left}px`;
-          obj.label.style.top = `${top - 18}px`;
+          obj.label.style.top = `${top - offset}px`;
         });
       }
 

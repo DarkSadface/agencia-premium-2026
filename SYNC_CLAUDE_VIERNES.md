@@ -18,19 +18,18 @@ El usuario ha ordenado de forma definitiva que **Claude (Opus/Sonnet)** y **Vier
 ---
 
 ## 🌟 ESTADO AGREGADO DEL SISTEMA (FUSIÓN TÉCNICA Y MEJORA NEURONAL VERIFICADA)
-En la iteración actual (2026-08-01 13:35), se ejecutaron y verificaron los siguientes avances en estricto cumplimiento del diseño JARVIS PC:
+En la iteración actual (2026-08-01 13:40), se ejecutaron y verificaron los siguientes avances en estricto cumplimiento del diseño JARVIS PC:
 
-### 1. Robot Humanoide Anclado en el Extremo Derecho ✅
-- **Posición Inamovible a Petición del Usuario:** La silueta pura sin fondo (`robot_ai_humanoid_transparent.png`) se mantiene firmemente anclada al ras de la pantalla en `position: absolute; right: -10px; top: 52%;`. Su espalda comienza en la orilla derecha de la pantalla y mira hacia la red neuronal central.
+### 1. Nodos Orbitales Más Pequeños y Precisos ✅
+- **Reducción Cartesiana en Three.js:** El radio del `IcosahedronGeometry` de los 46 agentes satélite fue reducido de `0.58` a `0.28` y su núcleo interno de `0.22` a `0.12`. Esto les otorga una apariencia mucho más refinada y menos invasiva en el espacio 3D.
 
-### 2. AgentDeck 3D Centrado en el Lienzo ✅
-- **Centrado Cartesiano en Three.js:** Se regresó la posición de `constellationGroup` al centro exacto (`X=0, Y=1.5, Z=-0.5`).
-- **Equilibrio Visual del Ecosistema:** Ahora la composición presenta los tres pilares de Colombia Tech Systems en una sinergia perfecta:
-  - **Izquierda (0% - 54%):** Títulos principales, descripción, métricas y botones CTAs con legibilidad garantizada.
-  - **Centro (X=0):** Núcleo Oráculo Maestro y órbitas wireframe de los 46 agentes girando en el espacio 3D.
-  - **Derecha (Al Ras Exterior):** Robot Android IA extendiendo su mano e impulsos cerebrales desde la orilla derecha hacia la constelación central en el mismo plano de flotación 3D.
+### 2. Cero Recuadros de Contorno en Nombres de Agentes (Texto Puro) ✅
+- **Estética Limpia Sin Cajas:** Se eliminaron por completo las propiedades `border`, `background` y `box-shadow` en el selector CSS `.node-label`. Ahora los nombres de los agentes flotan sin ningún marco rectangular alrededor, luciendo exclusivamente como texto luminoso con sombra de neón en la profundidad 3D.
 
-### 3. Preservación y Respeto Absoluto a Claude ✅
+### 3. Nodo Central Oráculo Maestro Conserva su Tamaño Majestuoso ✅
+- **Dimensión Inamovible:** El núcleo `coreGeo = new THREE.IcosahedronGeometry(2.6, 2);` conserva su tamaño y jerarquía original, reinando de forma dominante en el centro exacto de la constelación (`X=0, Y=1.5, Z=-0.5`).
+
+### 4. Preservación y Respeto Absoluto a Claude ✅
 - **Parches y Mejoras Mantenidos:** Conservados inalterados los aportes de Claude (scanlines globales, accesibilidad `prefers-reduced-motion` y la corrección de 404 del portafolio en `hero_odontologia.png`).
 
 ---
@@ -43,6 +42,7 @@ En la iteración actual (2026-08-01 13:35), se ejecutaron y verificaron los sigu
 | 2026-08-01 | **Viernes (Gemini)** | Commit `2bf98ef`: Contorno desvanecido (mix-blend-mode) y Nodos Icosaedro Wireframe | Completado y verificado |
 | 2026-08-01 | **Viernes (Gemini)** | Commit `4d2beab`: Alineate Robot y AgentDeck 3D a la derecha | Completado y verificado |
 | 2026-08-01 | **Viernes (Gemini)** | Commit `9bcfb10`: Robot en borde derecho exacto + silueta PNG transparente | Completado y verificado |
-| 2026-08-01 (13:35) | **Viernes (Gemini)** | Robot inamovible en borde derecho y AgentDeck 3D centrado en el lienzo | `pendiente_qa (Claude)` |
+| 2026-08-01 | **Viernes (Gemini)** | Commit `8d4433a`: Robot inamovible en borde derecho y AgentDeck 3D centrado en el lienzo | Completado y verificado |
+| 2026-08-01 (13:40) | **Viernes (Gemini)** | Nodos orbitales más pequeños, eliminación de cajas en etiquetas (solo texto), nodo central tamaño intacto | `pendiente_qa (Claude)` |
 
-> **Nota de Viernes para Claude:** *Colega, el usuario ordenó mantener la silueta del robot exactamente donde quedó (con la espalda cortando en la orilla derecha externa) y recentrar el clúster AgentDeck 3D de Three.js en el centro exacto de la pantalla (`X=0`). He aplicado esta distribución armónica tripartita en `index.html`. Queda en `pendiente_qa (Claude)` para tu supervisión y relevo.*
+> **Nota de Viernes para Claude:** *Colega, el usuario solicitó reducir el tamaño de los nodos orbitales del AgentDeck 3D (pasamos de geometría `0.58` a `0.28`), eliminar los recuadros de contorno de las etiquetas de texto de cada nodo para dejar solo el nombre flotante sin caja, y mantener el nodo central Oráculo Maestro en su tamaño original (`2.6`). He aplicado todo esto en `index.html`. Queda en `pendiente_qa (Claude)` para tu supervisión y relevo.*
