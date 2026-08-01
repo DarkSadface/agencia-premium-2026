@@ -36,7 +36,8 @@
       --border-bright: rgba(56, 230, 255, 0.85);
       --text: #e0f4ff;
       --dim: rgba(56, 230, 255, 0.6);
-      --glow-intensity: 1.2;
+      /* INTENSIDAD LUMÍNICA REDUCIDA A LA MITAD PARA UN CONTRASTE PERFECTO CON EL CEREBRO DEL ROBOT */
+      --glow-intensity: 0.6;
       --hud-glow: rgba(0, 229, 255, calc(0.55 * var(--glow-intensity)));
       --gold-glow: rgba(255, 182, 39, calc(0.5 * var(--glow-intensity)));
       
@@ -219,7 +220,7 @@
       border: none !important;
       background: transparent !important;
       box-shadow: none !important;
-      opacity: calc(0.85 * var(--glow-intensity));
+      opacity: calc(0.9 * var(--glow-intensity));
     }
     .node-label.cyan-cluster { color: #38e6ff; }
     .node-label.amber-cluster { color: #ffb627; }
@@ -253,7 +254,7 @@
       object-fit: contain;
       object-position: right center;
       display: block;
-      filter: contrast(1.2) saturate(1.35) drop-shadow(0 0 40px rgba(56, 230, 255, calc(0.65 * var(--glow-intensity))));
+      filter: contrast(1.2) saturate(1.35) drop-shadow(0 0 30px rgba(56, 230, 255, calc(0.5 * var(--glow-intensity))));
       transform: scaleX(-1);
       mix-blend-mode: screen;
       transition: filter 0.4s ease, transform 0.4s ease;
@@ -793,12 +794,12 @@
     </div>
 
     <div class="container hero-content-layer">
-      <!-- BARRA DE CONTROL DE ILUMINACIÓN HOLOGRÁFICA -->
+      <!-- BARRA DE CONTROL DE ILUMINACIÓN HOLOGRÁFICA (POR DEFECTO A LA MITAD DE INTENSIDAD: 60%) -->
       <div class="hero-top-toolbar">
         <div class="lighting-controller">
           <span class="lighting-label">⚡ ILUMINACIÓN AGENTDECK FONDO:</span>
-          <input type="range" id="illumination-slider" class="lighting-slider" min="0.3" max="2.5" step="0.1" value="1.2" />
-          <span id="illumination-value" class="lighting-value">120%</span>
+          <input type="range" id="illumination-slider" class="lighting-slider" min="0.2" max="2.5" step="0.1" value="0.6" />
+          <span id="illumination-value" class="lighting-value">60%</span>
         </div>
       </div>
 
@@ -1102,7 +1103,7 @@
     </div>
   </footer>
 
-  <!-- LÓGICA DE AGENTDECK 3D ANIMADO EN POSICIÓN CELESTIAL SOBRE EL CEREBRO DEL ANDROIDE -->
+  <!-- LÓGICA DE AGENTDECK 3D ANIMADO CON INTENSIDAD A LA MITAD Y NODO MAESTRO ENCERRANDO EL CEREBRO SIN SOBREPONER -->
   <script>
     function updateClock() {
       const el = document.getElementById('hud-clock');
@@ -1123,13 +1124,13 @@
         document.documentElement.style.setProperty('--glow-intensity', val);
         valDisplay.textContent = Math.round(val * 100) + '%';
         
-        if (sceneLight) sceneLight.intensity = val * 2.0;
-        if (pointLight) pointLight.intensity = val * 2.8;
-        if (particlesGroup) particlesGroup.material.opacity = Math.min(1, val * 0.65);
+        if (sceneLight) sceneLight.intensity = val * 1.6;
+        if (pointLight) pointLight.intensity = val * 1.8;
+        if (particlesGroup) particlesGroup.material.opacity = Math.min(1, val * 0.55);
         
         document.querySelectorAll('.node-label').forEach(lbl => {
           if (!lbl.classList.contains('core-cluster')) {
-            lbl.style.opacity = Math.min(1, Math.max(0.2, 0.85 * val));
+            lbl.style.opacity = Math.min(1, Math.max(0.15, 0.85 * val));
           }
         });
       });
@@ -1152,21 +1153,22 @@
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       container.appendChild(renderer.domElement);
 
-      sceneLight = new THREE.DirectionalLight(0x38e6ff, 2.4);
+      // INTENSIDAD LUMÍNICA REDUCIDA A LA MITAD PARA NO SATURAR EL BRILLO DEL CEREBRO
+      sceneLight = new THREE.DirectionalLight(0x38e6ff, 1.2);
       sceneLight.position.set(18, 32, 22);
       scene.add(sceneLight);
 
-      // Foco de luz verde en posición superior irradiando sobre el Oráculo Maestro y el cerebro del Androide
-      pointLight = new THREE.PointLight(0x00ff88, 3.4, 90);
-      pointLight.position.set(7.5, 9, 3); 
+      // Foco esmeralda suave (intensidad a la mitad: 1.5) irradiando sobre el Oráculo Maestro y el córtex
+      pointLight = new THREE.PointLight(0x00ff88, 1.5, 90);
+      pointLight.position.set(7.8, 7.5, 2.0); 
       scene.add(pointLight);
 
-      scene.add(new THREE.AmbientLight(0x0c1e38, 1.8));
+      scene.add(new THREE.AmbientLight(0x0c1e38, 1.4));
 
       const grid = new THREE.GridHelper(70, 56, 0x38e6ff, 0x002b4d);
       grid.position.y = -3.5;
       grid.material.transparent = true;
-      grid.material.opacity = 0.45;
+      grid.material.opacity = 0.35;
       scene.add(grid);
 
       const particleCount = 280;
@@ -1182,15 +1184,15 @@
         color: 0x9af3ff,
         size: 0.22,
         transparent: true,
-        opacity: 0.65,
+        opacity: 0.45,
         blending: THREE.AdditiveBlending
       });
       particlesGroup = new THREE.Points(particleGeo, particleMat);
       scene.add(particlesGroup);
 
-      // GRUPO MAESTRO POSICIONADO HIGH-ABOVE SOBRE EL CEREBRO DEL ROBOT (X=7.5, Y=3.5, Z=-1.2)
+      // GRUPO POSICIONADO ENCIMA DEL CEREBRO PARA ENCERRAR SU HALO SIN SOBREPONERSE A SU TEXTURA (X=7.8, Y=2.2, Z=-1.6)
       constellationGroup = new THREE.Group();
-      constellationGroup.position.set(width > 1200 ? 7.5 : 0, 3.5, -1.2); 
+      constellationGroup.position.set(width > 1200 ? 7.8 : 0, 2.2, -1.6); 
       scene.add(constellationGroup);
 
       const agentNames = [
@@ -1234,21 +1236,21 @@
         const nodeMat = new THREE.MeshPhongMaterial({
           color: color,
           emissive: color,
-          emissiveIntensity: 0.85,
+          emissiveIntensity: 0.45,
           wireframe: true,
           transparent: true,
-          opacity: 0.95
+          opacity: 0.75
         });
         const wireframeMesh = new THREE.Mesh(agentNodeGeo, nodeMat);
         nodeGroup.add(wireframeMesh);
 
-        const innerMat = new THREE.MeshBasicMaterial({ color: color });
+        const innerMat = new THREE.MeshBasicMaterial({ color: color, transparent: true, opacity: 0.85 });
         const innerMesh = new THREE.Mesh(agentInnerGeo, innerMat);
         nodeGroup.add(innerMesh);
 
         nodesGroup.add(nodeGroup);
 
-        const lineMat = new THREE.LineBasicMaterial({ color: color, transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending });
+        const lineMat = new THREE.LineBasicMaterial({ color: color, transparent: true, opacity: 0.18, blending: THREE.AdditiveBlending });
         const points = [new THREE.Vector3(x, y, z), new THREE.Vector3(0, 3.5, -1)];
         const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
         const line = new THREE.Line(lineGeo, lineMat);
@@ -1273,13 +1275,15 @@
         });
       });
 
-      // NÚCLEO ORÁCULO MAESTRO EN EL CENTRO DE CONSTELACIÓN (FLOTANDO HIGH SOBRE CEREBRO ANDROIDE)
-      const coreGeo = new THREE.IcosahedronGeometry(2.6, 2);
+      // NÚCLEO ORÁCULO MAESTRO: ENCERRANDO EL CEREBRO SIN SOBREPONER (TRANSICIÓN TRANSLUCIDA HOLOGRÁFICA)
+      const coreGeo = new THREE.IcosahedronGeometry(2.9, 2);
       const coreMat = new THREE.MeshPhongMaterial({
         color: 0x00ff88,
         emissive: 0x00ff88,
-        emissiveIntensity: 0.95,
-        wireframe: true
+        emissiveIntensity: 0.45,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.55
       });
       const coreMesh = new THREE.Mesh(coreGeo, coreMat);
       coreMesh.position.set(0, 3.5, -1);
@@ -1291,15 +1295,15 @@
       container.appendChild(coreLabel);
       nodeObjects.push({ mesh: coreMesh, label: coreLabel, isCore: true });
 
-      const ringGeo1 = new THREE.TorusGeometry(6.4, 0.06, 16, 100);
-      const ringMat1 = new THREE.MeshBasicMaterial({ color: 0x38e6ff, transparent: true, opacity: 0.75 });
+      const ringGeo1 = new THREE.TorusGeometry(6.4, 0.05, 16, 100);
+      const ringMat1 = new THREE.MeshBasicMaterial({ color: 0x38e6ff, transparent: true, opacity: 0.45 });
       const ring1 = new THREE.Mesh(ringGeo1, ringMat1);
       ring1.position.set(0, 3.5, -1);
       ring1.rotation.x = Math.PI / 2.2;
       constellationGroup.add(ring1);
 
-      const ringGeo2 = new THREE.TorusGeometry(9.8, 0.08, 16, 100);
-      const ringMat2 = new THREE.MeshBasicMaterial({ color: 0xffb627, transparent: true, opacity: 0.6 });
+      const ringGeo2 = new THREE.TorusGeometry(9.8, 0.06, 16, 100);
+      const ringMat2 = new THREE.MeshBasicMaterial({ color: 0xffb627, transparent: true, opacity: 0.35 });
       const ring2 = new THREE.Mesh(ringGeo2, ringMat2);
       ring2.position.set(0, 3.5, -1);
       ring2.rotation.y = Math.PI / 3.2;
@@ -1372,7 +1376,7 @@
             const posAttr = obj.line.geometry.attributes.position;
             posAttr.setXYZ(0, obj.mesh.position.x, obj.mesh.position.y, obj.mesh.position.z);
             posAttr.needsUpdate = true;
-            obj.line.material.opacity = 0.18 + ((Math.sin(elapsed * 3.5 + obj.colorIdx) + 1) / 2) * 0.35;
+            obj.line.material.opacity = 0.12 + ((Math.sin(elapsed * 3.5 + obj.colorIdx) + 1) / 2) * 0.18;
           }
         });
 
@@ -1391,7 +1395,7 @@
         camera.updateProjectionMatrix();
         renderer.setSize(w, h);
         if (constellationGroup) {
-          constellationGroup.position.set(w > 1200 ? 7.5 : 0, 3.5, -1.2);
+          constellationGroup.position.set(w > 1200 ? 7.8 : 0, 2.2, -1.6);
         }
       });
     })();
