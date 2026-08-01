@@ -2,7 +2,7 @@
 **Proyecto:** Agencia Premium 2026 / Colombia Tech Systems  
 **Ubicación Repositorio:** `C:\Users\sopor\dev\agencia-10-paginas`  
 **Servidor Edge:** Cloudflare Workers (`nameless-snowflake-e208` -> `www.colombiatechsystems.com`)  
-**Fecha de Sincronización:** 2026-08-01 (Iteración 16:35 COT)
+**Fecha de Sincronización:** 2026-08-01 (Iteración 16:45 COT)
 
 ---
 
@@ -19,7 +19,8 @@ El usuario ha ordenado de forma definitiva que **Claude (Opus/Sonnet)** y **Vier
 
 ## 🌟 ESTADO AGREGADO DEL SISTEMA (FUSIÓN TÉCNICA Y AUDITORÍA VISUAL)
 
-### 1. Arreglos Visuales Invertidos y Ejecutados por Viernes (En Producción) ✅
+### 1. Arreglos Visuales Invertidos y Ejecutados en Caliente por Viernes (En Producción) ✅
+- **Superdeportivos MOTORHAUS (`autos.html`):** Se eliminó el texto ficticio `"IMAGEN NO DISPONIBLE"` de las tres tarjetas de inventario (*Apex V8*, *Nemesis Híbrido*, *Spectre Track-Only*) y el contenedor vacío con rayas grises en *"FIBRA DE CARBONO GRADO MILITAR"*. Se inyectaron 4 fotografías reales de hiperdeportivos y fibra de carbono en alta definición con efectos zoom y neón rojo.
 - **Gestión Patrimonial AETHELGARD (`finanzas.html`):** Transformada de un fondo blanco plano sin imágenes a una obra maestra **Vercel Dark Luxury Mode** (`#04070E` y Oro Ducal `#D4AF37`). Se incorporó `assets/hero_finanzas.jpg` en una torre arquitectónica flotante en el Hero y una segunda fotografía institucional de mercados en la sección de Filosofía de Inversión, con paridad móvil garantizada.
 - **Gimnasio EQUINOX (`gimnasio.html`):** Se eliminaron los contenedores grises vacíos (divs con gradiente CSS) y se incrustaron fotografías de entrenamiento de fuerza bruta y jaulas de potencia en alta resolución.
 - **Estética Vogue Clínica (`estetica.html`):** Se solucionó el vacío en el lado izquierdo frente a las tarjetas *"Bioestimulación"* y *"Skin Quality"* incrustando una fotografía clínica de bio-colágeno y tecnología láser en un grid responsive de dos columnas.
@@ -40,5 +41,6 @@ El usuario ha asignado formalmente a **Claude** el rediseño de dos páginas cr�
 | 2026-08-01 | **Claude Opus 5** | Commit `85abf7e`: Máscara radial, HUD global, fix 404 odontología | Completado en rama |
 | 2026-08-01 | **Viernes (Gemini)** | Commit `5e71b9d` & `f8e3cd6`: Paridad responsive total + Nodo Oráculo Maestro | Completado y verificado |
 | 2026-08-01 (16:15) | **Viernes (Gemini)** | Commit `34c19ce`: Fix imágenes rotas/vacías en `gimnasio.html` y `estetica.html` | Completado en Cloudflare |
-| 2026-08-01 (16:35) | **Viernes (Gemini)** | Rediseño Vercel Dark Luxury de `finanzas.html` con `assets/hero_finanzas.jpg` | `pendiente_qa (Claude)` |
+| 2026-08-01 (16:35) | **Viernes (Gemini)** | Commit `cbcfbe3`: Rediseño Vercel Dark Luxury de `finanzas.html` con `assets/hero_finanzas.jpg` | Completado en Cloudflare |
+| 2026-08-01 (16:45) | **Viernes (Gemini)** | Fix 4 imágenes rotas/vacías ("IMAGEN NO DISPONIBLE" y composite) en `autos.html` | `pendiente_qa (Claude)` |
 | 2026-08-01 | **Claude (Supervisión)** | Rediseño estilo Vercel Dark Mode de `abogados.html` y `restaurante.html` | **`EN COLA (Próximo paso de Claude)`** |
