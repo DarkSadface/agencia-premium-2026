@@ -224,7 +224,7 @@
     }
     .node-label.cyan-cluster { color: #38e6ff; }
     .node-label.amber-cluster { color: #ffb627; }
-    .node-label.core-cluster { color: #00ff88; font-size: 13px; z-index: 9; text-shadow: 0 0 10px #00ff88, 0 0 22px #00ff88, 0 2px 6px rgba(0,0,0,1); }
+    .node-label.core-cluster { color: #00ff88; font-size: 14px; z-index: 9; text-shadow: 0 0 10px #00ff88, 0 0 25px #00ff88, 0 2px 6px rgba(0,0,0,1); font-weight: 800; }
 
     /* ── SILUETA DEL ROBOT HUMANOIDE ANCLADA INTACTA AL BORDE DERECHO DEL MONITOR ── */
     .robot-showcase-hologram {
@@ -248,6 +248,7 @@
       50% { transform: translateY(-50%) translateY(-14px); }
     }
 
+    /* IMAGEN MASTER JARVIS: SIN SCALE(-1) PORQUE YA FUE RENDERIZADA Y ORIENTADA EN PYTHON CON EL EMBLEMA EN EL BRAZO */
     .robot-img-hologram {
       width: 100%;
       height: 100%;
@@ -255,9 +256,8 @@
       object-position: right center;
       display: block;
       filter: contrast(1.2) saturate(1.35) drop-shadow(0 0 30px rgba(56, 230, 255, calc(0.5 * var(--glow-intensity))));
-      transform: scaleX(-1);
       mix-blend-mode: screen;
-      transition: filter 0.4s ease, transform 0.4s ease;
+      transition: filter 0.4s ease;
     }
 
     .robot-hud-tag {
@@ -781,12 +781,12 @@
 
   <!-- HERO SECTION: ROBOT ANCLADO DERECHA Y AGENTDECK SOBRE CEREBRO IA -->
   <section class="hero-section">
-    <!-- El lienzo 3D neuronal se renderiza sobre el cerebro del androide sin tapar su cabeza -->
+    <!-- El lienzo 3D neuronal encierra el cerebro y la mano del androide en escala cuasi-esférica -->
     <div id="agentdeck-bg-canvas"></div>
 
-    <!-- SILUETA PURA DEL ROBOT ANCLADA EN EL BORDE DERECHO REAL (SE MANTIENE AHÍ EXAMINANDO EL AGENTDECK) -->
+    <!-- SILUETA MASTER DEL ROBOT CON EL LOGOTIPO HAGONO Y TEXTO 'JARVIS' EN EL BRAZO TITANIO -->
     <div class="robot-showcase-hologram">
-      <img src="media/robot_ai_humanoid_transparent.png" alt="Silueta Pura de Robot Android con Cerebro Neuronal IA" class="robot-img-hologram" />
+      <img src="media/robot_ai_humanoid_jarvis.png" alt="Silueta Pura de Robot Android con Cerebro Neuronal IA y Emblema JARVIS" class="robot-img-hologram" />
       <div class="robot-hud-tag">
         <span>🤖 IA AUTÓNOMA COLOMBIA TECH</span>
         <span class="neon-text">[ ORÁCULO ACTIVO ]</span>
@@ -1103,7 +1103,7 @@
     </div>
   </footer>
 
-  <!-- LÓGICA DE AGENTDECK 3D ANIMADO CON INTENSIDAD A LA MITAD Y NODO MAESTRO ENCERRANDO EL CEREBRO SIN SOBREPONER -->
+  <!-- LÓGICA DE AGENTDECK 3D ANIMADO CON NODO MAESTRO MASIVO ENCERRANDO EL CEREBRO Y LA MANO -->
   <script>
     function updateClock() {
       const el = document.getElementById('hud-clock');
@@ -1158,9 +1158,9 @@
       sceneLight.position.set(18, 32, 22);
       scene.add(sceneLight);
 
-      // Foco esmeralda suave (intensidad a la mitad: 1.5) irradiando sobre el Oráculo Maestro y el córtex
+      // Foco esmeralda enfocado directamente en el centro de gravedad (el cerebro y la mano)
       pointLight = new THREE.PointLight(0x00ff88, 1.5, 90);
-      pointLight.position.set(7.8, 7.5, 2.0); 
+      pointLight.position.set(4.2, 3.5, 2.0); 
       scene.add(pointLight);
 
       scene.add(new THREE.AmbientLight(0x0c1e38, 1.4));
@@ -1190,9 +1190,9 @@
       particlesGroup = new THREE.Points(particleGeo, particleMat);
       scene.add(particlesGroup);
 
-      // GRUPO POSICIONADO ENCIMA DEL CEREBRO PARA ENCERRAR SU HALO SIN SOBREPONERSE A SU TEXTURA (X=7.8, Y=2.2, Z=-1.6)
+      // GRUPO POSICIONADO DIRECTAMENTE SOBRE EL CEREBRO Y LA MANO (CUADRADO VERDE DEL USUARIO: X=4.2, Y=1.8, Z=-0.6)
       constellationGroup = new THREE.Group();
-      constellationGroup.position.set(width > 1200 ? 7.8 : 0, 2.2, -1.6); 
+      constellationGroup.position.set(width > 1200 ? 4.2 : 0, 1.8, -0.6); 
       scene.add(constellationGroup);
 
       const agentNames = [
@@ -1220,13 +1220,13 @@
 
       agentNames.forEach((name, i) => {
         const isAmber = (i % 2 === 0);
-        const clusterCenter = isAmber ? -8.2 : 8.2;
+        const clusterCenter = isAmber ? -7.5 : 7.5;
         
         const angle = (i / agentNames.length) * Math.PI * 4;
-        const dist = 3.6 + (i % 5) * 1.35;
+        const dist = 5.2 + (i % 5) * 1.5;
         const x = clusterCenter + Math.cos(angle) * dist;
-        const z = Math.sin(angle) * dist - 1.5;
-        const y = Math.sin(x * 0.4 + z) * 3.2 + 2.5;
+        const z = Math.sin(angle) * dist - 1.0;
+        const y = Math.sin(x * 0.3 + z) * 3.8 + 1.2;
 
         const color = isAmber ? 0xffb627 : 0x38e6ff;
         
@@ -1251,7 +1251,7 @@
         nodesGroup.add(nodeGroup);
 
         const lineMat = new THREE.LineBasicMaterial({ color: color, transparent: true, opacity: 0.18, blending: THREE.AdditiveBlending });
-        const points = [new THREE.Vector3(x, y, z), new THREE.Vector3(0, 3.5, -1)];
+        const points = [new THREE.Vector3(x, y, z), new THREE.Vector3(0, 0, 0)];
         const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
         const line = new THREE.Line(lineGeo, lineMat);
         nodesGroup.add(line);
@@ -1275,8 +1275,8 @@
         });
       });
 
-      // NÚCLEO ORÁCULO MAESTRO: ENCERRANDO EL CEREBRO SIN SOBREPONER (TRANSICIÓN TRANSLUCIDA HOLOGRÁFICA)
-      const coreGeo = new THREE.IcosahedronGeometry(2.9, 2);
+      // NÚCLEO ORÁCULO MAESTRO MASIVO (RADIO 4.6, DETAIL 3): ENCERRANDO EL CEREBRO Y LA MANO SEGÚN EL RECUADRO VERDE DEL USUARIO
+      const coreGeo = new THREE.IcosahedronGeometry(4.6, 3);
       const coreMat = new THREE.MeshPhongMaterial({
         color: 0x00ff88,
         emissive: 0x00ff88,
@@ -1286,7 +1286,7 @@
         opacity: 0.55
       });
       const coreMesh = new THREE.Mesh(coreGeo, coreMat);
-      coreMesh.position.set(0, 3.5, -1);
+      coreMesh.position.set(0, 0, 0);
       constellationGroup.add(coreMesh);
 
       const coreLabel = document.createElement('div');
@@ -1295,17 +1295,17 @@
       container.appendChild(coreLabel);
       nodeObjects.push({ mesh: coreMesh, label: coreLabel, isCore: true });
 
-      const ringGeo1 = new THREE.TorusGeometry(6.4, 0.05, 16, 100);
+      const ringGeo1 = new THREE.TorusGeometry(8.2, 0.05, 16, 120);
       const ringMat1 = new THREE.MeshBasicMaterial({ color: 0x38e6ff, transparent: true, opacity: 0.45 });
       const ring1 = new THREE.Mesh(ringGeo1, ringMat1);
-      ring1.position.set(0, 3.5, -1);
+      ring1.position.set(0, 0, 0);
       ring1.rotation.x = Math.PI / 2.2;
       constellationGroup.add(ring1);
 
-      const ringGeo2 = new THREE.TorusGeometry(9.8, 0.06, 16, 100);
+      const ringGeo2 = new THREE.TorusGeometry(11.5, 0.06, 16, 120);
       const ringMat2 = new THREE.MeshBasicMaterial({ color: 0xffb627, transparent: true, opacity: 0.35 });
       const ring2 = new THREE.Mesh(ringGeo2, ringMat2);
-      ring2.position.set(0, 3.5, -1);
+      ring2.position.set(0, 0, 0);
       ring2.rotation.y = Math.PI / 3.2;
       constellationGroup.add(ring2);
 
@@ -1332,7 +1332,7 @@
 
           const left = (wp.x * halfWidth) + halfWidth;
           const top = -(wp.y * halfHeight) + halfHeight;
-          const offset = obj.isCore ? 35 : 14; 
+          const offset = obj.isCore ? 65 : 14; 
           obj.label.style.left = `${left}px`;
           obj.label.style.top = `${top - offset}px`;
         });
@@ -1354,9 +1354,9 @@
 
         nodeObjects.forEach(obj => {
           if (obj.isCore) {
-            obj.mesh.rotation.x += 0.012;
-            obj.mesh.rotation.y += 0.015;
-            const pulse = 1 + Math.sin(elapsed * 2.8) * 0.07;
+            obj.mesh.rotation.x += 0.008;
+            obj.mesh.rotation.y += 0.012;
+            const pulse = 1 + Math.sin(elapsed * 2.8) * 0.05;
             obj.mesh.scale.set(pulse, pulse, pulse);
             return;
           }
@@ -1395,7 +1395,7 @@
         camera.updateProjectionMatrix();
         renderer.setSize(w, h);
         if (constellationGroup) {
-          constellationGroup.position.set(w > 1200 ? 7.8 : 0, 2.2, -1.6);
+          constellationGroup.position.set(w > 1200 ? 4.2 : 0, 1.8, -0.6);
         }
       });
     })();
