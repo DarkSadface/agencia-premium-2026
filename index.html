@@ -19,7 +19,7 @@
 
   <style>
     /* ══════════════════════════════════════════════════════════════════════
-       JARVIS PC & VERCEL SYSTEM — TOKENS DE PRODUCCIÓN & DISEÑO IMPECABLE
+       JARVIS PC & VERCEL SYSTEM — TOKENS DE PRODUCCIÓN (FUSIÓN CLAUDE + VIERNES)
        ══════════════════════════════════════════════════════════════════════ */
     :root {
       --cyan: #38e6ff;
@@ -73,6 +73,22 @@
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpolygon points='28,2 54,16 54,44 28,58 2,44 2,16' fill='none' stroke='rgba(56,230,255,0.05)' stroke-width='1'/%3E%3C/svg%3E");
       background-size: 100% 100%, 56px 100px;
       pointer-events: none;
+    }
+
+    /* ── Capa HUD Global (Aporte Claude: scanlines sutiles + viñeta, firma AgentDeck) ── */
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: 3;
+      pointer-events: none;
+      background:
+        repeating-linear-gradient(0deg, rgba(56,230,255,0.025) 0, rgba(56,230,255,0.025) 1px, transparent 1px, transparent 3px),
+        radial-gradient(ellipse at 50% 40%, transparent 54%, rgba(2,6,13,0.6) 100%);
+    }
+
+    /* Accesibilidad (Aporte Claude): respetar preferencia de menos movimiento */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
+      html { scroll-behavior: auto; }
     }
 
     /* ── Contenedor Principal ── */
@@ -372,7 +388,7 @@
     }
 
     /* ── ROBOT HUMANOIDE NANO BANANA — DISEÑO VERCEL E IMPECABLE ── */
-    /* Cero superposiciones, sin marcos toscos ni desbalances de relleno */
+    /* Fusión determinista Claude + Viernes: sin superposiciones, con máscara radial y viñeta interna */
     .hero-right {
       position: relative;
       display: flex;
@@ -390,18 +406,24 @@
       box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95),
                   0 0 65px rgba(56, 230, 255, calc(0.3 * var(--glow-intensity)));
       border: 1px solid rgba(56, 230, 255, 0.35);
-      background: #02060d;
+      background: rgba(6, 15, 30, 0.12);
       display: flex;
       transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease, border-color 0.5s ease;
+      /* Animación suave de flotación (Aporte Claude) */
+      animation: gentle-float 6s ease-in-out infinite;
+    }
+    @keyframes gentle-float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
     }
     .robot-showcase-vercel:hover {
-      transform: translateY(-8px) scale(1.015);
+      transform: translateY(-12px) scale(1.015);
       box-shadow: 0 35px 100px rgba(0, 0, 0, 1),
                   0 0 85px rgba(56, 230, 255, calc(0.6 * var(--glow-intensity)));
       border-color: var(--cyan-bright);
     }
 
-    /* Capa de fundido de viñeta para que la imagen se integre suavemente al fondo sin parecer pegada */
+    /* Capa de fundido de viñeta interna y máscara radial (Aporte Claude + Viernes) */
     .robot-showcase-vercel::before {
       content: '';
       position: absolute;
@@ -426,13 +448,16 @@
       object-position: center;
       display: block;
       filter: contrast(1.16) saturate(1.22);
+      /* Fusión determinista en el espacio 3D (Aporte Claude) */
+      -webkit-mask-image: radial-gradient(ellipse 85% 88% at 50% 48%, #000 58%, transparent 96%);
+      mask-image: radial-gradient(ellipse 85% 88% at 50% 48%, #000 58%, transparent 96%);
       transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
     }
     .robot-showcase-vercel:hover .robot-img-vercel {
       transform: scale(1.06);
     }
 
-    /* Placa de estado acristalada Vercel perimetralmente alineada al interior sin cortarse ni superponerse */
+    /* Placa de estado acristalada Vercel alineada al interior sin cortarse ni superponerse */
     .robot-badge-vercel {
       position: absolute;
       bottom: 20px; left: 20px; right: 20px;
@@ -832,7 +857,7 @@
           </div>
         </div>
 
-        <!-- ROBOT HUMANOIDE EN NANO BANANA DEFINICIÓN — ESTILIZACIÓN VERCEL E IMPECABLE (CERO SUPERPOSICIONES) -->
+        <!-- ROBOT HUMANOIDE NANO BANANA — ESTILIZACIÓN VERCEL E IMPECABLE (CERO SUPERPOSICIONES + FUSIÓN CLAUDE) -->
         <div class="hero-right">
           <div class="robot-showcase-vercel">
             <img src="media/robot_ai_humanoid.jpg" alt="Retrato de Robot Android Humanoide con Cerebro Neuronal IA" class="robot-img-vercel" />
@@ -901,7 +926,7 @@
       </div>
     </section>
 
-    <!-- PORTAFOLIO REAL DE INGENIERÍA & PLANTILLAS B2B (SIN INVENTOS) -->
+    <!-- PORTAFOLIO REAL DE INGENIERÍA & PLANTILLAS B2B (FUSIÓN BUGFIX CLAUDE) -->
     <section id="portafolio">
       <div class="section-title-wrapper">
         <span class="section-subtitle-tag">PORTAFOLIO DE INGENIERÍA DIGITAL CERTIFICADO</span>
@@ -912,7 +937,8 @@
         
         <div class="template-card">
           <div class="template-img-box">
-            <img src="assets/dental_website_mockup.png" alt="Odontología Clínica Premium" onerror="this.src='assets/dental_hero_bg.png'" />
+            <!-- Fix 404 Odontologia aportado por Claude -->
+            <img src="assets/hero_odontologia.png" alt="Odontología Clínica Premium" loading="lazy" decoding="async" />
             <span class="template-tag">HEALTH TECH</span>
           </div>
           <div class="template-info">
