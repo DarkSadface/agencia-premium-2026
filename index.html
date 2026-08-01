@@ -3,138 +3,870 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agencia Premium 2026 | Portafolio Maestro</title>
+    <title>Colombia Tech Systems | Ingeniería de Sistemas, IA & Telecomunicaciones</title>
+    <meta name="description" content="Portal oficial de Colombia Tech Systems: Desarrollo de Software Custom, Inteligencia Artificial Autónoma, Telemetría NOC, Ciberseguridad y Showroom Digital Premium.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;600;700;900&family=Fira+Code:wght@400;600&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;700&display=swap');
-        body {
+        :root {
+            --bg: #030712;
+            --bg-secondary: #080D1A;
+            --surface: rgba(13, 22, 39, 0.7);
+            --border: rgba(0, 229, 255, 0.18);
+            --primary: #00E5FF;
+            --secondary: #00F5D4;
+            --accent: #7F00FF;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --glow: 0 0 25px rgba(0, 229, 255, 0.25);
+            --glow-strong: 0 0 35px rgba(0, 245, 212, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            background-color: #050505;
-            color: #ffffff;
-            font-family: 'Geist', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
         }
-        .header {
-            text-align: center;
-            padding: 4rem 2rem;
-            width: 100%;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            background: radial-gradient(circle at top, rgba(255,255,255,0.05), transparent);
-        }
-        .header h1 {
-            font-size: 3rem;
-            letter-spacing: -0.05em;
-            margin: 0 0 1rem 0;
-        }
-        .header p {
-            color: #888;
-            font-size: 1.2rem;
-            margin: 0;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            padding: 4rem 2rem;
-            max-width: 1200px;
-            width: 100%;
-        }
-        .card {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            padding: 2rem;
-            text-decoration: none;
-            color: white;
-            transition: all 0.3s ease;
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Geist', 'Outfit', sans-serif;
+            overflow-x: hidden;
             position: relative;
-            overflow: hidden;
         }
-        .card:hover {
-            border-color: rgba(255,255,255,0.3);
-            background: rgba(255,255,255,0.05);
-            transform: translateY(-5px);
+
+        /* Canvas de Fondo e Iluminación Cyber */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
         }
-        .card h2 {
-            margin: 0 0 0.5rem 0;
-            font-size: 1.5rem;
+
+        .bg-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.18;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .glow-1 { top: -100px; left: 10%; background: var(--primary); }
+        .glow-2 { top: 40%; right: -100px; background: var(--accent); }
+        .glow-3 { bottom: 10%; left: 30%; background: var(--secondary); }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* NAVEGACIÓN Y LOGO */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 800;
+            font-size: 1.35rem;
             letter-spacing: -0.02em;
         }
-        .card p {
-            color: #888;
-            margin: 0;
-            font-size: 0.9rem;
+
+        .logo-svg {
+            width: 42px;
+            height: 42px;
+            filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.6));
         }
-        .tag {
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0, 245, 212, 0.08);
+            border: 1px solid rgba(0, 245, 212, 0.3);
+            color: var(--secondary);
+            font-size: 0.75rem;
+            font-family: 'Fira Code', monospace;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--secondary);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.15); opacity: 1; box-shadow: 0 0 16px var(--secondary); }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.25s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .btn-glow {
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.2), rgba(0, 245, 212, 0.2));
+            border: 1px solid var(--primary);
+            color: var(--text-main);
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: var(--glow);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow-strong);
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.35), rgba(0, 245, 212, 0.35));
+            border-color: var(--secondary);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            padding: 6rem 0 5rem;
+            text-align: center;
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+            margin: 1.5rem 0;
+            background: linear-gradient(to right, #FFFFFF 20%, var(--primary) 70%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 3rem;
+        }
+
+        .tag-chip {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 6px 14px;
+            border-radius: 99px;
+            font-size: 0.85rem;
+            color: #E2E8F0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tag-chip i { color: var(--primary); }
+
+        .hero-cta {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #FFF;
+            padding: 12px 26px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* MÓDULOS DE PROYECTOS INGENIERÍA Y SISTEMAS */
+        .section-header {
+            margin: 5rem 0 3rem;
+            text-align: left;
+        }
+
+        .section-header h2 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #FFF;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2.2rem;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(16px);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .project-card::before {
+            content: "";
             position: absolute;
-            top: 1rem; right: 1rem;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            opacity: 0;
+            transition: opacity 0.35s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(0, 229, 255, 0.45);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 229, 255, 0.15);
+        }
+
+        .project-card:hover::before { opacity: 1; }
+
+        .project-icon {
+            width: 52px;
+            height: 52px;
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid rgba(0, 229, 255, 0.25);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: #FFF;
+        }
+
+        .project-card p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 1.2rem;
+        }
+
+        .meta-badge {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            color: #A5F3FC;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 229, 255, 0.15);
+        }
+
+        /* SHOWROOM NICHOS DIGITALES (GRID 10 PÁGINAS) */
+        .showroom-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 5rem;
+        }
+
+        .niche-card {
+            background: rgba(13, 22, 39, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: #FFF;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .niche-card:hover {
+            background: rgba(13, 22, 39, 0.85);
+            border-color: var(--secondary);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 245, 212, 0.15);
+        }
+
+        .niche-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .niche-icon { font-size: 1.8rem; }
+        
+        .niche-tag {
             font-size: 0.7rem;
-            padding: 0.2rem 0.6rem;
-            border: 1px solid rgba(255,255,255,0.2);
+            font-family: 'Fira Code', monospace;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: var(--secondary);
+            border: 1px solid rgba(0, 245, 212, 0.2);
+        }
+
+        .niche-card h4 { font-size: 1.2rem; margin-bottom: 0.4rem; }
+        .niche-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.4; }
+
+        /* CONSOLA / TERMINAL INTERACTIVA EN VIVO */
+        .terminal-box {
+            background: #050811;
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 229, 255, 0.1);
+            margin: 4rem 0;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .terminal-topbar {
+            background: #0A1122;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .terminal-dots { display: flex; gap: 8px; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot-red { background: #FF5F56; }
+        .dot-yellow { background: #FFBD2E; }
+        .dot-green { background: #27C93F; }
+
+        .terminal-title { font-size: 0.85rem; color: #94A3B8; }
+        .terminal-body { padding: 1.5rem; color: #10B981; font-size: 0.95rem; min-height: 220px; line-height: 1.6; }
+
+        .terminal-prompt { color: var(--primary); }
+        .terminal-cmd-btn {
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            color: #FFF;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-right: 8px;
+            margin-top: 10px;
+        }
+        .terminal-cmd-btn:hover { background: var(--primary); color: #000; font-weight: 700; }
+
+        /* SECCIÓN CONTACTO Y REDES SOCIALES */
+        .social-section {
+            background: radial-gradient(circle at center, rgba(13, 22, 39, 0.8), rgba(3, 7, 18, 0.95));
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 20px;
-            color: #aaa;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-bottom: 6rem;
+            backdrop-filter: blur(20px);
+        }
+
+        .social-section h2 { font-size: 2.2rem; margin-bottom: 1rem; }
+        .social-grid {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 2.5rem;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #FFF;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .social-btn.wsp { border-color: rgba(39, 201, 63, 0.4); }
+        .social-btn.gh { border-color: rgba(148, 163, 184, 0.4); }
+        .social-btn.lk { border-color: rgba(0, 168, 232, 0.4); }
+        .social-btn.tg { border-color: rgba(0, 229, 255, 0.4); }
+
+        .social-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        .social-btn.wsp:hover { background: rgba(39, 201, 63, 0.15); box-shadow: 0 0 25px rgba(39, 201, 63, 0.3); }
+        .social-btn.gh:hover { background: rgba(255, 255, 255, 0.15); }
+        .social-btn.lk:hover { background: rgba(0, 168, 232, 0.15); box-shadow: 0 0 25px rgba(0, 168, 232, 0.3); }
+        .social-btn.tg:hover { background: rgba(0, 229, 255, 0.15); box-shadow: 0 0 25px rgba(0, 229, 255, 0.3); }
+
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; gap: 1rem; }
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 1rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.3rem; }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Portafolio Elite 2026</h1>
-        <p>Selecciona una industria para visualizar el desarrollo premium.</p>
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
+    <div class="bg-glow glow-3"></div>
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="container">
+        <!-- NAVEGACIÓN -->
+        <nav class="navbar">
+            <a href="#" class="brand">
+                <svg class="logo-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="32,2 58,16 58,48 32,62 6,48 6,16" stroke="#00E5FF" stroke-width="2.5" fill="rgba(0, 229, 255, 0.05)"/>
+                    <polygon points="32,12 48,22 48,42 32,52 16,42 16,22" stroke="#00F5D4" stroke-width="2" fill="rgba(0, 245, 212, 0.1)"/>
+                    <circle cx="32" cy="32" r="7" fill="#00E5FF" filter="drop-shadow(0 0 6px #00E5FF)"/>
+                    <line x1="32" y1="2" x2="32" y2="12" stroke="#00E5FF" stroke-width="2"/>
+                    <line x1="32" y1="52" x2="32" y2="62" stroke="#00E5FF" stroke-width="2"/>
+                    <line x1="6" y1="16" x2="16" y2="22" stroke="#00F5D4" stroke-width="2"/>
+                    <line x1="58" y1="48" x2="48" y2="42" stroke="#00F5D4" stroke-width="2"/>
+                </svg>
+                <span>COLOMBIA TECH SYSTEMS</span>
+            </a>
+            <div class="nav-links">
+                <a href="#proyectos">Proyectos & NOC</a>
+                <a href="#showroom">Showroom Web</a>
+                <a href="#terminal">Consola IA</a>
+                <a href="#contacto" class="btn-glow">Conectar <span class="status-dot"></span></a>
+            </div>
+        </nav>
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="status-pill">
+                <span class="status-dot"></span>
+                ARQUITECTURA SISTEMAS & IA AUTÓNOMA · NOC OPERACIONAL
+            </div>
+            <h1>Ingeniería de Sistemas, Orquestación Multi-Agente & Infraestructura NOC</h1>
+            <p class="hero-subtitle">
+                Diseño de soluciones tecnológicas de misión crítica con tolerancia cero a fallos. Especialistas en desarrollo de software a la medida, ciberseguridad, redes de telecomunicaciones, automatización con modelos Edge (Ollama/Hermes) y ecosistemas IA avanzados.
+            </p>
+
+            <div class="tech-tags">
+                <div class="tag-chip">⚡ Python 3.12 / Fast-Async</div>
+                <div class="tag-chip">🧠 Claude Opus & Gemini Pro</div>
+                <div class="tag-chip">⚙️ PowerShell 7+ & WinOptimizer</div>
+                <div class="tag-chip">🛡️ Telemetría Carbyne & 123 NOC</div>
+                <div class="tag-chip">💎 React Native / TS / Expo</div>
+                <div class="tag-chip">🏛️ Obsidian PKM & Grafana 3D</div>
+                <div class="tag-chip">🤖 Ollama Edge & Hermes Agent</div>
+            </div>
+
+            <div class="hero-cta">
+                <a href="#proyectos" class="btn-glow" style="padding: 14px 32px; font-size: 1.1rem;">⚡ Explorar Proyectos de Ingeniería</a>
+                <a href="https://wa.me/573000000000?text=Hola%20Ingeniero,%20deseo%20una%20consultor%C3%ADa%20de%20sistemas%20e%20IA%20para%20mi%20empresa." target="_blank" class="btn-secondary" style="padding: 14px 32px; font-size: 1.1rem;">💬 Consultoría VIP por WhatsApp</a>
+            </div>
+        </section>
+
+        <!-- MÓDULO 1: PROYECTOS DE INGENIERÍA DE SISTEMAS -->
+        <div id="proyectos" class="section-header">
+            <h2>🦾 Proyectos de Ingeniería y Sistemas de Vanguardia</h2>
+            <p>Hitos reales desarrollados combinando automatización local, infraestructura de alta disponibilidad e Inteligencia Artificial.</p>
+        </div>
+
+        <div class="projects-grid">
+            <!-- Proyecto JARVIS -->
+            <div class="project-card">
+                <div class="project-icon">🧠</div>
+                <h3>Ecosistema JARVIS & Orácu1o Maestro</h3>
+                <p>Asistente cognitivo operativo de escritorio (Electron + Flask + Python) y app móvil nativa (Expo/RN) con sincronización OTA en tiempo real y visualización espacial en AgentDeck 3D. Orquesta una flota de 46 agentes especialistas bajo el protocolo anti-alucinación Fable 5.</p>
+                <div class="project-meta">
+                    <span class="meta-badge">Python / Flask</span>
+                    <span class="meta-badge">React Native</span>
+                    <span class="meta-badge">Gemini CLI / MCP</span>
+                    <span class="meta-badge">OTA Sync</span>
+                </div>
+            </div>
+
+            <!-- Telemetría NOC y Carbyne -->
+            <div class="project-card">
+                <div class="project-icon">🛡️</div>
+                <h3>Telemetría NOC & Integración Emergencias 123</h3>
+                <p>Arquitectura de red e ingeniería a detalle para centros de comando NOC, líneas de vida (123/103) y consolas de despacho INOVISEC / Carbyne APEX v6.49. Monitoreo predictivo con scripts automáticos en Python y paneles de alta resolución en Grafana.</p>
+                <div class="project-meta">
+                    <span class="meta-badge">Alta Disponibilidad</span>
+                    <span class="meta-badge">Cableado Estructurado</span>
+                    <span class="meta-badge">Carbyne APEX</span>
+                    <span class="meta-badge">Grafana / SNMP</span>
+                </div>
+            </div>
+
+            <!-- WinOptimizer y Automatización Edge -->
+            <div class="project-card">
+                <div class="project-icon">⚡</div>
+                <h3>WinOptimizer & Edge AI Automation (Ollama/Hermes)</h3>
+                <p>Suite de automatización e infraestructura en PowerShell 7+ para hardening, limpieza profunda, optimización de kernel en Windows Server/Client y ejecución local privada de modelos de IA con Ollama (Qwen3 / Llama3) y Hermes Agent sin dependencia cloud.</p>
+                <div class="project-meta">
+                    <span class="meta-badge">PowerShell 7+</span>
+                    <span class="meta-badge">Ollama Local</span>
+                    <span class="meta-badge">Hermes AI</span>
+                    <span class="meta-badge">Zero Cloud Spend</span>
+                </div>
+            </div>
+
+            <!-- Proyecto Dólar y Showroom Comercial -->
+            <div class="project-card">
+                <div class="project-icon">💎</div>
+                <h3>Agencia de Desarrollo & Showroom Modular 2026</h3>
+                <p>Motor de generación comercial automatizado y arquitectura de portafolios web de ultrarrenterapia para empresas e industrias de alto ticket (Abogados, Odontología, Inmobiliarias). Diseño con Glassmorphism, paletas HSL y velocidad Lighthouse 100/100.</p>
+                <div class="project-meta">
+                    <span class="meta-badge">Vercel / Cloudflare</span>
+                    <span class="meta-badge">HTML / CSS Moderno</span>
+                    <span class="meta-badge">SEO Pro</span>
+                    <span class="meta-badge">Conversión AIDA</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- MÓDULO 2: CONSOLA / TERMINAL INTERACTIVA EN VIVO -->
+        <div id="terminal" class="section-header" style="margin-top: 6rem;">
+            <h2>⚡ Consola Operativa en Vivo (JARVIS Core & Viernes)</h2>
+            <p>Interactúa con nuestro motor cognitivo en línea o selecciona un comando de diagnóstico.</p>
+        </div>
+
+        <div class="terminal-box">
+            <div class="terminal-topbar">
+                <div class="terminal-dots">
+                    <div class="dot dot-red"></div>
+                    <div class="dot dot-yellow"></div>
+                    <div class="dot dot-green"></div>
+                </div>
+                <span class="terminal-title">TERMINAL DE COMANDO — COLOMBIATECHSYSTEMS@NOC:~ (YOLO MODE)</span>
+                <span class="status-pill" style="padding: 2px 8px; font-size: 0.65rem;">TTY: ACTIVE</span>
+            </div>
+            <div class="terminal-body" id="terminal-screen">
+                <p><span class="terminal-prompt">colombiatechsystems@root:~#</span> ./init_oraculo.sh</p>
+                <p>🟢 [OK] Conexión establecida con el Segundo Cerebro (El Ojo de Dios).</p>
+                <p>🟢 [OK] Flota de 46 agentes especialistas en línea (Claude Opus + Viernes Gemini).</p>
+                <p>🟢 [OK] Infraestructura NOC operativa. Todos los servicios HTTP 200 OK.</p>
+                <p style="color: #FFF; margin-top: 10px;">Escribe o haz clic en los siguientes mandos para inspeccionar parámetros de ingeniería:</p>
+                <div style="margin-top: 15px;">
+                    <button class="terminal-cmd-btn" onclick="execCmd('status')">❯ status</button>
+                    <button class="terminal-cmd-btn" onclick="execCmd('stack')">❯ stack</button>
+                    <button class="terminal-cmd-btn" onclick="execCmd('proyectos')">❯ proyectos</button>
+                    <button class="terminal-cmd-btn" onclick="execCmd('dolar')">❯ dolar</button>
+                    <button class="terminal-cmd-btn" onclick="execCmd('clear')">❯ clear</button>
+                </div>
+                <div id="cmd-output" style="margin-top: 15px; color: #E2E8F0;"></div>
+            </div>
+        </div>
+
+        <!-- MÓDULO 3: SHOWROOM DE PLANTILLAS WEB POR NICHO -->
+        <div id="showroom" class="section-header">
+            <h2>🛒 Showroom de Soluciones Web por Nicho de Mercado</h2>
+            <p>Explora nuestras 10 plantillas interactivas optimizadas con velocidad de carga instanea e interfaces deslumbrantes.</p>
+        </div>
+
+        <div class="showroom-grid">
+            <a href="odontologia.html" class="niche-card">
+                <div>
+                    <div class="niche-header"><span class="niche-icon">🦷</span><span class="niche-tag">LOTE 1 · PRESTIGIO</span></div>
+                    <h4>Odontología Cosmética</h4>
+                    <p>Diseño anti-ansiedad, tonos oceánicos, slider interactivo y agendamiento exprés.</p>
+                </div>
+                <div style="margin-top: 1rem; color: var(--primary); font-size: 0.85rem; font-weight: 600;">Explorar Demo ➔</div>
+            </a>
+
+            <a href="abogados.html" class="niche-card">
+                <div>
+                    <div class="niche-header"><span class="niche-icon">⚖️</span><span class="niche-tag">LOTE 1 · INSTITUCIONAL</span></div>
+                    <h4>Firma Legal Boutique</h4>
+                    <p>Modo oscuro obsidiana, tipografía serif Playfair y tarjetas con Glassmorphism.</p>
+                </div>
+                <div style="margin-top: 1rem; color: var(--primary); font-size: 0.85rem; font-weight: 600;">Explorar Demo ➔</div>
+            </a>
+
+            <a href="restaurante.html" class="niche-card">
+                <div>
+                    <div class="niche-header"><span class="niche-icon">🍽️</span><span class="niche-tag">LOTE 1 · GASTRONOMÍA</span></div>
+                    <h4>Restaurante Michelin</h4>
+                    <p>Atmósfera cálida, fricción cero para reservas flotantes y menú interactivo.</p>
+                </div>
+                <div style="margin-top: 1rem; color: var(--primary); font-size: 0.85rem; font-weight: 600;">Explorar Demo ➔</div>
+            </a>
+
+            <a href="spa.html" class="niche-card">
+                <div>
+                    <div class="niche-header"><span class="niche-icon">🌿</span><span class="niche-tag">LOTE 1 · WELLNESS</span></div>
+                    <h4>Aura Spa & Wellness</h4>
+                    <p>Tonos salvia orgánicos, transiciones ultra fluidas y pasarela de tratamientos.</p>
+                </div>
+                <div style="margin-top: 1rem; color: var(--primary); font-size: 0.85rem; font-weight: 600;">Explorar Demo ➔</div>
+            </a>
+
+            <a href="inmobiliaria.html" class="niche-card">
+                <div>
+                    <div class="niche-header"><span class="niche-icon">🏠</span><span class="niche-tag">LOTE 2 · REAL ESTATE</span></div>
+                    <h4>Bienes Raíces Lujo</h4>
+                    <p>Brutalismo arquitectónico, filtros de propiedades y contacto VIP de asesor.</p>
+                </div>
+                <div style="margin-top: 1rem; color: var(--primary); font-size: 0.85rem; font-weight: 600;">Explorar Demo ➔</div>
+            </a>
+
+            <a href="arquitectura.html" class="niche-card">
+                <div>
+                    <div class="niche-header"><span class="niche-icon">🏛️</span><span class="niche-tag">LOTE 2 · ESTUDIO</span></div>
+                    <h4>Estudio Arquitectura</h4>
+                    <p>Tipografía monumental de alto impacto 15vw y recorrido visual por obras.</p>
+                </div>
+                <div style="margin-top: 1rem; color: var(--primary); font-size: 0.85rem; font-weight: 600;">Explorar Demo ➔</div>
+            </a>
+
+            <a href="gimnasio.html" class="niche-card">
+                <div>
+                    <div class="niche-header"><span class="niche-icon">💪</span><span class="niche-tag">LOTE 2 · FITNESS</span></div>
+                    <h4>Gimnasio Alto Rendimiento</h4>
+                    <p>Alto contraste neón, interacción dinámica de horarios y membresías online.</p>
+                </div>
+                <div style="margin-top: 1rem; color: var(--primary); font-size: 0.85rem; font-weight: 600;">Explorar Demo ➔</div>
+            </a>
+
+            <a href="estetica.html" class="niche-card">
+                <div>
+                    <div class="niche-header"><span class="niche-icon">✨</span><span class="niche-tag">LOTE 3 · BELLEZA</span></div>
+                    <h4>Clínica de Estética & Vogue</h4>
+                    <p>Mallas SVG elegantes, catálogo de procedimientos con visuales impecables.</p>
+                </div>
+                <div style="margin-top: 1rem; color: var(--primary); font-size: 0.85rem; font-weight: 600;">Explorar Demo ➔</div>
+            </a>
+
+            <a href="finanzas.html" class="niche-card">
+                <div>
+                    <div class="niche-header"><span class="niche-icon">📈</span><span class="niche-tag">LOTE 3 · CORPORATION</span></div>
+                    <h4>Wealth Management</h4>
+                    <p>Estructura de alta seguridad bancaria, gráficos de inversión y seriedad pura.</p>
+                </div>
+                <div style="margin-top: 1rem; color: var(--primary); font-size: 0.85rem; font-weight: 600;">Explorar Demo ➔</div>
+            </a>
+
+            <a href="autos.html" class="niche-card">
+                <div>
+                    <div class="niche-header"><span class="niche-icon">🏎️</span><span class="niche-tag">LOTE 3 · MOTORSPORT</span></div>
+                    <h4>Autos Exclusivos & Concesionario</h4>
+                    <p>Dark mode deportivo, animación rotacional 360° de vehículos y reserva de test-drive.</p>
+                </div>
+                <div style="margin-top: 1rem; color: var(--primary); font-size: 0.85rem; font-weight: 600;">Explorar Demo ➔</div>
+            </a>
+        </div>
+
+        <!-- MÓDULO 4: REDES SOCIALES Y CONTACTO DIRECTO -->
+        <div id="contacto" class="social-section">
+            <span class="status-pill" style="margin-bottom: 1.5rem;">CONECTIVIDAD OMNICANAL · RESUMEN EN LÍNEA</span>
+            <h2>Conecta con Nuestra Arquitectura & Redes</h2>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Todas nuestras consolas, canales de GitHub, redes y líneas de comunicación están abiertas para iniciar el desarrollo de tu próximo hito tecnológico.</p>
+
+            <div class="social-grid">
+                <a href="https://wa.me/573000000000?text=Hola%20Colombia%20Tech%20Systems,%20requiero%20sus%20servicios%20de%20ingenier%C3%ADa%20e%20IA." target="_blank" class="social-btn wsp">
+                    <span>💬 WhatsApp VIP</span>
+                </a>
+                <a href="https://github.com/colombiatechsystems" target="_blank" class="social-btn gh">
+                    <span>💻 GitHub & Code</span>
+                </a>
+                <a href="https://linkedin.com" target="_blank" class="social-btn lk">
+                    <span>🔗 LinkedIn Profesional</span>
+                </a>
+                <a href="https://t.me/jarvis" target="_blank" class="social-btn tg">
+                    <span>✈️ Telegram (@JARVIS)</span>
+                </a>
+                <a href="mailto:contacto@colombiatechsystems.com" class="social-btn" style="border-color: rgba(255, 255, 255, 0.3);">
+                    <span>✉️ Correo Electrónico</span>
+                </a>
+            </div>
+        </div>
+
+        <footer>
+            <p><strong>COLOMBIA TECH SYSTEMS © 2026</strong> · Arquitectura de Ingeniería de Sistemas & Orquestación IA</p>
+            <p style="margin-top: 6px; font-size: 0.75rem;">Impulsado por Protocolo Cognitivo Fable 5, JARVIS Core y Equipo de 46 Agentes Especialistas.</p>
+        </footer>
     </div>
-    <div class="grid">
-        <a href="odontologia.html" class="card">
-            <div class="tag">Lote 1</div>
-            <h2>Odontología Cosmética</h2>
-            <p>Slider interactivo y Glassmorphism</p>
-        </a>
-        <a href="abogados.html" class="card">
-            <div class="tag">Lote 1</div>
-            <h2>Firma Legal Boutique</h2>
-            <p>Minimalismo Editorial y Quiet Luxury</p>
-        </a>
-        <a href="restaurante.html" class="card">
-            <div class="tag">Lote 1</div>
-            <h2>Restaurante Michelin</h2>
-            <p>Fricción Cero y Reservas Flotantes</p>
-        </a>
-        <a href="spa.html" class="card">
-            <div class="tag">Lote 1</div>
-            <h2>Aura Spa & Wellness</h2>
-            <p>Panel translúcido e integraciones fluidas</p>
-        </a>
-        <a href="inmobiliaria.html" class="card">
-            <div class="tag">Lote 2</div>
-            <h2>Bienes Raíces Lujo</h2>
-            <p>Brutalismo Táctil y Grano de Película</p>
-        </a>
-        <a href="arquitectura.html" class="card">
-            <div class="tag">Lote 2</div>
-            <h2>Estudio Arquitectura</h2>
-            <p>Tipografía Masiva 15vw</p>
-        </a>
-        <a href="gimnasio.html" class="card">
-            <div class="tag">Lote 2</div>
-            <h2>Gimnasio Alto Rendimiento</h2>
-            <p>Alto contraste e interacción agresiva</p>
-        </a>
-        <a href="estetica.html" class="card">
-            <div class="tag">Lote 3</div>
-            <h2>Clínica de Belleza</h2>
-            <p>Malla SVG y estética Vogue</p>
-        </a>
-        <a href="finanzas.html" class="card">
-            <div class="tag">Lote 3</div>
-            <h2>Wealth Management</h2>
-            <p>Layout estructurado y corporativo puro</p>
-        </a>
-        <a href="autos.html" class="card">
-            <div class="tag">Lote 3</div>
-            <h2>Autos Exclusivos</h2>
-            <p>Animación rotacional y Dark Mode</p>
-        </a>
-    </div>
+
+    <!-- SCRIPT DE ANIMACIÓN CANVAS NEÓN Y CONSOLA -->
+    <script>
+        // Animación de red neuronal y partículas sobre Canvas
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        const particles = [];
+        const count = 55;
+
+        for (let i = 0; i < count; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 0.6,
+                vy: (Math.random() - 0.5) * 0.6,
+                radius: Math.random() * 2 + 1,
+                color: Math.random() > 0.5 ? '#00E5FF' : '#00F5D4'
+            });
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < count; i++) {
+                let p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = p.color;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+
+                // Conectar nodos cercanos
+                for (let j = i + 1; j < count; j++) {
+                    let p2 = particles[j];
+                    let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = `rgba(0, 229, 255, ${1 - dist / 150})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Motor de la Consola Interactiva
+        function execCmd(cmd) {
+            const out = document.getElementById('cmd-output');
+            if (cmd === 'clear') {
+                out.innerHTML = '';
+                return;
+            }
+            let text = '';
+            if (cmd === 'status') {
+                text = `<span style="color:#00F5D4">● STATUS INTEGRAL:</span> Todos los servidores en línea (Cloudflare Pages Edge & Vercel). Telemetría NOC operando con 0% pérdida de paquetes. Sistema anti-alucinación al 100%.`;
+            } else if (cmd === 'stack') {
+                text = `<span style="color:#00E5FF">● STACK MAESTRO:</span> Backend: Python/Flask, PowerShell 7+, Go, Rust. Frontend: React Native (Expo), TypeScript, Vanilla HTML/CSS Moderno. IA: Claude 3.5 Opus, Gemini Pro, Ollama Local Edge, Hermes Agent.`;
+            } else if (cmd === 'proyectos') {
+                text = `<span style="color:#8B5CF6">● HITOS CLAVE:</span> 1) Asistente JARVIS PC & Mobile con OTA. 2) Telemetría NOC para Líneas Vida (123/103) e INOVISEC. 3) WinOptimizer PowerShell Suite. 4) Agencia de Desarrollo 10 Niches.`;
+            } else if (cmd === 'dolar') {
+                text = `<span style="color:#27C93F">● PROYECTO DÓLAR:</span> Capital autorizado: $60 USD. Consumo en tokens: $0.00 USD (Delegación masiva a Ollama/Hermes). Motor de captación activo en C:\\JARVIS\\proyecto_dolar.`;
+            }
+            out.innerHTML += `<p style="margin-top:8px;"><strong><span style="color:#00E5FF">❯ ${cmd}</span></strong><br>${text}</p>`;
+        }
+    </script>
 </body>
 </html>
