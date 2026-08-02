@@ -1373,13 +1373,13 @@
 
       agentNames.forEach((name, i) => {
         const isAmber = (i % 2 === 0);
-        const clusterCenter = isAmber ? -7.5 : 7.5;
+        const clusterCenter = isAmber ? -3.75 : 3.75; // Reducida a la mitad
         
         const angle = (i / agentNames.length) * Math.PI * 4;
-        const dist = 5.6 + (i % 5) * 1.5;
+        const dist = 2.8 + (i % 5) * 0.75; // Reducida longitud de línea neuronal a la mitad (50%)
         const x = clusterCenter + Math.cos(angle) * dist;
-        const z = Math.sin(angle) * dist - 1.0;
-        const y = Math.sin(x * 0.3 + z) * 3.8 + 1.2;
+        const z = (Math.sin(angle) * dist - 1.0) * 0.5;
+        const y = (Math.sin(x * 0.6 + z) * 3.8 + 1.2) * 0.5;
 
         const color = isAmber ? 0xffb627 : 0x38e6ff;
         
@@ -1532,7 +1532,10 @@
             const posAttr = obj.line.geometry.attributes.position;
             posAttr.setXYZ(0, obj.mesh.position.x, obj.mesh.position.y, obj.mesh.position.z);
             posAttr.needsUpdate = true;
-            obj.line.material.opacity = 0.12 + ((Math.sin(elapsed * 3.5 + obj.colorIdx) + 1) / 2) * 0.18;
+            // Animación neuronal al estilo AgentDeck 3D: pulsos sinápticos intensos y transmisión de datos neón
+            const synapseWave = Math.sin(elapsed * (2.2 + (obj.colorIdx % 4) * 0.4) + obj.colorIdx * 1.5);
+            const burst = Math.pow(Math.max(0, synapseWave), 3);
+            obj.line.material.opacity = 0.15 + burst * 0.75;
           }
         });
 
