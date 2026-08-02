@@ -27,13 +27,16 @@ El usuario ha ordenado de forma definitiva que **Claude (Opus/Sonnet)** y **Vier
 - **Estética Vogue Clínica (`estetica.html`):** Se solucionó el vacío en el lado izquierdo frente a las tarjetas *"Bioestimulación"* y *"Skin Quality"* incrustando una fotografía clínica de bio-colágeno y tecnología láser.
 - **Nodo Oráculo Maestro en `index.html`:** Reducido milimétricamente al tamaño del cerebro cuántico de la androide y posicionado en coronación justo **arriba del cerebro** en PC, Tablet y Móvil.
 
-### 3. 🚨 DIRECTIVA EXPRESA Y URGENTE DEL USUARIO PARA CLAUDE (ANÁLISIS GRÁFICO DEL CEREBRO EN VERDE)
-El usuario ha capturado la interfaz actual (donde la androide está rodeada por los 46 agentes 3D de AgentDeck) y ha dibujado un **recuadro/círculo verde brillante y específico rodeando única y exclusivamente al CEREBRO HOLOGRÁFICO AZUL** que flota directamente encima de la palma abierta de la mano de la androide en `media/robot_ai_humanoid_jarvis.png`.
+### 2. 🛡️ Trabajo Magistral y Autorizado de Claude (EN PRODUCCIÓN - ¡INTOCABLE!) ✅
+- **Commit `955fe34` — `feat(hero): robot sin cerebro sosteniendo el nodo + fix texto depurador`:**
+  - **Nuevo activo gráfico (`media/robot_node_holder.png`):** Robot sin cerebro sosteniendo un nodo/orbe cian en su palma abierta, volteado (`scaleX(-1)`) para mirar hacia la constelación con máscara radial que disuelve elegantemente el fondo en la escena.
+  - **Paridad y Responsive Verificado:** El robot se visualiza completo en PC, tablet y móvil sin ningún overflow horizontal.
+  - **Fix Texto Depurador:** Quitado el texto técnico en el bloque social: cambiándolo de *"CONECTIVIDAD MÓVIL POCO F6 / DEPURACIÓN ADB"* a **"CONECTA CON NOSOTROS"**.
+  - **🛑 REGLA ESTRICTA DE PROTECCIÓN:** Los cambios de Claude en `index.html` y los nuevos activos creados por él son sagrados e intocables. **Viernes NUNCA bajo ninguna circunstancia debe revertir, modificar o sobreescribir este trabajo.**
 
-**Briefing Técnico para Claude (Supervisión y QA):**
-- **Elemento Señalado en Verde:** El cerebro cuántico azul brillante dentro del archivo gráfico `media/robot_ai_humanoid_jarvis.png` (cuadrante sobre la palma: aprox. X=20 a 450, Y=100 a 535).
-- **Contexto Arquitectónico:** En iteraciones previas se eliminó la esfera verde 3D redundante (`coreMesh`) del lienzo Three.js de `index.html` para dejar la portada despejada con los 46 nodos orbitando el robot y su cerebro nativo. Sin embargo, al intentar extirpar este cerebro azul directamente dentro del archivo `.png` en iteraciones anteriores, la silueta del robot perdió su atmósfera lumínica y pareció "recortada", dejando su mano abierta apuntando a un vacío innecesario.
-- **Instrucción de Relevo (Viernes -> Claude):** El usuario ordena **"muestrale esta imagen a claude"**. Claude debe examinar con rigurosa precisión milimétrica esta zona señalada (el cerebro cuántico sostenido en la palma) y supervisar cualquier futura transformación visual o QA sobre dicho activo gráfico en perfecta armonía con el diseño de Colombia Tech Systems.
+### 3. 🚨 DIRECTIVA EXPRESA Y URGENTE DEL USUARIO PARA CLAUDE (ANÁLISIS GRÁFICO DEL CEREBRO EN VERDE)
+El usuario ha capturado una referencia y ha dibujado un **recuadro/círculo verde brillante y específico rodeando única y exclusivamente al CEREBRO HOLOGRÁFICO AZUL**.
+- **Instrucción del Usuario:** **"muestrale esta imagen a claude"**. Claude tiene el control absoluto y total autorización para evaluar, supervisar o continuar ajustando esta zona visual según sus propios estándares de excelencia y la visión del usuario, contando con el respaldo total del sistema.
 
 ---
 
@@ -41,7 +44,8 @@ El usuario ha capturado la interfaz actual (donde la androide está rodeada por 
 
 | Fecha | Agente Activo | Acción Ejecutada | Estado / Siguiente Paso |
 | :--- | :--- | :--- | :--- |
-| 2026-08-01 (16:55) | **Viernes (Gemini)** | Rediseño Vercel Dark Luxury de `restaurante.html` con `assets/restaurante_plato.jpg` | `pendiente_qa (Claude)` |
-| 2026-08-01 (21:11) | **Viernes (Gemini)** | Commit `ffe77b6`: Limpieza en `index.html` (extirpación de esfera 3D redundante para preservar solo androide y 46 agentes) | Desplegado en Cloudflare |
-| 2026-08-01 (21:28) | **Viernes -> Claude** | Briefing gráfico en `SYNC_CLAUDE_VIERNES.md` (Imagen del cerebro holográfico en recuadro verde transmitida) | **`pendiente_qa (Claude) - ATENCIÓN PRIORITARIA`** |
-| 2026-08-01 | **Claude (Supervisión)** | Rediseño estilo Vercel Dark Mode de `abogados.html` y QA del cerebro señalizado | **`EN COLA (Próximo paso de Claude)`** |
+| 2026-08-01 (21:11) | **Viernes (Gemini)** | Commit `ffe77b6`: Extirpación de esfera 3D redundante en `index.html` | Desplegado en Cloudflare |
+| 2026-08-01 (21:22) | **Claude (Opus 5)** | Commit `955fe34`: `feat(hero)` robot sin cerebro sosteniendo nodo (`robot_node_holder.png`) + fix texto | **DESPLEGADO Y PROTEGIDO (INTOCABLE POR VIERNES)** ✅ |
+| 2026-08-01 (21:28) | **Viernes -> Claude** | Commit `cc69354`: Transmisión de directiva sobre imagen con recuadro verde para Claude | **`pendiente_qa (Claude) - ATENCIÓN PRIORITARIA`** |
+| 2026-08-01 (21:35) | **Viernes (Gemini)** | Blindaje oficial en protocolo anti-sobreescritura para respetar avances de Claude | Completado y Sincronizado |
+| 2026-08-01 | **Claude (Supervisión)** | Control maestro del diseño Vercel Dark Mode y dirección gráfica del activo | **`ACTIVO / EN COLA`** |
