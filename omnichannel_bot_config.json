@@ -1,0 +1,64 @@
+{
+  "project": "Colombia Tech Systems - Oráculo Prometeus AI (Omnichannel Engine)",
+  "version": "3.0-OMNI-PRO",
+  "automation_mode": "AUTONOMOUS_YOLO",
+  "ai_agent_persona": {
+    "name": "Viernes (Oráculo AI Assistant & Omnichannel Router)",
+    "role": "Consultor Senior de Ingeniería de Software, IA, NOC y Automatización B2B",
+    "tone": "Profesional, conciso, de alto valor, resolutivo y elegante (Estética Vercel & LATAM)"
+  },
+  "channels": {
+    "whatsapp": {
+      "provider": "META_CLOUD_API_OR_GREEN_API",
+      "phone_number": "573166844315",
+      "device_verified_adb": "Poco F6 (com.whatsapp & com.whatsapp.w4b)",
+      "enabled": true
+    },
+    "telegram": {
+      "provider": "TELEGRAM_BOT_API",
+      "bot_token_env": "TELEGRAM_BOT_TOKEN",
+      "target_chat_id": "6650972",
+      "device_verified_adb": "Poco F6 (org.telegram.messenger PID 29475)",
+      "enabled": true
+    },
+    "slack": {
+      "provider": "SLACK_INCOMING_WEBHOOK",
+      "webhook_url_env": "SLACK_WEBHOOK_URL",
+      "target_channel": "#leads-b2b-noc",
+      "device_verified_adb": "Poco F6 (com.Slack Enterprise App)",
+      "enabled": true
+    },
+    "deep_chat_web": {
+      "provider": "DEEP_CHAT_MIT_OPEN_SOURCE",
+      "endpoint_path": "/api/chat",
+      "enabled": true
+    }
+  },
+  "default_fallback_message": "⚡ Hola, estás comunicado con el sistema automatizado Omnicanal 24/7 de Colombia Tech Systems. Tu mensaje ha sido enrutado simultáneamente a nuestros canales de WhatsApp, Telegram y Slack. Un ingeniero especialista revisará tu requerimiento en menos de 5 minutos.",
+  "keywords": {
+    "cotizar": {
+      "response": "⚡ *¡Excelente decisión!* En Colombia Tech Systems construimos software web Vercel Dark Mode impecable con integración de IA y agentes 24/7. Por favor indícanos: 1) Nombre y Empresa, 2) Tipo de solución (Web, App Móvil JARVIS, Agentes IA), y 3) Fecha objetivo. ¡Desplegamos estimación al instante en Telegram, Slack o WhatsApp!",
+      "priority": "HIGH",
+      "action": "ROUTE_TO_SALES_CLOSER_OMNI"
+    },
+    "agentes": {
+      "response": "🤖 *Ecosistema Prometeus & Agentes IA*: Disponemos de una flota de 46 agentes especialistas integrados que operan con 99.9% de uptime y 0% alucinación. Automatizamos desde NOC/Soporte hasta ventas de alto valor omnicanal. ¿Deseas una demostración en vivo?",
+      "priority": "HIGH",
+      "action": "SEND_BROCHURE_AI_OMNI"
+    },
+    "web": {
+      "response": "🌐 *Ingeniería Web de Alto Rendimiento*: Diseñamos páginas ultra-rápidas en Cloudflare Workers Edge con estética Vercel, simuladores de precio en tiempo real y cero plantillas básicas. Explora nuestro portafolio en: https://www.colombiatechsystems.com/",
+      "priority": "MEDIUM",
+      "action": "SEND_PORTFOLIO_URL"
+    },
+    "soporte": {
+      "response": "🛠️ *Soporte Técnico & NOC Prometeus*: Tu incidencia ha sido registrada y notificada como ALERTA ROJA en los canales de Telegram y Slack del equipo NOC. Nuestro sistema de observabilidad está activo.",
+      "priority": "CRITICAL",
+      "action": "ALERT_NOC_SLACK_TELEGRAM"
+    }
+  },
+  "logging": {
+    "save_to_vault": true,
+    "vault_inbox_path": "G:\\Mi unidad\\EL OJO DE DIOS\\entrada\\leads_omnichannel.md"
+  }
+}

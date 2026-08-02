@@ -2020,28 +2020,29 @@
     }
   </style>
 
+  <!-- ==================== WIDGET OMNICANAL: DEEP CHAT (MIT OPEN SOURCE) + WHATSAPP • TELEGRAM • SLACK ==================== -->
   <div class="wsp-ai-btn-floating" id="wspAiBtn" onclick="toggleWspChat()">
     <div class="status-dot-pulse"></div>
-    <span>🤖 Asistente IA & WhatsApp</span>
+    <span>🤖 Asistente IA & Omnicanal VIP</span>
   </div>
 
   <div class="wsp-chat-window" id="wspChatWindow">
     <div class="wsp-chat-header">
       <div class="wsp-header-info">
-        <h4>⚡ ORÁCULO AI • PROMETEUS</h4>
-        <p>🟢 Online 24/7 | Respuestas Automáticas</p>
+        <h4>⚡ ORÁCULO AI • PROMETEUS OMNICANAL</h4>
+        <p>🟢 Online 24/7 | WhatsApp • Telegram • Slack</p>
       </div>
       <button class="wsp-close-btn" onclick="toggleWspChat()">×</button>
     </div>
     
     <div class="wsp-chat-body" id="wspChatBody">
       <div class="chat-msg-bot">
-        ¡Hola! Soy el <strong>Oráculo AI de Colombia Tech Systems</strong> (99.9% Uptime). Estoy programado para atenderte y cotizar tus proyectos de forma 100% autónoma.<br><br>
+        ¡Hola! Soy el <strong>Oráculo AI Omnicanal de Colombia Tech Systems</strong> (Powered by Deep Chat MIT Open-Source & Prometeus Engine). Estoy conectado en tiempo real con los dispositivos del equipo y el teléfono Poco F6 en las redes oficiales de <strong>WhatsApp, Telegram y Slack</strong>.<br><br>
         <strong>¿Qué solución de ingeniería deseas activar hoy?</strong>
         <div class="chat-options-group">
           <button class="chat-option-btn" onclick="selectOption('Desarrollo Web Vercel Premium')">🌐 Desarrollo Web Vercel Premium</button>
           <button class="chat-option-btn" onclick="selectOption('Agentes IA & Ecosistema Prometeus')">🤖 Agentes IA & Ecosistema Prometeus</button>
-          <button class="chat-option-btn" onclick="selectOption('Automatización 24/7 para WhatsApp')">💬 Automatización 24/7 para WhatsApp</button>
+          <button class="chat-option-btn" onclick="selectOption('Automatización Omnicanal & WhatsApp/Telegram')">💬 Automatización WhatsApp • Telegram • Slack</button>
           <button class="chat-option-btn" onclick="selectOption('Consultoría Senior & NOC Prometeus')">🛠️ Consultoría Senior & NOC Prometeus</button>
         </div>
       </div>
@@ -2049,15 +2050,25 @@
 
     <div class="wsp-chat-footer">
       <div class="wsp-input-row">
-        <input type="text" id="wspInput" class="wsp-chat-input" placeholder="Escribe tu consulta aquí..." onkeypress="handleKeyPress(event)">
-        <button class="wsp-send-btn" onclick="sendMessage()">➤</button>
+        <input type="text" id="wspInput" class="wsp-chat-input" placeholder="Escribe tu consulta para envío omnicanal..." onkeypress="handleKeyPress(event)">
+        <button class="wsp-send-btn" onclick="sendMessage()" title="Enviar mensaje al Oráculo">➤</button>
       </div>
-      <a href="https://wa.me/573166844315?text=Hola%20Colombia%20Tech%20Systems,%20deseo%20comunicarme%20con%20un%20Ingeniero%20Senior" target="_blank" class="wsp-direct-link" id="wspDirectLink">
-        <span>🚀 Abrir WhatsApp Oficial VIP</span>
-      </a>
+      <div class="omni-social-buttons" style="display: flex; gap: 6px; margin-top: 10px;">
+        <a href="https://wa.me/573166844315?text=Hola%20Colombia%20Tech%20Systems,%20solicito%20atención%20VIP" target="_blank" class="wsp-direct-link" id="wspDirectLink" style="flex: 1; margin-top: 0; background: #25D366; color: #000; font-weight: 700; text-align: center; padding: 8px 2px; font-size: 0.78rem; border-radius: 6px; text-decoration: none; box-shadow: 0 0 10px rgba(37,211,102,0.3);">
+          <span>🚀 WhatsApp</span>
+        </a>
+        <a href="https://t.me/colombiatechsystems" target="_blank" class="wsp-direct-link" id="tgDirectLink" style="flex: 1; margin-top: 0; background: #0088cc; color: #fff; font-weight: 700; text-align: center; padding: 8px 2px; font-size: 0.78rem; border-radius: 6px; text-decoration: none; box-shadow: 0 0 10px rgba(0,136,204,0.3);">
+          <span>✈️ Telegram</span>
+        </a>
+        <a href="https://slack.com/" target="_blank" class="wsp-direct-link" id="slackDirectLink" title="Canal Directo NOC Slack" style="flex: 1; margin-top: 0; background: #4A154B; color: #fff; font-weight: 700; text-align: center; padding: 8px 2px; font-size: 0.78rem; border-radius: 6px; text-decoration: none; border: 1px solid rgba(255,255,255,0.25); box-shadow: 0 0 10px rgba(74,21,75,0.4);">
+          <span>⚡ Slack NOC</span>
+        </a>
+      </div>
     </div>
   </div>
 
+  <!-- CDN DE DEEP CHAT (MIT LICENSE) PARA SOPORTE DE COMPONENTES DE CHAT AI ESTÁNDAR WEB -->
+  <script src="https://cdn.jsdelivr.net/npm/deep-chat@latest/dist/deep-chat.bundle.js"></script>
   <script>
     let chatStep = 0;
     let selectedTopic = "";
@@ -2081,12 +2092,12 @@
       appendMessage(topic, "user");
       
       setTimeout(() => {
-        let responseText = `¡Extraordinario! Has seleccionado <strong>${topic}</strong>. En Colombia Tech Systems ejecutamos bajo estándar arquitectónico Vercel y cero alucinación.<br><br>`;
-        responseText += `Por favor, <strong>escribe abajo tu Nombre, Empresa y Presupuesto o Requerimiento breve</strong> para compilar tu diagnóstico y enviarlo al instante por WhatsApp VIP.`;
+        let responseText = `¡Excepcional! Has seleccionado <strong>${topic}</strong>. Ejecutamos con arquitectura Vercel Dark Mode, cero alucinación y monitoreo omnicanal 24/7.<br><br>`;
+        responseText += `Por favor, <strong>escribe abajo tu Nombre, Empresa y Requerimiento o Presupuesto</strong>. Lo procesaremos instantáneamente para nuestros canales en <strong>WhatsApp, Telegram y Slack</strong>.`;
         appendMessage(responseText, "bot");
         chatStep = 1;
         document.getElementById("wspInput").focus();
-      }, 500);
+      }, 400);
     }
 
     function sendMessage() {
@@ -2099,24 +2110,39 @@
 
       setTimeout(() => {
         if (chatStep === 0) {
-          selectedTopic = "Consulta General IA / Web";
+          selectedTopic = "Consulta General Omnicanal";
           chatStep = 1;
         }
         
-        const wspMessage = encodeURIComponent(`⚡ [LEAD AUTOMÁTICO CHATBOT WEB]\n👤 Cliente & Datos: ${text}\n🎯 Solución Interesada: ${selectedTopic}\n📡 Fuente: Oráculo Prometeus AI Web`);
-        const finalUrl = `https://wa.me/573166844315?text=${wspMessage}`;
+        const rawMessage = `⚡ [LEAD OMNICANAM. WEB]\n👤 Cliente: ${text}\n🎯 Solución: ${selectedTopic}\n📡 Fuente: Oráculo Prometeus AI (Deep Chat MIT & Web Component)`;
+        const wspMessage = encodeURIComponent(rawMessage);
+        const tgMessage = encodeURIComponent(`Hola Colombia Tech Systems, envío mi requerimiento: ${rawMessage}`);
         
-        const replyHtml = `✅ <strong>¡Diagnóstico compilado con éxito!</strong><br><br>Hemos estructurado tu solicitud para atención prioritaria del equipo de Colombia Tech Systems.<br><br>` +
-                          `<a href="${finalUrl}" target="_blank" class="wsp-direct-link" style="display: block; margin-top: 10px;">📲 Enviar Diagnóstico ahora a WhatsApp</a>`;
+        const finalWspUrl = `https://wa.me/573166844315?text=${wspMessage}`;
+        const finalTgUrl = `https://t.me/colombiatechsystems?text=${tgMessage}`;
+        
+        const replyHtml = `✅ <strong>¡Solicitud Omnicanal Estructurada!</strong><br><br>Hemos preparado tu expediente arquitectónico para atención VIP y prioritaria.<br><br>` +
+                          `<strong>Elige tu canal preferido para despacho inmediato:</strong><br>` +
+                          `<div style="display: flex; gap: 6px; margin-top: 10px;">` +
+                          `<a href="${finalWspUrl}" target="_blank" class="wsp-direct-link" style="flex: 1; margin-top: 0; background: #25D366; color: #000; font-weight: 700; text-align: center; padding: 8px 4px; border-radius: 6px; text-decoration: none;">📲 WhatsApp</a>` +
+                          `<a href="${finalTgUrl}" target="_blank" class="wsp-direct-link" style="flex: 1; margin-top: 0; background: #0088cc; color: #fff; font-weight: 700; text-align: center; padding: 8px 4px; border-radius: 6px; text-decoration: none;">✈️ Telegram</a>` +
+                          `</div>`;
         appendMessage(replyHtml, "bot");
         
-        // Actualizar botón inferior
-        const directLink = document.getElementById("wspDirectLink");
-        if(directLink) {
-          directLink.href = finalUrl;
-          directLink.innerHTML = "<span>📲 Continuar en WhatsApp VIP</span>";
-        }
-      }, 700);
+        // Sincronizar enlaces en botones inferiores de la barra omnicanal
+        const wspBtn = document.getElementById("wspDirectLink");
+        const tgBtn = document.getElementById("tgDirectLink");
+        if(wspBtn) wspBtn.href = finalWspUrl;
+        if(tgBtn) tgBtn.href = finalTgUrl;
+
+        // Intento asíncrono silencioso de envío al servidor local Python Omnicanal si está operando en la red
+        fetch("http://localhost:8090/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ sender: "Usuario_Web", message: text, channel: "Web_DeepChat" })
+        }).catch(e => console.log("Servidor local omnico offline en cliente web edge (operación normal en CDN)"));
+        
+      }, 600);
     }
 
     function handleKeyPress(e) {
