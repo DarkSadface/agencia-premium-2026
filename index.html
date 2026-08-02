@@ -1403,6 +1403,40 @@
         });
       });
 
+      // NÚCLEO ORÁCULO MAESTRO: REDUCIDO EXACTAMENTE AL TAMAÑO DEL CEREBRO (RADIO 1.6) Y FLOTANDO ARRIBA DE ESTE
+      const coreGeo = new THREE.IcosahedronGeometry(1.6, 3);
+      const coreMat = new THREE.MeshPhongMaterial({
+        color: 0x00ff88,
+        emissive: 0x00ff88,
+        emissiveIntensity: 0.55,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.75
+      });
+      const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+      coreMesh.position.set(0, 0, 0);
+      constellationGroup.add(coreMesh);
+
+      const coreLabel = document.createElement('div');
+      coreLabel.className = 'node-label core-cluster';
+      coreLabel.textContent = '⚡ ORÁCULO MAESTRO';
+      container.appendChild(coreLabel);
+      nodeObjects.push({ mesh: coreMesh, label: coreLabel, isCore: true });
+
+      const ringGeo1 = new THREE.TorusGeometry(3.6, 0.04, 16, 120);
+      const ringMat1 = new THREE.MeshBasicMaterial({ color: 0x38e6ff, transparent: true, opacity: 0.55 });
+      const ring1 = new THREE.Mesh(ringGeo1, ringMat1);
+      ring1.position.set(0, 0, 0);
+      ring1.rotation.x = Math.PI / 2.2;
+      constellationGroup.add(ring1);
+
+      const ringGeo2 = new THREE.TorusGeometry(4.8, 0.05, 16, 120);
+      const ringMat2 = new THREE.MeshBasicMaterial({ color: 0xffb627, transparent: true, opacity: 0.45 });
+      const ring2 = new THREE.Mesh(ringGeo2, ringMat2);
+      ring2.position.set(0, 0, 0);
+      ring2.rotation.y = Math.PI / 3.2;
+      constellationGroup.add(ring2);
+
       let mouseX = 0, mouseY = 0;
       window.addEventListener('mousemove', (e) => {
         mouseX = (e.clientX / window.innerWidth) * 2 - 1;
@@ -1448,6 +1482,14 @@
         camera.lookAt(0, 2.5, 0);
 
         nodeObjects.forEach(obj => {
+          if (obj.isCore) {
+            obj.mesh.rotation.x += 0.008;
+            obj.mesh.rotation.y += 0.012;
+            const pulse = 1 + Math.sin(elapsed * 2.8) * 0.05;
+            obj.mesh.scale.set(pulse, pulse, pulse);
+            return;
+          }
+          
           const oscX = Math.sin(elapsed * obj.speed + obj.phase) * 0.5;
           const oscY = Math.cos(elapsed * obj.speed * 1.3 + obj.phase) * 0.6;
           const oscZ = Math.sin(elapsed * obj.speed * 0.8 + obj.phase) * 0.5;
@@ -1467,6 +1509,9 @@
           }
         });
 
+        ring1.rotation.z += 0.014;
+        ring2.rotation.x -= 0.01;
+        
         renderer.render(scene, camera);
         updateLabels();
       }
