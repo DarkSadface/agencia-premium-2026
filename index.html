@@ -252,18 +252,15 @@
       50% { transform: translateY(-50%) translateY(-14px); }
     }
 
-    /* ROBOT SIN CEREBRO SOSTENIENDO EL NODO: volteado para mirar al centro + máscara que disuelve el fondo en la escena */
+    /* MISMO ROBOT ORIGINAL, SOLO SIN EL CEREBRO (zona del cerebro a negro -> transparente por el screen-blend) */
     .robot-img-hologram {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      object-position: center;
+      object-position: right center;
       display: block;
-      transform: scaleX(-1);
-      filter: contrast(1.18) saturate(1.3) brightness(1.05) drop-shadow(0 0 30px rgba(56, 230, 255, calc(0.5 * var(--glow-intensity))));
+      filter: contrast(1.2) saturate(1.35) drop-shadow(0 0 30px rgba(56, 230, 255, calc(0.5 * var(--glow-intensity))));
       mix-blend-mode: screen;
-      -webkit-mask-image: radial-gradient(ellipse 74% 82% at 50% 48%, #000 52%, transparent 86%);
-      mask-image: radial-gradient(ellipse 74% 82% at 50% 48%, #000 52%, transparent 86%);
       transition: filter 0.4s ease;
     }
 
@@ -906,7 +903,7 @@
 
     <!-- SILUETA MASTER DEL ROBOT CON EL EMBLEMA 'JARVIS' EN EL BRAZO TITANIO -->
     <div class="robot-showcase-hologram">
-      <img src="media/robot_node_holder.png" alt="Robot Android IA sosteniendo el Nodo Central Oráculo Maestro del AgentDeck3D" class="robot-img-hologram" />
+      <img src="media/robot_ai_humanoid_jarvis_nobrain.png" alt="Robot Android IA con la mano abierta hacia el nodo central del AgentDeck3D" class="robot-img-hologram" />
       <div class="robot-hud-tag">
         <span>🤖 IA AUTÓNOMA COLOMBIA TECH</span>
         <span class="neon-text">[ ORÁCULO ACTIVO ]</span>
