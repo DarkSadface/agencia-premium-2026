@@ -2002,21 +2002,49 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      background: linear-gradient(90deg, #10b981, #059669);
-      color: #fff !important;
+      background: linear-gradient(180deg, rgba(26, 34, 52, 0.9) 0%, rgba(14, 20, 32, 0.95) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e2e8f0 !important;
       text-decoration: none;
       padding: 11px;
-      border-radius: 12px;
+      border-radius: 10px;
       font-size: 0.88rem;
-      font-weight: 700;
-      transition: all 0.3s;
+      font-weight: 600;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       text-align: center;
-      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     }
     .wsp-direct-link:hover {
-      background: linear-gradient(90deg, #059669, #047857);
-      transform: scale(1.02);
-      box-shadow: 0 6px 25px rgba(16, 185, 129, 0.6);
+      background: linear-gradient(180deg, rgba(35, 45, 68, 0.95) 0%, rgba(22, 30, 48, 0.98) 100%);
+      border-color: rgba(0, 240, 255, 0.45);
+      color: #ffffff !important;
+      transform: translateY(-1px);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+    }
+    .omni-btn-formal {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      background: linear-gradient(180deg, rgba(22, 28, 42, 0.92) 0%, rgba(12, 17, 28, 0.96) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #e2e8f0 !important;
+      font-weight: 600;
+      font-size: 0.76rem;
+      padding: 8px 4px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+      white-space: nowrap;
+    }
+    .omni-btn-formal:hover {
+      background: linear-gradient(180deg, rgba(32, 42, 64, 0.95) 0%, rgba(20, 28, 46, 0.98) 100%);
+      border-color: rgba(0, 240, 255, 0.5);
+      color: #ffffff !important;
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.18);
+      transform: translateY(-1px);
     }
   </style>
 
@@ -2054,14 +2082,14 @@
         <button class="wsp-send-btn" onclick="sendMessage()" title="Enviar mensaje al Oráculo">➤</button>
       </div>
       <div class="omni-social-buttons" style="display: flex; gap: 6px; margin-top: 10px;">
-        <a href="https://wa.me/573166844315?text=Hola%20Colombia%20Tech%20Systems,%20solicito%20atención%20VIP" target="_blank" class="wsp-direct-link" id="wspDirectLink" style="flex: 1; margin-top: 0; background: #25D366; color: #000; font-weight: 700; text-align: center; padding: 8px 2px; font-size: 0.78rem; border-radius: 6px; text-decoration: none; box-shadow: 0 0 10px rgba(37,211,102,0.3);">
-          <span>🚀 WhatsApp</span>
+        <a href="https://wa.me/573166844315?text=Hola%20Colombia%20Tech%20Systems,%20solicito%20atención%20VIP" target="_blank" class="omni-btn-formal" id="wspDirectLink">
+          <span>💬 WhatsApp</span>
         </a>
-        <a href="https://t.me/colombiatechsystems" target="_blank" class="wsp-direct-link" id="tgDirectLink" style="flex: 1; margin-top: 0; background: #0088cc; color: #fff; font-weight: 700; text-align: center; padding: 8px 2px; font-size: 0.78rem; border-radius: 6px; text-decoration: none; box-shadow: 0 0 10px rgba(0,136,204,0.3);">
+        <a href="https://t.me/colombiatechsystems" target="_blank" class="omni-btn-formal" id="tgDirectLink">
           <span>✈️ Telegram</span>
         </a>
-        <a href="https://slack.com/" target="_blank" class="wsp-direct-link" id="slackDirectLink" title="Canal Directo NOC Slack" style="flex: 1; margin-top: 0; background: #4A154B; color: #fff; font-weight: 700; text-align: center; padding: 8px 2px; font-size: 0.78rem; border-radius: 6px; text-decoration: none; border: 1px solid rgba(255,255,255,0.25); box-shadow: 0 0 10px rgba(74,21,75,0.4);">
-          <span>⚡ Slack NOC</span>
+        <a href="https://slack.com/" target="_blank" class="omni-btn-formal" id="slackDirectLink" title="Canal Directo NOC Slack">
+          <span>⚡ Slack</span>
         </a>
       </div>
     </div>
@@ -2124,8 +2152,9 @@
         const replyHtml = `✅ <strong>¡Solicitud Omnicanal Estructurada!</strong><br><br>Hemos preparado tu expediente arquitectónico para atención VIP y prioritaria.<br><br>` +
                           `<strong>Elige tu canal preferido para despacho inmediato:</strong><br>` +
                           `<div style="display: flex; gap: 6px; margin-top: 10px;">` +
-                          `<a href="${finalWspUrl}" target="_blank" class="wsp-direct-link" style="flex: 1; margin-top: 0; background: #25D366; color: #000; font-weight: 700; text-align: center; padding: 8px 4px; border-radius: 6px; text-decoration: none;">📲 WhatsApp</a>` +
-                          `<a href="${finalTgUrl}" target="_blank" class="wsp-direct-link" style="flex: 1; margin-top: 0; background: #0088cc; color: #fff; font-weight: 700; text-align: center; padding: 8px 4px; border-radius: 6px; text-decoration: none;">✈️ Telegram</a>` +
+                          `<a href="${finalWspUrl}" target="_blank" class="omni-btn-formal" id="respWspBtn">💬 WhatsApp</a>` +
+                          `<a href="${finalTgUrl}" target="_blank" class="omni-btn-formal" id="respTgBtn">✈️ Telegram</a>` +
+                          `<a href="https://slack.com/" target="_blank" class="omni-btn-formal" id="respSlackBtn">⚡ Slack</a>` +
                           `</div>`;
         appendMessage(replyHtml, "bot");
         
