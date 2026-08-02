@@ -1297,24 +1297,24 @@
       scene.add(constellationGroup);
 
       // FUNCIÓN MAESTRA DE ALINEACIÓN ENTRE PC, TABLET Y MÓVIL (POCO F6 / ADB / DESKTOP)
-      // Garantiza que en cualquier dispositivo, el nodo central resplandezca EXACTAMENTE ARRIBA DEL CEREBRO
+      // Garantiza que en cualquier dispositivo, el nodo central resplandezca EXACTAMENTE SOBRE LA PALMA ABIERTA DEL ROBOT
       function alignNodeWithRobot(w, h) {
         if (!constellationGroup || !pointLight) return;
         if (w >= 1100) {
-          // PC / Escritorio: Robot a la derecha, nodo posicionado en Y=4.8 justo encima del cerebro (Y=2.0)
-          constellationGroup.position.set(4.2, 4.8, -0.5);
+          // PC / Escritorio: Robot a la derecha, palma abierta a la izquierda en Y=1.2, X=2.0
+          constellationGroup.position.set(2.0, 1.2, 0.5);
           constellationGroup.scale.set(1, 1, 1);
-          pointLight.position.set(4.2, 4.5, 2.0);
+          pointLight.position.set(2.0, 1.5, 2.5);
         } else if (w >= 650) {
-          // Tablet: Robot centrado abajo, nodo posicionado en Y=2.4 encima del cráneo
-          constellationGroup.position.set(-0.6, 2.4, -0.5);
+          // Tablet: Robot centrado, nodo posicionado sobre la palma en Y=-0.2, X=-1.0
+          constellationGroup.position.set(-1.0, -0.2, 0.5);
           constellationGroup.scale.set(0.85, 0.85, 0.85);
-          pointLight.position.set(-0.6, 2.4, 2.0);
+          pointLight.position.set(-1.0, 0.2, 2.0);
         } else {
-          // Móvil / Poco F6 / Smartphones: Robot centrado en la base, nodo coronando en Y=1.3
-          constellationGroup.position.set(-0.35, 1.3, -0.5);
+          // Móvil / Poco F6 / Smartphones: Nodo coronando sobre la palma extendida
+          constellationGroup.position.set(-0.6, -0.5, 0.5);
           constellationGroup.scale.set(0.65, 0.65, 0.65);
-          pointLight.position.set(-0.35, 1.3, 2.0);
+          pointLight.position.set(-0.6, -0.2, 2.0);
         }
       }
       alignNodeWithRobot(width, height);
@@ -1399,6 +1399,42 @@
         });
       });
 
+      // NÚCLEO CENTRAL GRANDE SOBRE LA PALMA CON ARO DORADO RODEANDO
+      const coreGeo = new THREE.IcosahedronGeometry(2.6, 3);
+      const coreMat = new THREE.MeshPhongMaterial({
+        color: 0x00ff88,
+        emissive: 0x00ff88,
+        emissiveIntensity: 0.6,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.85
+      });
+      const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+      coreMesh.position.set(0, 0, 0);
+      constellationGroup.add(coreMesh);
+
+      const coreLabel = document.createElement('div');
+      coreLabel.className = 'node-label core-cluster';
+      coreLabel.textContent = '⚡ ORÁCULO MAESTRO';
+      container.appendChild(coreLabel);
+      nodeObjects.push({ mesh: coreMesh, label: coreLabel, isCore: true });
+
+      // ARO DORADO PROMINENTE RODEANDO EL NODO CENTRAL
+      const ringGeoGold = new THREE.TorusGeometry(3.6, 0.06, 16, 120);
+      const ringMatGold = new THREE.MeshBasicMaterial({ color: 0xffd700, transparent: true, opacity: 0.85 });
+      const ringGold = new THREE.Mesh(ringGeoGold, ringMatGold);
+      ringGold.position.set(0, 0, 0);
+      ringGold.rotation.x = Math.PI / 2.2;
+      constellationGroup.add(ringGold);
+
+      // Segundo anillo cian orbital de acompañamiento
+      const ringGeoCyan = new THREE.TorusGeometry(4.6, 0.04, 16, 120);
+      const ringMatCyan = new THREE.MeshBasicMaterial({ color: 0x38e6ff, transparent: true, opacity: 0.55 });
+      const ringCyan = new THREE.Mesh(ringGeoCyan, ringMatCyan);
+      ringCyan.position.set(0, 0, 0);
+      ringCyan.rotation.y = Math.PI / 3.2;
+      constellationGroup.add(ringCyan);
+
       let mouseX = 0, mouseY = 0;
       window.addEventListener('mousemove', (e) => {
         mouseX = (e.clientX / window.innerWidth) * 2 - 1;
@@ -1444,6 +1480,14 @@
         camera.lookAt(0, 2.5, 0);
 
         nodeObjects.forEach(obj => {
+          if (obj.isCore) {
+            obj.mesh.rotation.x += 0.007;
+            obj.mesh.rotation.y += 0.011;
+            const pulse = 1 + Math.sin(elapsed * 2.5) * 0.05;
+            obj.mesh.scale.set(pulse, pulse, pulse);
+            return;
+          }
+
           const oscX = Math.sin(elapsed * obj.speed + obj.phase) * 0.5;
           const oscY = Math.cos(elapsed * obj.speed * 1.3 + obj.phase) * 0.6;
           const oscZ = Math.sin(elapsed * obj.speed * 0.8 + obj.phase) * 0.5;
@@ -1462,6 +1506,9 @@
             obj.line.material.opacity = 0.12 + ((Math.sin(elapsed * 3.5 + obj.colorIdx) + 1) / 2) * 0.18;
           }
         });
+
+        if (typeof ringGold !== 'undefined') ringGold.rotation.z += 0.014;
+        if (typeof ringCyan !== 'undefined') ringCyan.rotation.x -= 0.01;
 
         renderer.render(scene, camera);
         updateLabels();
