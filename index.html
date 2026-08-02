@@ -912,12 +912,12 @@
     </div>
 
     <div class="container hero-content-layer">
-      <!-- BARRA DE CONTROL DE ILUMINACIÓN HOLOGRÁFICA (POR DEFECTO AL 60%) -->
-      <div class="hero-top-toolbar">
+      <!-- BARRA DE CONTROL DE ILUMINACIÓN HOLOGRÁFICA (AUTOMATIZADA Y OCULTA POR REQUERIMIENTO) -->
+      <div class="hero-top-toolbar" style="display: none;">
         <div class="lighting-controller">
           <span class="lighting-label">⚡ ILUMINACIÓN AGENTDECK FONDO:</span>
-          <input type="range" id="illumination-slider" class="lighting-slider" min="0.2" max="2.5" step="0.1" value="0.6" />
-          <span id="illumination-value" class="lighting-value">60%</span>
+          <input type="range" id="illumination-slider" class="lighting-slider" min="0.1" max="1.0" step="0.01" value="0.1" />
+          <span id="illumination-value" class="lighting-value">10%</span>
         </div>
       </div>
 
@@ -1462,23 +1462,29 @@
     const valDisplay = document.getElementById('illumination-value');
     let sceneLight, pointLight, nodesGroup, particlesGroup, constellationGroup;
 
-    if (slider && valDisplay) {
-      slider.addEventListener('input', (e) => {
-        const val = parseFloat(e.target.value);
-        document.documentElement.style.setProperty('--glow-intensity', val);
-        valDisplay.textContent = Math.round(val * 100) + '%';
-        
-        if (sceneLight) sceneLight.intensity = val * 1.6;
-        if (pointLight) pointLight.intensity = val * 1.8;
-        if (particlesGroup) particlesGroup.material.opacity = Math.min(1, val * 0.55);
-        
-        document.querySelectorAll('.node-label').forEach(lbl => {
-          if (!lbl.classList.contains('core-cluster')) {
-            lbl.style.opacity = Math.min(1, Math.max(0.15, 0.85 * val));
-          }
-        });
+    // AUTOMATIZACIÓN DEL CICLO DE ILUMINACIÓN AGENTDECK FONDO (De 10% a 100%, reiniciando automáticamente en 10%)
+    let currentIllum = 0.10;
+    setInterval(() => {
+      currentIllum += 0.005; // Transición fluida y progresiva (25 fps)
+      if (currentIllum > 1.0) {
+        currentIllum = 0.10; // Reinicio automático de ciclo en 10% al llegar al 100%
+      }
+      
+      const val = currentIllum;
+      document.documentElement.style.setProperty('--glow-intensity', val);
+      if (valDisplay) valDisplay.textContent = Math.round(val * 100) + '%';
+      if (slider) slider.value = val;
+      
+      if (sceneLight) sceneLight.intensity = val * 1.6;
+      if (pointLight) pointLight.intensity = val * 1.8;
+      if (particlesGroup) particlesGroup.material.opacity = Math.min(1, Math.max(0.2, val * 0.75));
+      
+      document.querySelectorAll('.node-label').forEach(lbl => {
+        if (!lbl.classList.contains('core-cluster')) {
+          lbl.style.opacity = Math.min(1, Math.max(0.25, 0.95 * val));
+        }
       });
-    }
+    }, 40);
 
     (function initAgentDeckBg() {
       const container = document.getElementById('agentdeck-bg-canvas');
