@@ -27,9 +27,13 @@ El usuario ha ordenado de forma definitiva que **Claude (Opus/Sonnet)** y **Vier
 - **Estética Vogue Clínica (`estetica.html`):** Se solucionó el vacío en el lado izquierdo frente a las tarjetas *"Bioestimulación"* y *"Skin Quality"* incrustando una fotografía clínica de bio-colágeno y tecnología láser.
 - **Nodo Oráculo Maestro en `index.html`:** Reducido milimétricamente al tamaño del cerebro cuántico de la androide y posicionado en coronación justo **arriba del cerebro** en PC, Tablet y Móvil.
 
-### 2. Directiva del Usuario para Claude: Rediseño Impecable Vercel ⏳ (`pendiente_ejecucion (Claude)`)
-- **Abogados (`abogados.html`):** Corregir el contraste del titular principal (*"Justicia. Precisión. Discreción."*) e inyectar excelencia lumínica Vercel Dark Mode sobre `assets/hero_abogados.png`.
-> **Consultar documento dedicado:** [CLAUDE_VERCEL_REDESIGN_TASKS.md](file:///C:/Users/sopor/dev/agencia-10-paginas/CLAUDE_VERCEL_REDESIGN_TASKS.md).
+### 3. 🚨 DIRECTIVA EXPRESA Y URGENTE DEL USUARIO PARA CLAUDE (ANÁLISIS GRÁFICO DEL CEREBRO EN VERDE)
+El usuario ha capturado la interfaz actual (donde la androide está rodeada por los 46 agentes 3D de AgentDeck) y ha dibujado un **recuadro/círculo verde brillante y específico rodeando única y exclusivamente al CEREBRO HOLOGRÁFICO AZUL** que flota directamente encima de la palma abierta de la mano de la androide en `media/robot_ai_humanoid_jarvis.png`.
+
+**Briefing Técnico para Claude (Supervisión y QA):**
+- **Elemento Señalado en Verde:** El cerebro cuántico azul brillante dentro del archivo gráfico `media/robot_ai_humanoid_jarvis.png` (cuadrante sobre la palma: aprox. X=20 a 450, Y=100 a 535).
+- **Contexto Arquitectónico:** En iteraciones previas se eliminó la esfera verde 3D redundante (`coreMesh`) del lienzo Three.js de `index.html` para dejar la portada despejada con los 46 nodos orbitando el robot y su cerebro nativo. Sin embargo, al intentar extirpar este cerebro azul directamente dentro del archivo `.png` en iteraciones anteriores, la silueta del robot perdió su atmósfera lumínica y pareció "recortada", dejando su mano abierta apuntando a un vacío innecesario.
+- **Instrucción de Relevo (Viernes -> Claude):** El usuario ordena **"muestrale esta imagen a claude"**. Claude debe examinar con rigurosa precisión milimétrica esta zona señalada (el cerebro cuántico sostenido en la palma) y supervisar cualquier futura transformación visual o QA sobre dicho activo gráfico en perfecta armonía con el diseño de Colombia Tech Systems.
 
 ---
 
@@ -37,8 +41,7 @@ El usuario ha ordenado de forma definitiva que **Claude (Opus/Sonnet)** y **Vier
 
 | Fecha | Agente Activo | Acción Ejecutada | Estado / Siguiente Paso |
 | :--- | :--- | :--- | :--- |
-| 2026-08-01 (16:15) | **Viernes (Gemini)** | Commit `34c19ce`: Fix imágenes rotas/vacías en `gimnasio.html` y `estetica.html` | Completado en Cloudflare |
-| 2026-08-01 (16:35) | **Viernes (Gemini)** | Commit `cbcfbe3`: Rediseño Vercel Dark Luxury de `finanzas.html` con `assets/hero_finanzas.jpg` | Completado en Cloudflare |
-| 2026-08-01 (16:45) | **Viernes (Gemini)** | Commit `2b52cd1`: Fix 4 imágenes rotas/vacías ("IMAGEN NO DISPONIBLE") en `autos.html` | Completado en Cloudflare |
 | 2026-08-01 (16:55) | **Viernes (Gemini)** | Rediseño Vercel Dark Luxury de `restaurante.html` con `assets/restaurante_plato.jpg` | `pendiente_qa (Claude)` |
-| 2026-08-01 | **Claude (Supervisión)** | Rediseño estilo Vercel Dark Mode de `abogados.html` | **`EN COLA (Próximo paso de Claude)`** |
+| 2026-08-01 (21:11) | **Viernes (Gemini)** | Commit `ffe77b6`: Limpieza en `index.html` (extirpación de esfera 3D redundante para preservar solo androide y 46 agentes) | Desplegado en Cloudflare |
+| 2026-08-01 (21:28) | **Viernes -> Claude** | Briefing gráfico en `SYNC_CLAUDE_VIERNES.md` (Imagen del cerebro holográfico en recuadro verde transmitida) | **`pendiente_qa (Claude) - ATENCIÓN PRIORITARIA`** |
+| 2026-08-01 | **Claude (Supervisión)** | Rediseño estilo Vercel Dark Mode de `abogados.html` y QA del cerebro señalizado | **`EN COLA (Próximo paso de Claude)`** |
