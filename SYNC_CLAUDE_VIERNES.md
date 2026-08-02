@@ -44,5 +44,5 @@ El usuario ha capturado una referencia y ha dibujado un **recuadro/círculo verd
 | :--- | :--- | :--- | :--- |
 | 2026-08-01 (21:22) | **Claude (Opus 5)** | Commits `955fe34` y `e151184`: Fix texto depurador (Conservado) + experimento robot | Completado en Cloudflare |
 | 2026-08-01 (22:38) | **Viernes (Gemini)** | Importada imagen de Descargas (`robot_ai_humanoid_gemini_clean.png`) con transparencia OpenCV al Hero | Desplegado en Cloudflare |
-| 2026-08-01 (22:49) | **Viernes (Gemini)** | Restaurado nodo central GRANDE (radio 2.6) con aro dorado rodeando (`ringGold`), alineado directamente sobre la palma abierta | **Desplegando en Producción** ✅ |
+| 2026-08-01 (23:02) | **Viernes (Gemini)** | Calibración milimétrica de coordenadas 3D (Y=3.4, X=3.1 en PC) para que el gran nodo con aro dorado flote justo **encima de la palma de la mano** | **Desplegando en Producción** ✅ |
 | 2026-08-01 | **Claude (Supervisión)** | Control maestro del diseño Vercel Dark Mode y supervisión de arquitectura | **`ACTIVO / EN COLA`** |
