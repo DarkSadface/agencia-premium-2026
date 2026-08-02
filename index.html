@@ -1557,5 +1557,357 @@
       });
     })();
   </script>
+
+  <!-- ==================== WIDGET INTELIGENTE: CHATBOT IA & WHATSAPP AUTOMÁTICO ==================== -->
+  <style>
+    :root {
+      --chat-border: rgba(0, 229, 255, 0.3);
+      --chat-glow: rgba(0, 229, 255, 0.25);
+      --chat-gold: #ffaa00;
+      --chat-cyan: #00e5ff;
+    }
+    .wsp-ai-btn-floating {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 9998;
+      background: linear-gradient(135deg, #0f1016 0%, #171822 100%);
+      border: 1px solid var(--chat-cyan);
+      color: #fff;
+      padding: 14px 22px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      box-shadow: 0 0 30px var(--chat-glow), 0 10px 25px rgba(0,0,0,0.7);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .wsp-ai-btn-floating:hover {
+      transform: translateY(-4px) scale(1.04);
+      border-color: var(--chat-gold);
+      box-shadow: 0 0 35px rgba(255, 170, 0, 0.4), 0 15px 30px rgba(0,0,0,0.8);
+    }
+    .status-dot-pulse {
+      width: 10px;
+      height: 10px;
+      background-color: #00ff88;
+      border-radius: 50%;
+      box-shadow: 0 0 12px #00ff88;
+      animation: pulseGreen 2s infinite;
+    }
+    @keyframes pulseGreen {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.6; }
+    }
+    .wsp-chat-window {
+      position: fixed;
+      bottom: 92px;
+      right: 28px;
+      width: 390px;
+      max-width: calc(100vw - 36px);
+      background: rgba(10, 11, 18, 0.96);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(0, 229, 255, 0.35);
+      border-radius: 22px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(0, 229, 255, 0.12);
+      z-index: 9999;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transform: translateY(30px) scale(0.92);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .wsp-chat-window.active {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .wsp-chat-header {
+      background: linear-gradient(90deg, rgba(0, 229, 255, 0.15), rgba(0, 255, 136, 0.05));
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .wsp-header-info h4 {
+      margin: 0;
+      font-size: 0.98rem;
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .wsp-header-info p {
+      margin: 4px 0 0 0;
+      font-size: 0.78rem;
+      color: #00ff88;
+      font-weight: 600;
+    }
+    .wsp-close-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      color: #fff;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .wsp-close-btn:hover {
+      background: rgba(255, 0, 85, 0.3);
+      color: #ff0055;
+    }
+    .wsp-chat-body {
+      padding: 20px;
+      max-height: 390px;
+      min-height: 280px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      font-size: 0.91rem;
+      color: #E5E7EB;
+    }
+    .wsp-chat-body::-webkit-scrollbar { width: 5px; }
+    .wsp-chat-body::-webkit-scrollbar-thumb { background: rgba(0, 229, 255, 0.3); border-radius: 10px; }
+    .chat-msg-bot {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(0, 229, 255, 0.22);
+      border-radius: 16px 16px 16px 4px;
+      padding: 13px 16px;
+      align-self: flex-start;
+      max-width: 88%;
+      line-height: 1.48;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    .chat-msg-user {
+      background: rgba(0, 229, 255, 0.18);
+      border: 1px solid var(--chat-cyan);
+      color: #fff;
+      border-radius: 16px 16px 4px 16px;
+      padding: 12px 16px;
+      align-self: flex-end;
+      max-width: 85%;
+      font-weight: 500;
+      text-align: right;
+      box-shadow: 0 4px 15px rgba(0, 229, 255, 0.2);
+    }
+    .chat-options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-top: 6px;
+    }
+    .chat-option-btn {
+      background: rgba(17, 18, 28, 0.95);
+      border: 1px solid rgba(255, 170, 0, 0.45);
+      color: var(--chat-gold);
+      padding: 11px 15px;
+      border-radius: 14px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .chat-option-btn::after {
+      content: '→';
+      font-weight: bold;
+      transition: transform 0.2s;
+    }
+    .chat-option-btn:hover {
+      background: var(--chat-gold);
+      color: #000;
+      box-shadow: 0 0 20px rgba(255, 170, 0, 0.6);
+      transform: translateX(4px);
+    }
+    .chat-option-btn:hover::after {
+      transform: translateX(4px);
+    }
+    .wsp-chat-footer {
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.03);
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .wsp-input-row {
+      display: flex;
+      gap: 8px;
+    }
+    .wsp-chat-input {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      padding: 11px 16px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border 0.3s;
+    }
+    .wsp-chat-input:focus {
+      border-color: var(--chat-cyan);
+      box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+    }
+    .wsp-send-btn {
+      background: var(--chat-cyan);
+      color: #000;
+      border: none;
+      font-weight: 700;
+      padding: 0 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .wsp-send-btn:hover {
+      background: #fff;
+      box-shadow: 0 0 20px rgba(255,255,255,0.7);
+    }
+    .wsp-direct-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(90deg, #10b981, #059669);
+      color: #fff !important;
+      text-decoration: none;
+      padding: 11px;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      transition: all 0.3s;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+    }
+    .wsp-direct-link:hover {
+      background: linear-gradient(90deg, #059669, #047857);
+      transform: scale(1.02);
+      box-shadow: 0 6px 25px rgba(16, 185, 129, 0.6);
+    }
+  </style>
+
+  <div class="wsp-ai-btn-floating" id="wspAiBtn" onclick="toggleWspChat()">
+    <div class="status-dot-pulse"></div>
+    <span>🤖 Asistente IA & WhatsApp</span>
+  </div>
+
+  <div class="wsp-chat-window" id="wspChatWindow">
+    <div class="wsp-chat-header">
+      <div class="wsp-header-info">
+        <h4>⚡ ORÁCULO AI • PROMETEUS</h4>
+        <p>🟢 Online 24/7 | Respuestas Automáticas</p>
+      </div>
+      <button class="wsp-close-btn" onclick="toggleWspChat()">×</button>
+    </div>
+    
+    <div class="wsp-chat-body" id="wspChatBody">
+      <div class="chat-msg-bot">
+        ¡Hola! Soy el <strong>Oráculo AI de Colombia Tech Systems</strong> (99.9% Uptime). Estoy programado para atenderte y cotizar tus proyectos de forma 100% autónoma.<br><br>
+        <strong>¿Qué solución de ingeniería deseas activar hoy?</strong>
+        <div class="chat-options-group">
+          <button class="chat-option-btn" onclick="selectOption('Desarrollo Web Vercel Premium')">🌐 Desarrollo Web Vercel Premium</button>
+          <button class="chat-option-btn" onclick="selectOption('Agentes IA & Ecosistema Prometeus')">🤖 Agentes IA & Ecosistema Prometeus</button>
+          <button class="chat-option-btn" onclick="selectOption('Automatización 24/7 para WhatsApp')">💬 Automatización 24/7 para WhatsApp</button>
+          <button class="chat-option-btn" onclick="selectOption('Consultoría Senior & NOC Prometeus')">🛠️ Consultoría Senior & NOC Prometeus</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="wsp-chat-footer">
+      <div class="wsp-input-row">
+        <input type="text" id="wspInput" class="wsp-chat-input" placeholder="Escribe tu consulta aquí..." onkeypress="handleKeyPress(event)">
+        <button class="wsp-send-btn" onclick="sendMessage()">➤</button>
+      </div>
+      <a href="https://wa.me/573166844315?text=Hola%20Colombia%20Tech%20Systems,%20deseo%20comunicarme%20con%20un%20Ingeniero%20Senior" target="_blank" class="wsp-direct-link" id="wspDirectLink">
+        <span>🚀 Abrir WhatsApp Oficial VIP</span>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    let chatStep = 0;
+    let selectedTopic = "";
+    
+    function toggleWspChat() {
+      const chatWin = document.getElementById("wspChatWindow");
+      chatWin.classList.toggle("active");
+    }
+
+    function appendMessage(text, sender) {
+      const body = document.getElementById("wspChatBody");
+      const msgDiv = document.createElement("div");
+      msgDiv.className = sender === "user" ? "chat-msg-user" : "chat-msg-bot";
+      msgDiv.innerHTML = text;
+      body.appendChild(msgDiv);
+      body.scrollTop = body.scrollHeight;
+    }
+
+    function selectOption(topic) {
+      selectedTopic = topic;
+      appendMessage(topic, "user");
+      
+      setTimeout(() => {
+        let responseText = `¡Extraordinario! Has seleccionado <strong>${topic}</strong>. En Colombia Tech Systems ejecutamos bajo estándar arquitectónico Vercel y cero alucinación.<br><br>`;
+        responseText += `Por favor, <strong>escribe abajo tu Nombre, Empresa y Presupuesto o Requerimiento breve</strong> para compilar tu diagnóstico y enviarlo al instante por WhatsApp VIP.`;
+        appendMessage(responseText, "bot");
+        chatStep = 1;
+        document.getElementById("wspInput").focus();
+      }, 500);
+    }
+
+    function sendMessage() {
+      const inputEl = document.getElementById("wspInput");
+      const text = inputEl.value.trim();
+      if (!text) return;
+
+      appendMessage(text, "user");
+      inputEl.value = "";
+
+      setTimeout(() => {
+        if (chatStep === 0) {
+          selectedTopic = "Consulta General IA / Web";
+          chatStep = 1;
+        }
+        
+        const wspMessage = encodeURIComponent(`⚡ [LEAD AUTOMÁTICO CHATBOT WEB]\n👤 Cliente & Datos: ${text}\n🎯 Solución Interesada: ${selectedTopic}\n📡 Fuente: Oráculo Prometeus AI Web`);
+        const finalUrl = `https://wa.me/573166844315?text=${wspMessage}`;
+        
+        const replyHtml = `✅ <strong>¡Diagnóstico compilado con éxito!</strong><br><br>Hemos estructurado tu solicitud para atención prioritaria del equipo de Colombia Tech Systems.<br><br>` +
+                          `<a href="${finalUrl}" target="_blank" class="wsp-direct-link" style="display: block; margin-top: 10px;">📲 Enviar Diagnóstico ahora a WhatsApp</a>`;
+        appendMessage(replyHtml, "bot");
+        
+        // Actualizar botón inferior
+        const directLink = document.getElementById("wspDirectLink");
+        if(directLink) {
+          directLink.href = finalUrl;
+          directLink.innerHTML = "<span>📲 Continuar en WhatsApp VIP</span>";
+        }
+      }, 700);
+    }
+
+    function handleKeyPress(e) {
+      if (e.key === "Enter") {
+        sendMessage();
+      }
+    }
+  </script>
 </body>
 </html>
