@@ -45,5 +45,6 @@ El usuario ha capturado una referencia y ha dibujado un **recuadro/círculo verd
 | 2026-08-01 (21:22) | **Claude (Opus 5)** | Commits `955fe34` y `e151184`: Fix texto depurador (Conservado) + experimento robot | Completado en Cloudflare |
 | 2026-08-01 (22:38) | **Viernes (Gemini)** | Importada imagen de Descargas (`robot_ai_humanoid_gemini_clean.png`) con transparencia OpenCV al Hero | Desplegado en Cloudflare |
 | 2026-08-01 (23:02) | **Viernes (Gemini)** | Calibración milimétrica de coordenadas 3D (Y=3.4, X=3.1 en PC) sobre palma de la mano | Desplegado en Cloudflare |
-| 2026-08-01 (23:12) | **Viernes (Gemini)** | Centrado texto y cifras en los 3 recuadros de métricas (`.metric-panel`) + Eliminado botón "Ver Producción & Automatización En Vivo" del Hero | **Desplegando en Producción** ✅ |
+| 2026-08-01 (23:12) | **Viernes (Gemini)** | Centrado texto y cifras en los 3 recuadros de métricas (`.metric-panel`) + Eliminado botón "Ver Producción" del Hero | Desplegado en Cloudflare |
+| 2026-08-01 (23:26) | **Viernes (Gemini)** | Creadas dos páginas para completar los espacios del portafolio (ahora 12 páginas en total): `taller-mecanico.html` (Taller Mecánico & Diagnóstico OBD-II apegado a la realidad LATAM) y `panaderia-pasteleria.html` (Panadería Gourmet Artesanal). Ambas con fondos animados, cotizadores interactivos y estética Vercel | **Desplegando en Producción** ✅ |
 | 2026-08-01 | **Claude (Supervisión)** | Control maestro del diseño Vercel Dark Mode y supervisión de arquitectura | **`ACTIVO / EN COLA`** |
