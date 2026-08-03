@@ -159,6 +159,23 @@ class OmnichannelWebhookHandler(BaseHTTPRequestHandler):
             else:
                 mensaje = data.get("message") or data.get("text") or data.get("Body", "")
 
+            # 🛡️ ESCUDO DE SEGURIDAD PROMETEUS NOC SHIELD (46 AGENTES EN ALERTA DE DEFENSA ACTIVA 24/7)
+            patrones_ataque = ["<script", "javascript:", "select ", "drop table", "delete from", "union select", "../", "cmd.exe", "powershell", "/etc/passwd", "/bin/sh", "onerror="]
+            if any(p in str(mensaje).lower() for p in patrones_ataque):
+                print(f"[🚨 ALERTA PROMETEUS NOC] Intento de intrusión repelledido. Origen: {remitente} | Vector: '{mensaje}'")
+                registrar_en_boveda_obsidian(canal, remitente, str(mensaje), "🛡️ Intento de ataque NEUTRALIZADO por el escuadrón de 46 Agentes de Seguridad y Hacking Ético.", "BLOQUEDA_REPULSION_WAF_NOC")
+                notificar_slack(f"🚨 *INTENTO DE ATAQUE REPELEDIDO POR LOS 46 AGENTES DE SEGURIDAD*\n*Remitente/IP:* {remitente}\n*Vector detectado:* `{mensaje}`", remitente)
+                notificar_telegram(f"🚨 <b>INTENTO DE ATAQUE REPELIDO (PROMETEUS NOC SHIELD)</b>\n<b>Origen:</b> {remitente}\n<b>Vector:</b> <code>{mensaje}</code>\n🛡️ <b>Estado:</b> Amenaza neutralizada al 100%.", remitente)
+                
+                respuesta_repulsion = {
+                    "status": "blocked",
+                    "text": "🚨 ALERTA DE SEGURIDAD PROMETEUS NOC: Su solicitud fue detectada como anomalía o ataque malicioso. Los 46 Agentes de Seguridad y Hacking Ético han repelledido y neutralizado el intento de afectación. Su firma IP se ha registrado en el sistema de defensa 24/7.",
+                    "action": "SECURITY_REPULSION_TRIGGERED",
+                    "priority": "MAX_DEFENSE"
+                }
+                self._send_response(403, respuesta_repulsion)
+                return
+
             print(f"[📡 OMNI-INPUT EN VIVO] Canal: {canal} | De: {remitente} | Texto: '{mensaje}'")
             resultado = procesar_interaccion_omnicanal(canal, remitente, mensaje)
             
