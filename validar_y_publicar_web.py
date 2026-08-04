@@ -77,7 +77,6 @@ def inyectar_boton_superior():
                     <!-- BARRA SUPERIOR FIEL CTS CON BOTÓN AL CURSO -->
                     <div style="background: rgba(2, 6, 13, 0.92); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(56, 230, 255, 0.28); padding: 10px 24px; position: sticky; top: 0; z-index: 999999; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
                       <div style="display: flex; align-items: center; gap: 12px;">
-                        <span style="color: #38e6ff; font-family: 'Share Tech Mono', monospace; font-size: 13px; letter-spacing: 1px;">● NÚCLEO ORÁCULO ACTIVO | V6.55</span>
                         <span style="color: rgba(255,255,255,0.4); font-size: 12px;">|</span>
                         <a href="contratos/contrato_desarrollo_web_colombia.html" target="_blank" style="color: #ffb627; text-decoration: none; font-weight: 700; font-size: 13px; font-family: 'Rajdhani', sans-serif; letter-spacing: 0.5px;">⚖️ CONTRATO LEGAL ONLINE</a>
                       </div>
@@ -98,7 +97,6 @@ def inyectar_boton_superior():
                 <!-- BARRA SUPERIOR FIEL CTS CON BOTÓN AL CURSO -->
                 <div style="background: rgba(2, 6, 13, 0.92); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(56, 230, 255, 0.28); padding: 10px 24px; position: sticky; top: 0; z-index: 999999; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
                   <div style="display: flex; align-items: center; gap: 12px;">
-                    <span style="color: #38e6ff; font-family: 'Share Tech Mono', monospace; font-size: 13px; letter-spacing: 1px;">● NÚCLEO ORÁCULO ACTIVO | V6.55</span>
                     <span style="color: rgba(255,255,255,0.4); font-size: 12px;">|</span>
                     <a href="contratos/contrato_desarrollo_web_colombia.html" target="_blank" style="color: #ffb627; text-decoration: none; font-weight: 700; font-size: 13px; font-family: 'Rajdhani', sans-serif; letter-spacing: 0.5px;">⚖️ CONTRATO LEGAL ONLINE</a>
                   </div>
