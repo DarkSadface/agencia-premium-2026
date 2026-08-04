@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programa de Formación · Desarrollo Agentic con IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#000000; --bg2:#0a0a0e; --panel:#111116; --panel2:#181822;
+    --ink:#edeffa; --muted:#9aa3c7; --faint:#6b739a;
+    --violet:#7b5cff; --violet-bright:#a896ff; --violet-deep:#4a32c4;
+    --teal:#00c4a0; --amber:#f5c542; --rose:#ff6b9d;
+    --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.05);
+    --glow:0 0 60px rgba(123,92,255,.25);
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:90px}
+  body{
+    font-family:'Hanken Grotesk',sans-serif;background:var(--bg);color:var(--ink);
+    line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(900px 600px at 80% -5%, rgba(123,92,255,.22), transparent 60%),
+      radial-gradient(700px 500px at 5% 15%, rgba(0,196,160,.10), transparent 55%),
+      radial-gradient(800px 700px at 50% 110%, rgba(74,50,196,.18), transparent 60%);
+  }
+  body::after{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.04;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .wrap{position:relative;z-index:1;max-width:var(--maxw);margin:0 auto;padding:0 22px}
+  h1,h2,h3,h4{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;line-height:1.08;letter-spacing:-.02em}
+  .mono{font-family:'JetBrains Mono',monospace}
+  a{color:var(--violet-bright);text-decoration:none;border-bottom:1px solid rgba(168,150,255,.3);transition:.2s}
+  a:hover{color:#fff;border-color:var(--violet-bright)}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);
+    background:rgba(6,8,20,.72);border-bottom:1px solid var(--line)}
+  .nav-in{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;gap:8px;
+    padding:12px 22px;overflow-x:auto;scrollbar-width:none}
+  .nav-in::-webkit-scrollbar{display:none}
+  .brand{font-family:'Bricolage Grotesque';font-weight:800;font-size:15px;white-space:nowrap;margin-right:auto;display:flex;align-items:center;gap:8px}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--teal);box-shadow:0 0 12px var(--teal)}
+  .nav-in a{font-size:12.5px;color:var(--muted);border:1px solid var(--line);
+    padding:5px 11px;border-radius:99px;white-space:nowrap;border-bottom:1px solid var(--line)}
+  .nav-in a:hover{color:#fff;background:rgba(123,92,255,.16);border-color:var(--violet)}
+
+  /* PROGRESS BAR */
+  .progress-wrap{position:sticky;top:53px;z-index:49;background:rgba(6,8,20,.72);backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line)}
+  .progress-in{max-width:var(--maxw);margin:0 auto;padding:8px 22px;display:flex;align-items:center;gap:12px;font-size:12px;color:var(--muted)}
+  .bar{flex:1;height:7px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden}
+  .bar > i{display:block;height:100%;width:0;border-radius:99px;
+    background:linear-gradient(90deg,var(--teal),var(--violet));transition:width .4s}
+
+  /* HERO */
+  header{padding:74px 0 56px;text-align:center}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--violet-bright);border:1px solid var(--line);
+    padding:7px 15px;border-radius:99px;margin-bottom:26px;background:rgba(123,92,255,.08)}
+  header h1{font-size:clamp(38px,7vw,68px);margin-bottom:18px}
+  header h1 .g{background:linear-gradient(120deg,#fff,var(--violet-bright) 55%,var(--teal));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  header p.lead{font-size:clamp(16px,2.4vw,20px);color:var(--muted);max-width:680px;margin:0 auto 30px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;font-size:13px}
+  .chip{display:inline-flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);
+    padding:9px 15px;border-radius:12px;color:var(--ink)}
+  .chip b{color:var(--teal);font-family:'JetBrains Mono'}
+
+  section{padding:54px 0;position:relative}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:8px}
+  .sec-num{font-family:'JetBrains Mono';font-size:13px;color:var(--violet-bright);
+    border:1px solid var(--violet);border-radius:8px;padding:2px 8px;flex:none}
+  h2.title{font-size:clamp(26px,4vw,38px)}
+  .sec-sub{color:var(--muted);max-width:720px;margin:6px 0 30px;font-size:15.5px}
+
+  /* METHOD CARDS */
+  .grid{display:grid;gap:16px}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .card{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);
+    border-radius:18px;padding:22px;transition:.25s;position:relative;overflow:hidden}
+  .card:hover{transform:translateY(-3px);border-color:var(--violet);box-shadow:var(--glow)}
+  .card .ico{font-size:22px;width:44px;height:44px;display:grid;place-items:center;border-radius:12px;
+    background:rgba(123,92,255,.14);border:1px solid var(--line);margin-bottom:14px}
+  .card h4{font-size:17px;margin-bottom:7px}
+  .card p{font-size:14px;color:var(--muted)}
+  .card .tag{position:absolute;top:16px;right:16px;font-size:10px;letter-spacing:.1em;color:var(--faint);font-family:'JetBrains Mono'}
+
+  /* ROADMAP */
+  .road{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:8px}
+  .node{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);
+    border-radius:16px;padding:18px 16px;text-align:center;position:relative;transition:.25s}
+  .node:hover{border-color:var(--violet);transform:translateY(-3px)}
+  .node .n{font-family:'Bricolage Grotesque';font-weight:800;font-size:26px;
+    width:48px;height:48px;border-radius:50%;display:grid;place-items:center;margin:0 auto 12px;
+    background:radial-gradient(circle at 30% 30%,var(--violet),var(--violet-deep));
+    box-shadow:0 0 22px rgba(123,92,255,.4);color:#fff}
+  .node h4{font-size:14px;margin-bottom:6px}
+  .node small{font-size:11.5px;color:var(--faint);font-family:'JetBrains Mono'}
+
+  /* TIMELINE */
+  .timeline{position:relative;margin-top:14px;padding-left:6px}
+  .tl-item{position:relative;padding:0 0 8px 34px;margin-bottom:16px;border-left:2px solid var(--line);}
+  .tl-item:last-child{border-left:2px solid transparent}
+  .tl-item::before{content:"";position:absolute;left:-9px;top:4px;width:16px;height:16px;border-radius:50%;
+    background:var(--bg);border:3px solid var(--violet);box-shadow:0 0 12px rgba(123,92,255,.5)}
+  .tl-item.t-cap::before{border-color:var(--teal);box-shadow:0 0 12px var(--teal)}
+  .tl-week{font-family:'JetBrains Mono';font-size:12px;color:var(--violet-bright);letter-spacing:.05em}
+  .tl-item h4{font-size:16.5px;margin:3px 0 5px}
+  .tl-item p{font-size:14px;color:var(--muted)}
+  .tl-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+  .tl-tags span{font-size:11px;font-family:'JetBrains Mono';color:var(--muted);
+    background:rgba(255,255,255,.05);border:1px solid var(--line2);padding:3px 8px;border-radius:6px}
+
+  /* PHASE BLOCKS */
+  .phase{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);
+    border-radius:22px;margin-bottom:22px;overflow:hidden}
+  .phase > summary{list-style:none;cursor:pointer;padding:24px 26px;display:flex;align-items:center;gap:18px}
+  .phase > summary::-webkit-details-marker{display:none}
+  .ph-badge{flex:none;width:54px;height:54px;border-radius:14px;display:grid;place-items:center;
+    font-family:'Bricolage Grotesque';font-weight:800;font-size:24px;color:#fff;
+    background:radial-gradient(circle at 30% 30%,var(--violet),var(--violet-deep));box-shadow:0 0 22px rgba(123,92,255,.35)}
+  .ph-head-txt{flex:1}
+  .ph-head-txt h3{font-size:clamp(19px,3vw,25px)}
+  .ph-head-txt span{font-size:13px;color:var(--muted)}
+  .ph-week{font-family:'JetBrains Mono';font-size:12px;color:var(--teal);flex:none;
+    border:1px solid rgba(0,196,160,.4);border-radius:8px;padding:4px 9px}
+  .chev{flex:none;color:var(--faint);transition:.3s;font-size:20px}
+  details[open] .chev{transform:rotate(180deg)}
+  .ph-body{padding:0 26px 26px;border-top:1px solid var(--line2)}
+  .ph-body h5{font-family:'Bricolage Grotesque';font-weight:700;font-size:13px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--violet-bright);margin:24px 0 12px;display:flex;align-items:center;gap:9px}
+  .ph-body h5::before{content:"";width:18px;height:2px;background:var(--violet)}
+  .obj{font-size:14.5px;color:var(--muted);background:rgba(123,92,255,.06);border-left:3px solid var(--violet);
+    padding:13px 16px;border-radius:0 10px 10px 0}
+
+  /* STEP MANUAL */
+  ol.steps{list-style:none;counter-reset:s;display:grid;gap:11px}
+  ol.steps > li{counter-increment:s;position:relative;padding:13px 16px 13px 50px;
+    background:rgba(255,255,255,.025);border:1px solid var(--line2);border-radius:12px;font-size:14px}
+  ol.steps > li::before{content:counter(s);position:absolute;left:13px;top:12px;width:24px;height:24px;
+    border-radius:7px;display:grid;place-items:center;font-family:'JetBrains Mono';font-size:12px;font-weight:700;
+    background:rgba(123,92,255,.18);border:1px solid var(--violet);color:var(--violet-bright)}
+  ol.steps b{color:var(--ink)}
+  code{font-family:'JetBrains Mono';font-size:12.5px;background:#05060f;border:1px solid var(--line);
+    color:var(--teal);padding:2px 7px;border-radius:6px;white-space:nowrap}
+  pre{background:#05060f;border:1px solid var(--line);border-radius:12px;padding:14px 16px;overflow-x:auto;margin-top:8px}
+  pre code{border:none;background:none;padding:0;white-space:pre;color:#cde9e0;font-size:12.5px;line-height:1.7}
+
+  /* RESOURCE LIST */
+  .res{display:grid;gap:9px}
+  .res a{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.025);border:1px solid var(--line2);
+    border-radius:11px;padding:11px 14px;color:var(--ink);border-bottom:1px solid var(--line2);font-size:14px}
+  .res a:hover{border-color:var(--violet);background:rgba(123,92,255,.08)}
+  .res a .rt{flex:none;font-size:10px;font-family:'JetBrains Mono';letter-spacing:.06em;padding:3px 7px;border-radius:6px;text-transform:uppercase}
+  .rt.doc{background:rgba(0,196,160,.14);color:var(--teal)}
+  .rt.vid{background:rgba(255,107,157,.14);color:var(--rose)}
+  .rt.man{background:rgba(245,197,66,.14);color:var(--amber)}
+  .rt.tool{background:rgba(123,92,255,.18);color:var(--violet-bright)}
+  .res a .rd{color:var(--muted);font-size:12px;margin-left:auto;flex:none}
+
+  /* CHECK */
+  .check{display:flex;align-items:flex-start;gap:11px;padding:11px 14px;border:1px solid var(--line2);
+    border-radius:11px;background:rgba(255,255,255,.02);cursor:pointer;font-size:14px;transition:.2s}
+  .check:hover{border-color:var(--violet)}
+  .check input{appearance:none;flex:none;width:20px;height:20px;border:2px solid var(--faint);border-radius:6px;margin-top:2px;cursor:pointer;transition:.2s;position:relative}
+  .check input:checked{background:var(--teal);border-color:var(--teal)}
+  .check input:checked::after{content:"✓";position:absolute;inset:0;display:grid;place-items:center;color:#04140f;font-weight:800;font-size:13px}
+  .check.done span{color:var(--faint);text-decoration:line-through}
+  .checks{display:grid;gap:8px}
+  .check.eval-check{border-color:rgba(245,197,66,.4);background:rgba(245,197,66,.05)}
+  .check.eval-check input:checked{background:var(--amber);border-color:var(--amber)}
+  .check.eval-check input:checked::after{color:#241a00}
+
+  /* QUIZ */
+  .quiz{display:grid;gap:14px;background:rgba(255,255,255,.02);border:1px solid var(--line2);border-radius:14px;padding:18px;margin-top:4px}
+  .q{display:grid;gap:7px}
+  .q .qtext{font-size:14.5px;font-weight:600;color:var(--ink)}
+  .opt{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--muted);
+    border:1px solid var(--line2);border-radius:10px;padding:9px 12px;cursor:pointer;transition:.15s}
+  .opt:hover{border-color:var(--violet)}
+  .opt input{appearance:none;flex:none;width:18px;height:18px;border:2px solid var(--faint);border-radius:50%;margin-top:2px;cursor:pointer;position:relative;transition:.15s}
+  .opt input:checked{border-color:var(--violet)}
+  .opt input:checked::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--violet)}
+  .opt.correct{border-color:var(--teal);background:rgba(0,196,160,.1);color:var(--ink)}
+  .opt.correct::after{content:"✓";margin-left:auto;color:var(--teal);font-weight:800}
+  .opt.wrong{border-color:var(--rose);background:rgba(255,107,157,.1);color:var(--ink)}
+  .opt.wrong::after{content:"✕";margin-left:auto;color:var(--rose);font-weight:800}
+  .qexp{display:none;font-size:13px;color:var(--violet-bright);background:rgba(123,92,255,.08);
+    border-left:3px solid var(--violet);padding:8px 12px;border-radius:0 8px 8px 0}
+  .qexp.show{display:block;animation:pop .2s}
+  .quiz-foot{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:4px}
+  .gbtn-q{font-family:'Hanken Grotesk';font-weight:700;font-size:13.5px;border:none;cursor:pointer;
+    padding:9px 16px;border-radius:10px;transition:.15s;color:#fff}
+  .gbtn-q:active{transform:scale(.96)}
+  .qcheck{background:linear-gradient(180deg,#6c4bf0,#4a32c4)}
+  .qreset{background:rgba(255,255,255,.08)}
+  .qscore{font-family:'JetBrains Mono';font-size:13px;font-weight:700;color:var(--muted)}
+  .qscore.pass{color:var(--teal)}
+  .qscore.fail{color:var(--rose)}
+
+  /* DIAGRAM */
+  .diagram{margin-top:12px;background:#05060f;border:1px solid var(--line);border-radius:14px;padding:18px;overflow-x:auto}
+  .diagram svg{display:block;margin:0 auto;max-width:100%;height:auto}
+
+  /* CALLOUT */
+  .callout{background:linear-gradient(135deg,rgba(123,92,255,.12),rgba(0,196,160,.08));
+    border:1px solid var(--violet);border-radius:16px;padding:20px 22px;margin-top:8px}
+  .callout h4{font-size:17px;margin-bottom:8px;display:flex;align-items:center;gap:9px}
+  .callout p{font-size:14.5px;color:var(--muted)}
+  .callout p+p{margin-top:8px}
+
+  footer{padding:48px 0 70px;text-align:center;border-top:1px solid var(--line);margin-top:30px}
+  footer p{color:var(--faint);font-size:13px}
+  footer .mono{color:var(--muted)}
+
+  @media(max-width:820px){
+    .g3,.g2{grid-template-columns:1fr}
+    .road{grid-template-columns:repeat(2,1fr)}
+    .progress-in .lbl{display:none}
+  }
+  /* DOWNLOAD CARDS */
+  .dl{display:flex;align-items:center;gap:14px;background:linear-gradient(180deg,var(--panel),var(--bg2));
+    border:1px solid var(--line);border-radius:14px;padding:14px 16px;transition:.2s;border-bottom:1px solid var(--line)}
+  .dl:hover{border-color:var(--teal);transform:translateY(-2px)}
+  .dl .di{flex:none;width:42px;height:42px;border-radius:11px;display:grid;place-items:center;font-size:21px;
+    background:rgba(0,196,160,.1);border:1px solid var(--line)}
+  .dl .dx{flex:1}
+  .dl .dx b{font-size:15px;color:var(--ink);font-family:'Hanken Grotesk';font-weight:700}
+  .dl .dx small{display:block;font-size:12px;color:var(--muted);margin-top:1px}
+  .dl .os{font-size:10px;font-family:'JetBrains Mono';color:var(--faint);margin-left:auto;flex:none}
+
+  /* CERT REGION */
+  .cert-card{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:18px;padding:20px}
+  .cert-card > h4{font-size:17px;margin-bottom:4px;display:flex;align-items:center;gap:9px}
+  .cert-card > .reg{font-size:11px;font-family:'JetBrains Mono';color:var(--faint);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px;display:block}
+  .cert-card .res a{margin-bottom:0}
+
+  /* KIDS ZONE */
+  .kids{background:
+      radial-gradient(700px 400px at 100% 0%, rgba(255,107,157,.18), transparent 60%),
+      radial-gradient(600px 400px at 0% 100%, rgba(245,197,66,.14), transparent 60%),
+      linear-gradient(180deg,#141a3a,#0d1230);
+    border:2px solid var(--violet);border-radius:26px;padding:30px;overflow:hidden}
+  .kids .ktag{display:inline-block;font-family:'Bricolage Grotesque';font-weight:800;font-size:12px;letter-spacing:.1em;
+    background:var(--amber);color:#241a00;padding:6px 14px;border-radius:99px;margin-bottom:14px}
+  .kids h3{font-size:clamp(24px,5vw,34px);margin-bottom:8px}
+  .kids h3 .gg{background:linear-gradient(90deg,var(--amber),var(--rose),var(--violet-bright));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .kids .kintro{font-size:15.5px;color:#d6dbf5;max-width:640px;margin-bottom:18px}
+
+  .game{background:rgba(5,6,15,.5);border:1px solid var(--line);border-radius:20px;padding:20px;margin-top:6px}
+  .glevel{font-family:'JetBrains Mono';font-size:12px;color:var(--amber);margin-bottom:12px}
+  .gboard{display:grid;gap:5px;width:100%;max-width:340px;margin:0 auto 16px;aspect-ratio:1/1}
+  .gcell{background:rgba(255,255,255,.04);border-radius:9px;display:grid;place-items:center;font-size:clamp(18px,5vw,26px);position:relative;transition:.15s}
+  .gcell.wall{background:repeating-linear-gradient(45deg,#2a2150,#2a2150 6px,#1c1638 6px,#1c1638 12px)}
+  .gcell.goal{background:rgba(245,197,66,.16);box-shadow:inset 0 0 0 2px var(--amber)}
+  .robot{transition:transform .35s ease}
+  .gpad{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-bottom:14px}
+  .gbtn{font-family:'Hanken Grotesk';font-weight:700;font-size:14px;color:#fff;border:none;cursor:pointer;
+    padding:11px 16px;border-radius:13px;display:inline-flex;align-items:center;gap:7px;transition:.15s}
+  .gbtn:active{transform:scale(.94)}
+  .gbtn.cmd{background:linear-gradient(180deg,#6c4bf0,#4a32c4);box-shadow:0 4px 0 #2e1f86}
+  .gbtn.cmd:active{box-shadow:0 1px 0 #2e1f86;transform:translateY(3px)}
+  .gbtn.run{background:linear-gradient(180deg,#00c4a0,#03916f);box-shadow:0 4px 0 #026c52}
+  .gbtn.run:active{box-shadow:0 1px 0 #026c52;transform:translateY(3px)}
+  .gbtn.clr{background:rgba(255,255,255,.08);box-shadow:0 4px 0 rgba(0,0,0,.3)}
+  .gbtn.hint{background:linear-gradient(180deg,#ff6b9d,#c93c6e);box-shadow:0 4px 0 #8e2349}
+  .gbtn:disabled{opacity:.4;cursor:not-allowed;box-shadow:none;transform:none}
+  .program{min-height:54px;background:rgba(255,255,255,.04);border:2px dashed var(--line);border-radius:13px;
+    padding:10px;display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-bottom:14px}
+  .program:empty::before{content:"Tus instrucciones aparecerán aquí 👇";color:var(--faint);font-size:13px;margin:0 auto}
+  .pchip{font-family:'Hanken Grotesk';font-weight:700;font-size:13px;background:rgba(108,75,240,.35);
+    border:1px solid var(--violet);color:#fff;padding:6px 11px;border-radius:9px;display:inline-flex;align-items:center;gap:5px;animation:pop .2s}
+  @keyframes pop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+  .gstatus{text-align:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:16px;min-height:24px;color:#d6dbf5}
+  .gstatus.win{color:var(--teal)}
+  .gstatus.lose{color:var(--rose)}
+  .gctrls{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-bottom:6px}
+
+  .diploma{display:none;margin-top:18px;background:linear-gradient(135deg,#fff7e6,#ffeaf2);border:4px double #c93c6e;
+    border-radius:18px;padding:24px;text-align:center;color:#2a1830}
+  .diploma.show{display:block;animation:pop .4s}
+  .diploma h4{font-family:'Bricolage Grotesque';font-size:24px;color:#7b1c46;margin-bottom:4px}
+  .diploma .seal{font-size:40px}
+  .diploma p{font-size:14px;color:#6b3a52;margin:6px 0}
+  .diploma .dname{font-family:'Bricolage Grotesque';font-weight:800;font-size:22px;color:#4a32c4;border-bottom:2px solid #c93c6e;display:inline-block;padding:2px 18px;margin:6px 0}
+  .diploma input{font-family:'Hanken Grotesk';font-size:15px;padding:8px 12px;border-radius:9px;border:2px solid #c93c6e;text-align:center;margin:6px}
+  .diploma .dbtn{font-family:'Hanken Grotesk';font-weight:700;background:#7b1c46;color:#fff;border:none;padding:9px 18px;border-radius:10px;cursor:pointer;margin:4px}
+
+  @media(max-width:480px){
+    .road{grid-template-columns:1fr}
+    .phase>summary{padding:18px}
+    .ph-body{padding:0 18px 20px}
+    .kids{padding:20px}
+  }
+</style>
+</head>
+<body>
+
+<!-- BARRA DE NAVEGACIÓN SUPERIOR ESTILO VERCEL -->
+<div style="background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.15); padding: 12px 24px; position: sticky; top: 0; z-index: 99999; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+  <div style="display: flex; align-items: center; gap: 14px;">
+    <a href="catalogo.html" style="color: #fff; text-decoration: none; font-weight: 700; font-size: 13.5px; display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.08); padding: 7px 15px; border-radius: 99px; border: 1px solid rgba(255,255,255,0.18); transition: 0.2s;">← Volver al Portafolio CTS</a>
+    <span style="color: #00ff88; font-weight: 800; font-size: 12.5px; letter-spacing: 1.5px; background: rgba(0, 255, 136, 0.1); padding: 5px 14px; border-radius: 20px; border: 1px solid rgba(0, 255, 136, 0.35); text-transform: uppercase; box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);">▲ VERCEL DESIGN SYSTEM</span>
+  </div>
+  <div style="display: flex; align-items: center; gap: 12px;">
+    <a href="contratos/contrato_desarrollo_web_colombia.html" target="_blank" style="color: #ffd700; text-decoration: none; font-weight: 700; font-size: 13px; border-bottom: 1px dashed #ffd700; padding-bottom: 2px;">⚖️ Contrato Legal HTML</a>
+    <a href="https://wa.me/573000000000?text=Hola,%20me%20interesa%20inscribirme%20al%20Programa%20de%20Desarrollo%20Agentic%20con%20IA%20(Vercel%20Edition)%20por%20$290%20USD" target="_blank" style="background: linear-gradient(135deg, #00ff88 0%, #00d470 100%); color: #000; padding: 8px 18px; border-radius: 99px; font-weight: 800; font-size: 13px; text-decoration: none; box-shadow: 0 4px 20px rgba(0, 255, 136, 0.35); transition: 0.2s;">🚀 Inscribirme Hoy ($290 USD)</a>
+  </div>
+</div>
+
+
+<!-- NAV -->
+<nav>
+  <div class="nav-in">
+    <div class="brand"><span class="dot"></span>Ruta Agentic · datapath.ai</div>
+    <a href="#metodo">Método</a>
+    <a href="#ruta">Ruta</a>
+    <a href="#crono">Cronograma</a>
+    <a href="#f1">F1</a>
+    <a href="#f2">F2</a>
+    <a href="#f3">F3</a>
+    <a href="#f4">F4</a>
+    <a href="#f5">F5</a>
+    <a href="#podcast">Podcast</a>
+    <a href="#descargas">Descargas</a>
+    <a href="#certificados">Certificados</a>
+    <a href="#ninos">👦 Niños</a>
+  </div>
+</nav>
+
+<!-- PROGRESS -->
+<div class="progress-wrap">
+  <div class="progress-in">
+    <span class="lbl">Tu progreso</span>
+    <div class="bar"><i id="barFill"></i></div>
+    <span class="mono" id="pctTxt" style="color:var(--teal);flex:none">0%</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<header>
+  <div class="wrap">
+    <span class="kicker">● Programa de formación · Desarrollo asistido por IA</span>
+    <h1>Conviértete en <span class="g">Desarrollador Agentic</span></h1>
+    <p class="lead">Un plan de 12 semanas para dominar las 5 fases del roadmap de <b>datapath.ai</b>: de los fundamentos con Claude Code hasta una app en producción con CI/CD. Con manuales paso a paso, gráficas, videos, docs oficiales y podcasts.</p>
+    <div class="meta-row">
+      <span class="chip">⏱️ <b>12</b> semanas</span>
+      <span class="chip">🧩 <b>5</b> fases + capstone</span>
+      <span class="chip">📚 <b>8–10</b> h/semana</span>
+      <span class="chip">🎯 Proyecto real al final</span>
+    </div>
+  </div>
+</header>
+
+<!-- METODOLOGÍA -->
+<section id="metodo"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">00</span><h2 class="title">Los mejores métodos de aprendizaje</h2></div>
+  <p class="sec-sub">Antes del contenido, la forma de estudiar. Este programa está diseñado sobre técnicas con respaldo en ciencia del aprendizaje. Aplícalas en cada sesión y aprenderás 2–3x más rápido.</p>
+  <div class="grid g3">
+    <div class="card"><span class="tag">CORE</span><div class="ico">🔨</div><h4>Aprender construyendo</h4><p>Project-Based Learning: cada fase produce algo funcional. No memorices APIs; constrúyelas. El proyecto es el examen.</p></div>
+    <div class="card"><span class="tag">MEMORIA</span><div class="ico">🧠</div><h4>Recuerdo activo</h4><p>Cierra la doc y reconstruye de memoria lo que acabas de aprender. Recordar (no releer) es lo que fija el conocimiento.</p></div>
+    <div class="card"><span class="tag">RETENCIÓN</span><div class="ico">📅</div><h4>Repetición espaciada</h4><p>Repasa a 1 día, 3 días, 1 semana. Crea flashcards (Anki) de comandos y conceptos clave. Vence la curva del olvido.</p></div>
+    <div class="card"><span class="tag">CLARIDAD</span><div class="ico">🗣️</div><h4>Técnica Feynman</h4><p>Explica cada tema en voz alta como si enseñaras a alguien. Si te trabas, ahí está tu laguna. Vuelve y repite.</p></div>
+    <div class="card"><span class="tag">ENFOQUE</span><div class="ico">🍅</div><h4>Bloques Pomodoro</h4><p>Sesiones de 25–50 min sin distracciones + descanso. Time-blocking en tu calendario para proteger las horas de estudio.</p></div>
+    <div class="card"><span class="tag">FEEDBACK</span><div class="ico">📈</div><h4>Práctica deliberada</h4><p>Repite lo que te cuesta, no lo que ya dominas. Pide a la IA que revise tu código y te dé crítica concreta.</p></div>
+  </div>
+  <div class="callout" style="margin-top:18px">
+    <h4>🌀 El ciclo de cada sesión</h4>
+    <p><b>1. Leer/ver</b> (input) → <b>2. Construir</b> (output inmediato) → <b>3. Explicar</b> sin mirar → <b>4. Anotar</b> dudas y comandos → <b>5. Repasar</b> al día siguiente. Termina cada semana con un mini-resumen de 5 líneas: "qué aprendí, qué me costó, qué sigue".</p>
+  </div>
+</div></section>
+
+<!-- RUTA / ROADMAP -->
+<section id="ruta"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">01</span><h2 class="title">La ruta en 5 fases</h2></div>
+  <p class="sec-sub">El mismo camino que muestra el anuncio de datapath.ai, ordenado de fundamento a producción. Cada fase es prerrequisito de la siguiente.</p>
+  <div class="road">
+    <a href="#f1" class="node"><div class="n">1</div><h4>Fundamentos Agentic</h4><small>Sem 1–2</small></a>
+    <a href="#f2" class="node"><div class="n">2</div><h4>App Real</h4><small>Sem 3–4</small></a>
+    <a href="#f3" class="node"><div class="n">3</div><h4>RAG & Chatbot</h4><small>Sem 5–6</small></a>
+    <a href="#f4" class="node"><div class="n">4</div><h4>Agentes & Testing</h4><small>Sem 7–8</small></a>
+    <a href="#f5" class="node"><div class="n">5</div><h4>Producción</h4><small>Sem 9–10</small></a>
+  </div>
+</div></section>
+
+<!-- CRONOGRAMA -->
+<section id="crono"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">02</span><h2 class="title">Cronograma semana a semana</h2></div>
+  <p class="sec-sub">12 semanas con carga de 8–10 horas. Ajusta el ritmo a tu disponibilidad; lo importante es que cada semana cierres con algo construido.</p>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-week">SEMANA 0 · PREPARACIÓN</div><h4>Montaje del entorno y mentalidad</h4><p>Instala todo, crea cuentas y entiende el "porqué" del desarrollo agentic. Sin entorno listo, todo lo demás se atasca.</p><div class="tl-tags"><span>Node.js LTS</span><span>Git</span><span>Cuentas: Anthropic, Supabase, GitHub, Vercel</span></div></div>
+
+    <div class="tl-item"><div class="tl-week">SEMANA 1</div><h4>Claude Code + modelos y costos</h4><p>Instala y autentica Claude Code. Aprende cuándo usar Haiku, Sonnet u Opus y cómo controlar gasto.</p><div class="tl-tags"><span>Claude Code</span><span>Haiku/Sonnet/Opus</span></div></div>
+    <div class="tl-item"><div class="tl-week">SEMANA 2</div><h4>Google Antigravity + Spec-Driven Development</h4><p>Orquesta agentes en Antigravity y escribe specs con Spec Kit para que la IA construya con precisión, no por intuición.</p><div class="tl-tags"><span>Antigravity 2.0</span><span>Spec Kit</span></div></div>
+
+    <div class="tl-item"><div class="tl-week">SEMANA 3</div><h4>Next.js + Tailwind + shadcn/ui</h4><p>Monta la base de una app real. De wireframe a interfaz funcional con Claude Vision.</p><div class="tl-tags"><span>Next.js App Router</span><span>shadcn/ui</span></div></div>
+    <div class="tl-item"><div class="tl-week">SEMANA 4</div><h4>Supabase + datos reales</h4><p>Auth, base de datos y conexión de datos reales a la interfaz. Tu app deja de ser una maqueta.</p><div class="tl-tags"><span>Supabase</span><span>Auth + DB</span></div></div>
+
+    <div class="tl-item"><div class="tl-week">SEMANA 5</div><h4>Embeddings & pgvector</h4><p>Convierte tu información en vectores. Habilita pgvector, haz chunking y guarda embeddings.</p><div class="tl-tags"><span>Embeddings</span><span>pgvector</span></div></div>
+    <div class="tl-item"><div class="tl-week">SEMANA 6</div><h4>Chatbot contextual (RAG)</h4><p>Búsqueda por similitud + generación. Un chatbot que responde con información privada del producto.</p><div class="tl-tags"><span>RAG</span><span>Similarity search</span></div></div>
+
+    <div class="tl-item"><div class="tl-week">SEMANA 7</div><h4>MCP + Custom Skills</h4><p>Conecta agentes a herramientas externas vía MCP y crea Skills propias reutilizables.</p><div class="tl-tags"><span>MCP</span><span>Skills</span></div></div>
+    <div class="tl-item"><div class="tl-week">SEMANA 8</div><h4>Testing con Vitest y Playwright</h4><p>Tus agentes generan, validan, corrigen y mejoran código respaldados por pruebas unitarias y E2E.</p><div class="tl-tags"><span>Vitest</span><span>Playwright E2E</span></div></div>
+
+    <div class="tl-item"><div class="tl-week">SEMANA 9</div><h4>GitHub Actions + CI/CD</h4><p>Pipeline que corre lint, tests y build en cada push. Calidad automatizada.</p><div class="tl-tags"><span>GitHub Actions</span><span>CI/CD</span></div></div>
+    <div class="tl-item"><div class="tl-week">SEMANA 10</div><h4>Deploy en Vercel + performance + docs</h4><p>Despliega a producción, optimiza Core Web Vitals y genera documentación automática.</p><div class="tl-tags"><span>Vercel</span><span>Lighthouse</span><span>Docs auto</span></div></div>
+
+    <div class="tl-item t-cap"><div class="tl-week" style="color:var(--teal)">SEMANA 11–12 · CAPSTONE</div><h4>Proyecto integrador + portafolio</h4><p>Une las 5 fases en un solo producto: app Next.js + Supabase con chatbot RAG, testeada, en CI/CD y desplegada. Documenta el proceso y publícalo (build in public).</p><div class="tl-tags"><span>Producto end-to-end</span><span>README</span><span>Demo pública</span></div></div>
+  </div>
+</div></section>
+
+<!-- FASE 1 -->
+<section id="f1" style="padding-top:24px"><div class="wrap">
+  <details class="phase" open>
+    <summary>
+      <div class="ph-badge">1</div>
+      <div class="ph-head-txt"><h3>Fundamentos Agentic</h3><span>Claude Code · Google Antigravity · control de costos · Spec-Driven Development</span></div>
+      <span class="ph-week">Sem 1–2</span>
+      <span class="chev">▾</span>
+    </summary>
+    <div class="ph-body">
+      <h5>Objetivo</h5>
+      <div class="obj">Dominar las herramientas y la mentalidad del desarrollo agentic: usar Claude Code y Antigravity, elegir el modelo correcto (Haiku, Sonnet, Opus) controlando costos, y escribir <b>especificaciones</b> para que la IA construya con precisión y no por intuición.</div>
+
+      <h5>Manual paso a paso</h5>
+      <ol class="steps">
+        <li>Instala <b>Node.js LTS</b> y verifica con <code>node -v</code>. Instala Claude Code: <code>npm install -g @anthropic-ai/claude-code</code> y luego <code>claude</code> para autenticar.</li>
+        <li>Crea una carpeta de práctica, abre Claude Code dentro y pídele tareas pequeñas. Observa cómo lee, planifica y edita archivos.</li>
+        <li><b>Modelos y costos:</b> usa <b>Haiku</b> para tareas simples/rápidas, <b>Sonnet</b> como caballo de batalla equilibrado y <b>Opus</b> para razonamiento complejo. Regla: empieza barato, escala solo si hace falta.</li>
+        <li>Descarga e instala <b>Google Antigravity</b> (gratis en preview). Configura el Agent Manager y prueba los modos: agent-driven, review-driven y agent-assisted (recomendado para empezar).</li>
+        <li><b>Spec-Driven Development:</b> instala <code>uv</code> y luego Spec Kit:<pre><code>uv tool install specify-cli --from git+https://github.com/github/spec-kit.git</code></pre></li>
+        <li>Inicia un proyecto y recorre el flujo: <code>/speckit.constitution</code> → <code>/speckit.specify</code> → <code>/speckit.plan</code> → <code>/speckit.tasks</code> → <code>/speckit.implement</code>. Revisa cada artefacto antes de avanzar.</li>
+      </ol>
+
+      <h5>Recursos (docs · videos · manuales)</h5>
+      <div class="res">
+        <a href="https://docs.claude.com/en/docs/claude-code/overview" target="_blank"><span class="rt doc">doc</span>Claude Code — Documentación oficial (instalación y uso)<span class="rd">docs.claude.com</span></a>
+        <a href="https://docs.claude.com/en/docs/about-claude/models/overview" target="_blank"><span class="rt doc">doc</span>Modelos Claude: comparación Haiku / Sonnet / Opus y precios<span class="rd">docs.claude.com</span></a>
+        <a href="https://antigravity.google/" target="_blank"><span class="rt tool">tool</span>Google Antigravity — descarga e introducción oficial<span class="rd">antigravity.google</span></a>
+        <a href="https://www.codecademy.com/article/how-to-set-up-and-use-google-antigravity" target="_blank"><span class="rt man">manual</span>Cómo instalar y usar Antigravity (paso a paso)<span class="rd">codecademy</span></a>
+        <a href="https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit/" target="_blank"><span class="rt man">manual</span>Spec-Driven Development — guía oficial de GitHub<span class="rd">github.blog</span></a>
+        <a href="https://github.com/github/spec-kit" target="_blank"><span class="rt tool">repo</span>Spec Kit — repositorio y comandos<span class="rd">github.com</span></a>
+        <a href="https://www.youtube.com/@anthropic-ai/videos" target="_blank"><span class="rt vid">video</span>Canal oficial de Anthropic (demos de Claude Code)<span class="rd">YouTube</span></a>
+        <a href="https://www.youtube.com/results?search_query=claude+code+tutorial+espa%C3%B1ol+2026" target="_blank"><span class="rt vid">video</span>Tutoriales de Claude Code en español<span class="rd">YouTube</span></a>
+      </div>
+
+      <h5>Checklist de la fase</h5>
+      <div class="checks">
+        <label class="check"><input type="checkbox"><span>Claude Code instalado y autenticado</span></label>
+        <label class="check"><input type="checkbox"><span>Sé cuándo usar Haiku, Sonnet u Opus</span></label>
+        <label class="check"><input type="checkbox"><span>Antigravity instalado y un agente ejecutado</span></label>
+        <label class="check"><input type="checkbox"><span>Completé un flujo Spec Kit de principio a fin</span></label>
+      </div>
+
+      <h5>Ejercicios prácticos</h5>
+      <div class="checks">
+        <label class="check"><input type="checkbox"><span>Pide a Claude Code que cree un archivo <code>hola.txt</code> con un texto y verifica que lo generó.</span></label>
+        <label class="check"><input type="checkbox"><span>Resuelve la misma tarea simple con Haiku y luego con Sonnet; anota cuál elegirías y por qué.</span></label>
+        <label class="check"><input type="checkbox"><span>En Antigravity, lanza un agente en modo Plan y revisa el plan antes de ejecutarlo.</span></label>
+        <label class="check"><input type="checkbox"><span>Con Spec Kit ejecuta <code>/speckit.specify</code> para una mini-función y revisa el spec generado.</span></label>
+        <label class="check eval-check"><input type="checkbox"><span>Evaluación del módulo superada (≥ 80%)</span></label>
+      </div>
+
+      <h5>Evaluación del módulo (selección múltiple)</h5>
+      <div class="quiz" data-pass="4">
+        <div class="q" data-correct="1"><p class="qtext">1. ¿Qué modelo de Claude conviene para tareas simples y de bajo costo?</p>
+          <label class="opt"><input type="radio" name="f1q1" data-i="0">Opus</label>
+          <label class="opt"><input type="radio" name="f1q1" data-i="1">Haiku</label>
+          <label class="opt"><input type="radio" name="f1q1" data-i="2">El más caro siempre</label>
+          <div class="qexp">Haiku es el más rápido y económico. Reserva Opus para el razonamiento más complejo.</div></div>
+        <div class="q" data-correct="1"><p class="qtext">2. ¿Qué propone el Spec-Driven Development?</p>
+          <label class="opt"><input type="radio" name="f1q2" data-i="0">Programar por intuición sin planificar</label>
+          <label class="opt"><input type="radio" name="f1q2" data-i="1">Escribir una especificación antes de generar el código</label>
+          <label class="opt"><input type="radio" name="f1q2" data-i="2">Eliminar las pruebas</label>
+          <div class="qexp">La idea es que la IA construya con precisión a partir de una spec, no por intuición.</div></div>
+        <div class="q" data-correct="2"><p class="qtext">3. ¿Qué es Google Antigravity?</p>
+          <label class="opt"><input type="radio" name="f1q3" data-i="0">Un lenguaje de programación</label>
+          <label class="opt"><input type="radio" name="f1q3" data-i="1">Una base de datos</label>
+          <label class="opt"><input type="radio" name="f1q3" data-i="2">Una plataforma/IDE para orquestar agentes de IA</label>
+          <div class="qexp">Antigravity es una plataforma agéntica donde los agentes planifican, ejecutan y verifican tareas.</div></div>
+        <div class="q" data-correct="1"><p class="qtext">4. Regla recomendada para controlar costos:</p>
+          <label class="opt"><input type="radio" name="f1q4" data-i="0">Usar siempre el modelo más potente</label>
+          <label class="opt"><input type="radio" name="f1q4" data-i="1">Empezar con un modelo económico y escalar solo si hace falta</label>
+          <label class="opt"><input type="radio" name="f1q4" data-i="2">No usar IA</label>
+          <div class="qexp">Empieza barato (Haiku/Sonnet) y sube a Opus únicamente cuando la tarea lo exige.</div></div>
+        <div class="q" data-correct="1"><p class="qtext">5. El orden típico del flujo en Spec Kit es:</p>
+          <label class="opt"><input type="radio" name="f1q5" data-i="0">implement → plan → specify</label>
+          <label class="opt"><input type="radio" name="f1q5" data-i="1">constitution → specify → plan → tasks → implement</label>
+          <label class="opt"><input type="radio" name="f1q5" data-i="2">tasks → constitution</label>
+          <div class="qexp">Primero la constitución (reglas), luego la spec, el plan, las tareas y por último implementar.</div></div>
+        <div class="quiz-foot"><button class="gbtn-q qcheck">Comprobar respuestas</button><button class="gbtn-q qreset">Reintentar</button><span class="qscore"></span></div>
+      </div>
+    </div>
+  </details>
+</div></section>
+
+<!-- FASE 2 -->
+<section id="f2" style="padding-top:0"><div class="wrap">
+  <details class="phase">
+    <summary>
+      <div class="ph-badge">2</div>
+      <div class="ph-head-txt"><h3>Desarrollo de App Real</h3><span>Next.js · Supabase · Tailwind · shadcn/ui · Claude Vision</span></div>
+      <span class="ph-week">Sem 3–4</span>
+      <span class="chev">▾</span>
+    </summary>
+    <div class="ph-body">
+      <h5>Objetivo</h5>
+      <div class="obj">Convertir wireframes en interfaces funcionales y conectar datos reales. Pasar de una maqueta a una aplicación que autentica usuarios y guarda información.</div>
+
+      <h5>Manual paso a paso</h5>
+      <ol class="steps">
+        <li>Crea el proyecto base: <pre><code>npx create-next-app@latest mi-app</code></pre> elige App Router y TypeScript.</li>
+        <li>Configura <b>Tailwind</b> (ya viene integrado) e instala <b>shadcn/ui</b>: <code>npx shadcn@latest init</code> y agrega componentes con <code>npx shadcn@latest add button card input</code>.</li>
+        <li><b>Claude Vision:</b> sube una captura o wireframe a Claude y pídele que genere los componentes React/Tailwind correspondientes. Itera sobre el resultado.</li>
+        <li>Crea un proyecto en <b>Supabase</b>, define tablas en el editor SQL y configura autenticación (email/OAuth).</li>
+        <li>Conecta la app con las claves del proyecto Supabase y reemplaza datos mock por datos reales (consultas con el cliente <code>@supabase/supabase-js</code>).</li>
+        <li>Protege rutas y muestra contenido según el usuario autenticado. Verifica el ciclo completo: registro → login → datos propios.</li>
+      </ol>
+
+      <h5>Recursos (docs · videos · manuales)</h5>
+      <div class="res">
+        <a href="https://nextjs.org/learn" target="_blank"><span class="rt man">curso</span>Next.js — curso interactivo oficial (gratis)<span class="rd">nextjs.org</span></a>
+        <a href="https://ui.shadcn.com/docs" target="_blank"><span class="rt doc">doc</span>shadcn/ui — documentación de componentes<span class="rd">ui.shadcn.com</span></a>
+        <a href="https://tailwindcss.com/docs/installation" target="_blank"><span class="rt doc">doc</span>Tailwind CSS — instalación y utilidades<span class="rd">tailwindcss.com</span></a>
+        <a href="https://supabase.com/docs/guides/auth" target="_blank"><span class="rt doc">doc</span>Supabase Auth — guía oficial<span class="rd">supabase.com</span></a>
+        <a href="https://supabase.com/docs/guides/getting-started/quickstarts/nextjs" target="_blank"><span class="rt man">manual</span>Quickstart Supabase + Next.js<span class="rd">supabase.com</span></a>
+        <a href="https://www.youtube.com/@Supabase/videos" target="_blank"><span class="rt vid">video</span>Canal oficial de Supabase<span class="rd">YouTube</span></a>
+        <a href="https://www.youtube.com/results?search_query=next.js+supabase+shadcn+tutorial+2026" target="_blank"><span class="rt vid">video</span>Next.js + Supabase + shadcn (tutoriales)<span class="rd">YouTube</span></a>
+      </div>
+
+      <h5>Checklist de la fase</h5>
+      <div class="checks">
+        <label class="check"><input type="checkbox"><span>App Next.js corriendo en local</span></label>
+        <label class="check"><input type="checkbox"><span>shadcn/ui + Tailwind funcionando</span></label>
+        <label class="check"><input type="checkbox"><span>Generé al menos una UI desde un wireframe con Claude Vision</span></label>
+        <label class="check"><input type="checkbox"><span>Auth y datos reales conectados con Supabase</span></label>
+      </div>
+
+      <h5>Ejercicios prácticos</h5>
+      <div class="checks">
+        <label class="check"><input type="checkbox"><span>Crea una app con <code>create-next-app</code> (App Router + TS) y arráncala en local.</span></label>
+        <label class="check"><input type="checkbox"><span>Inicializa shadcn/ui, agrega un botón y una card, y muéstralos en una página.</span></label>
+        <label class="check"><input type="checkbox"><span>Sube un wireframe/captura a Claude, genera el componente y pégalo en tu app.</span></label>
+        <label class="check"><input type="checkbox"><span>Crea una tabla en Supabase y muestra sus datos reales en la interfaz.</span></label>
+        <label class="check eval-check"><input type="checkbox"><span>Evaluación del módulo superada (≥ 80%)</span></label>
+      </div>
+
+      <h5>Evaluación del módulo (selección múltiple)</h5>
+      <div class="quiz" data-pass="4">
+        <div class="q" data-correct="1"><p class="qtext">1. ¿Cuál es el papel de Supabase en este stack?</p>
+          <label class="opt"><input type="radio" name="f2q1" data-i="0">Aplicar estilos CSS</label>
+          <label class="opt"><input type="radio" name="f2q1" data-i="1">Backend: base de datos y autenticación</label>
+          <label class="opt"><input type="radio" name="f2q1" data-i="2">Desplegar la app</label>
+          <div class="qexp">Supabase aporta base de datos Postgres, auth y APIs; es el backend de la aplicación.</div></div>
+        <div class="q" data-correct="1"><p class="qtext">2. shadcn/ui es…</p>
+          <label class="opt"><input type="radio" name="f2q2" data-i="0">Una base de datos</label>
+          <label class="opt"><input type="radio" name="f2q2" data-i="1">Una colección de componentes de interfaz reutilizables</label>
+          <label class="opt"><input type="radio" name="f2q2" data-i="2">Un modelo de IA</label>
+          <div class="qexp">Son componentes accesibles que copias a tu proyecto y personalizas con Tailwind.</div></div>
+        <div class="q" data-correct="0"><p class="qtext">3. ¿Qué permite Claude Vision en esta fase?</p>
+          <label class="opt"><input type="radio" name="f2q3" data-i="0">Convertir un wireframe o captura en componentes de interfaz</label>
+          <label class="opt"><input type="radio" name="f2q3" data-i="1">Entrenar modelos de lenguaje</label>
+          <label class="opt"><input type="radio" name="f2q3" data-i="2">Hacer el despliegue</label>
+          <div class="qexp">Claude "ve" el diseño y genera el código de la UI funcional correspondiente.</div></div>
+        <div class="q" data-correct="0"><p class="qtext">4. Tailwind CSS es principalmente…</p>
+          <label class="opt"><input type="radio" name="f2q4" data-i="0">Un framework de utilidades CSS</label>
+          <label class="opt"><input type="radio" name="f2q4" data-i="1">Un lenguaje de backend</label>
+          <label class="opt"><input type="radio" name="f2q4" data-i="2">Una base de datos vectorial</label>
+          <div class="qexp">Tailwind aplica estilos mediante clases utilitarias directamente en el marcado.</div></div>
+        <div class="q" data-correct="1"><p class="qtext">5. El App Router pertenece a…</p>
+          <label class="opt"><input type="radio" name="f2q5" data-i="0">Supabase</label>
+          <label class="opt"><input type="radio" name="f2q5" data-i="1">Next.js</label>
+          <label class="opt"><input type="radio" name="f2q5" data-i="2">Vercel</label>
+          <div class="qexp">El App Router es el sistema de enrutado moderno de Next.js.</div></div>
+        <div class="quiz-foot"><button class="gbtn-q qcheck">Comprobar respuestas</button><button class="gbtn-q qreset">Reintentar</button><span class="qscore"></span></div>
+      </div>
+    </div>
+  </details>
+</div></section>
+
+<!-- FASE 3 -->
+<section id="f3" style="padding-top:0"><div class="wrap">
+  <details class="phase">
+    <summary>
+      <div class="ph-badge">3</div>
+      <div class="ph-head-txt"><h3>RAG & Chatbot Contextual</h3><span>RAG · embeddings · pgvector · información privada</span></div>
+      <span class="ph-week">Sem 5–6</span>
+      <span class="chev">▾</span>
+    </summary>
+    <div class="ph-body">
+      <h5>Objetivo</h5>
+      <div class="obj">Integrar RAG, embeddings y pgvector para crear un chatbot contextual que responde usando información privada del producto, no solo conocimiento general del modelo.</div>
+
+      <h5>Cómo funciona un RAG (gráfica)</h5>
+      <div class="diagram">
+        <svg viewBox="0 0 760 180" role="img" aria-label="Flujo RAG">
+          <defs>
+            <marker id="arr" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7b5cff"/></marker>
+            <linearGradient id="gv" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7b5cff"/><stop offset="1" stop-color="#4a32c4"/></linearGradient>
+          </defs>
+          <g font-family="'JetBrains Mono',monospace" font-size="11" fill="#edeffa" text-anchor="middle">
+            <rect x="10" y="60" width="120" height="56" rx="11" fill="#11162e" stroke="#2a335e"/>
+            <text x="70" y="84">Documentos</text><text x="70" y="100" fill="#9aa3c7" font-size="9">privados</text>
+            <line x1="130" y1="88" x2="172" y2="88" stroke="#7b5cff" stroke-width="2" marker-end="url(#arr)"/>
+            <rect x="176" y="60" width="120" height="56" rx="11" fill="#11162e" stroke="#2a335e"/>
+            <text x="236" y="84">Embeddings</text><text x="236" y="100" fill="#9aa3c7" font-size="9">+ chunking</text>
+            <line x1="296" y1="88" x2="338" y2="88" stroke="#7b5cff" stroke-width="2" marker-end="url(#arr)"/>
+            <rect x="342" y="60" width="120" height="56" rx="11" fill="url(#gv)" stroke="#a896ff"/>
+            <text x="402" y="84" fill="#fff">pgvector</text><text x="402" y="100" fill="#d9d2ff" font-size="9">Supabase</text>
+            <rect x="10" y="6" width="120" height="40" rx="10" fill="#0a0f24" stroke="#00c4a0"/>
+            <text x="70" y="31" fill="#00c4a0">Pregunta usuario</text>
+            <path d="M70,46 L70,53 L342,53 L402,118" fill="none" stroke="#00c4a0" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arr)"/>
+            <text x="402" y="138" fill="#9aa3c7" font-size="9">búsqueda por similitud</text>
+            <line x1="462" y1="88" x2="504" y2="88" stroke="#7b5cff" stroke-width="2" marker-end="url(#arr)"/>
+            <rect x="508" y="60" width="120" height="56" rx="11" fill="#11162e" stroke="#2a335e"/>
+            <text x="568" y="84">Contexto +</text><text x="568" y="100" fill="#9aa3c7" font-size="9">prompt</text>
+            <line x1="628" y1="88" x2="670" y2="88" stroke="#7b5cff" stroke-width="2" marker-end="url(#arr)"/>
+            <rect x="630" y="60" width="120" height="56" rx="11" fill="#0a0f24" stroke="#f5c542"/>
+            <text x="690" y="84" fill="#f5c542">Respuesta</text><text x="690" y="100" fill="#9aa3c7" font-size="9">con fuentes</text>
+          </g>
+        </svg>
+      </div>
+
+      <h5>Manual paso a paso</h5>
+      <ol class="steps">
+        <li>En Supabase, habilita la extensión <b>vector</b> (Database → Extensions → buscar "vector").</li>
+        <li>Crea la tabla de documentos con una columna de embedding: <pre><code>create table documents (
+  id uuid primary key default gen_random_uuid(),
+  content text,
+  embedding vector(1536)
+);</code></pre></li>
+        <li><b>Chunking:</b> divide tus documentos en fragmentos pequeños (p. ej. 500–800 tokens) para mejorar la recuperación.</li>
+        <li>Genera embeddings de cada chunk (con un modelo de embeddings) y guárdalos en la tabla.</li>
+        <li>Crea un índice <b>HNSW</b> para búsqueda por coseno: <pre><code>create index on documents using hnsw (embedding vector_cosine_ops);</code></pre></li>
+        <li><b>Pipeline RAG:</b> ante una pregunta → genera su embedding → recupera los chunks más similares (<code>&lt;=&gt;</code>) → arma el prompt con ese contexto → genera la respuesta citando fuentes.</li>
+      </ol>
+
+      <h5>Recursos (docs · videos · manuales)</h5>
+      <div class="res">
+        <a href="https://supabase.com/docs/guides/ai" target="_blank"><span class="rt doc">doc</span>Supabase AI & Vectors — hub principal<span class="rd">supabase.com</span></a>
+        <a href="https://supabase.com/docs/guides/database/extensions/pgvector" target="_blank"><span class="rt doc">doc</span>pgvector: embeddings y similitud vectorial<span class="rd">supabase.com</span></a>
+        <a href="https://supabase.com/docs/guides/ai/automatic-embeddings" target="_blank"><span class="rt man">manual</span>Embeddings automáticos (Edge Functions + cron)<span class="rd">supabase.com</span></a>
+        <a href="https://supabase.com/docs/guides/ai/rag-with-permissions" target="_blank"><span class="rt man">manual</span>RAG con permisos (RLS por usuario)<span class="rd">supabase.com</span></a>
+        <a href="https://www.youtube.com/results?search_query=rag+pgvector+supabase+tutorial+2026" target="_blank"><span class="rt vid">video</span>RAG con pgvector + Supabase (tutoriales)<span class="rd">YouTube</span></a>
+      </div>
+
+      <h5>Checklist de la fase</h5>
+      <div class="checks">
+        <label class="check"><input type="checkbox"><span>Extensión vector habilitada en Supabase</span></label>
+        <label class="check"><input type="checkbox"><span>Tabla de documentos con embeddings poblada</span></label>
+        <label class="check"><input type="checkbox"><span>Búsqueda por similitud (HNSW/coseno) funcionando</span></label>
+        <label class="check"><input type="checkbox"><span>Chatbot responde con info privada y cita fuentes</span></label>
+      </div>
+
+      <h5>Ejercicios prácticos</h5>
+      <div class="checks">
+        <label class="check"><input type="checkbox"><span>Habilita la extensión <code>vector</code> en tu proyecto Supabase.</span></label>
+        <label class="check"><input type="checkbox"><span>Crea la tabla <code>documents</code> con una columna <code>embedding vector(1536)</code>.</span></label>
+        <label class="check"><input type="checkbox"><span>Divide un documento en chunks y guarda sus embeddings en la tabla.</span></label>
+        <label class="check"><input type="checkbox"><span>Crea un índice HNSW y haz una búsqueda de similitud para una pregunta de prueba.</span></label>
+        <label class="check eval-check"><input type="checkbox"><span>Evaluación del módulo superada (≥ 80%)</span></label>
+      </div>
+
+      <h5>Evaluación del módulo (selección múltiple)</h5>
+      <div class="quiz" data-pass="4">
+        <div class="q" data-correct="1"><p class="qtext">1. ¿Qué significa RAG?</p>
+          <label class="opt"><input type="radio" name="f3q1" data-i="0">Random Access Generation</label>
+          <label class="opt"><input type="radio" name="f3q1" data-i="1">Retrieval-Augmented Generation (generación aumentada por recuperación)</label>
+          <label class="opt"><input type="radio" name="f3q1" data-i="2">Rapid AI Gateway</label>
+          <div class="qexp">RAG recupera información relevante y la usa como contexto para generar la respuesta.</div></div>
+        <div class="q" data-correct="1"><p class="qtext">2. ¿Qué guarda un "embedding"?</p>
+          <label class="opt"><input type="radio" name="f3q2" data-i="0">El texto original sin cambios</label>
+          <label class="opt"><input type="radio" name="f3q2" data-i="1">Una representación numérica (vector) del significado del texto</label>
+          <label class="opt"><input type="radio" name="f3q2" data-i="2">Una imagen comprimida</label>
+          <div class="qexp">El embedding es un vector que captura el significado, permitiendo comparar por similitud.</div></div>
+        <div class="q" data-correct="1"><p class="qtext">3. pgvector se usa para…</p>
+          <label class="opt"><input type="radio" name="f3q3" data-i="0">Enviar correos</label>
+          <label class="opt"><input type="radio" name="f3q3" data-i="1">Almacenar y buscar vectores por similitud dentro de Postgres</label>
+          <label class="opt"><input type="radio" name="f3q3" data-i="2">Compilar código</label>
+          <div class="qexp">Es la extensión de Postgres (Supabase) que habilita la búsqueda vectorial.</div></div>
+        <div class="q" data-correct="1"><p class="qtext">4. ¿Por qué se hace "chunking" de los documentos?</p>
+          <label class="opt"><input type="radio" name="f3q4" data-i="0">Para borrarlos</label>
+          <label class="opt"><input type="radio" name="f3q4" data-i="1">Para dividirlos en fragmentos y mejorar la recuperación relevante</label>
+          <label class="opt"><input type="radio" name="f3q4" data-i="2">Para cifrarlos</label>
+          <div class="qexp">Fragmentos más pequeños permiten recuperar justo la parte relevante a la pregunta.</div></div>
+        <div class="q" data-correct="1"><p class="qtext">5. Ante una pregunta, un RAG primero…</p>
+          <label class="opt"><input type="radio" name="f3q5" data-i="0">Genera la respuesta sin contexto</label>
+          <label class="opt"><input type="radio" name="f3q5" data-i="1">Recupera los fragmentos más similares y los añade al prompt</label>
+          <label class="opt"><input type="radio" name="f3q5" data-i="2">Borra la base de datos</label>
+          <div class="qexp">Recuperar → aumentar el prompt con ese contexto → generar la respuesta con fuentes.</div></div>
+        <div class="quiz-foot"><button class="gbtn-q qcheck">Comprobar respuestas</button><button class="gbtn-q qreset">Reintentar</button><span class="qscore"></span></div>
+      </div>
+    </div>
+  </details>
+</div></section>
+
+<!-- FASE 4 -->
+<section id="f4" style="padding-top:0"><div class="wrap">
+  <details class="phase">
+    <summary>
+      <div class="ph-badge">4</div>
+      <div class="ph-head-txt"><h3>Agentes Avanzados & Testing</h3><span>MCP · Custom Skills · Vitest · Playwright E2E</span></div>
+      <span class="ph-week">Sem 7–8</span>
+      <span class="chev">▾</span>
+    </summary>
+    <div class="ph-body">
+      <h5>Objetivo</h5>
+      <div class="obj">Conectar agentes a herramientas externas con MCP, crear Custom Skills reutilizables y respaldar todo con pruebas: tus agentes generan, validan, corrigen y mejoran el código con Vitest (unitarias) y Playwright (E2E).</div>
+
+      <h5>La pirámide de testing (gráfica)</h5>
+      <div class="diagram">
+        <svg viewBox="0 0 420 200" role="img" aria-label="Pirámide de testing 70/20/10">
+          <g font-family="'JetBrains Mono',monospace" font-size="11" text-anchor="middle">
+            <polygon points="210,15 270,70 150,70" fill="#0a0f24" stroke="#f5c542"/>
+            <text x="210" y="50" fill="#f5c542">E2E 10%</text>
+            <polygon points="150,72 270,72 320,135 100,135" fill="#11162e" stroke="#7b5cff"/>
+            <text x="210" y="108" fill="#a896ff">Integración 20%</text>
+            <polygon points="100,137 320,137 375,195 45,195" fill="#11162e" stroke="#00c4a0"/>
+            <text x="210" y="172" fill="#00c4a0">Unitarias 70%</text>
+            <text x="392" y="60" fill="#9aa3c7" font-size="9" text-anchor="start">Playwright</text>
+            <text x="392" y="178" fill="#9aa3c7" font-size="9" text-anchor="start">Vitest</text>
+          </g>
+        </svg>
+      </div>
+
+      <h5>Manual paso a paso</h5>
+      <ol class="steps">
+        <li><b>MCP (Model Context Protocol):</b> entiende qué es —un estándar para que los modelos usen herramientas y datos externos— y conecta un servidor MCP a Claude.</li>
+        <li>Crea una <b>Custom Skill</b>: una carpeta con instrucciones y recursos que el agente carga cuando son relevantes. Empaqueta una tarea recurrente tuya como Skill.</li>
+        <li><b>Vitest:</b> instala <code>npm i -D vitest</code> y escribe pruebas unitarias de tu lógica y funciones puras. Apunta a feedback en &lt; 2 s.</li>
+        <li><b>Playwright:</b> <code>npm init playwright@latest</code>. Escribe E2E de los flujos críticos (login, checkout, búsqueda) que cuestan dinero si fallan.</li>
+        <li>Aplica el reparto <b>70/20/10</b>: muchas unitarias, algunas de integración, pocas E2E. Usa <code>npx playwright codegen</code> para generar pruebas rápido.</li>
+        <li>Pide a tu agente que ejecute las pruebas, lea los fallos y se autocorrija hasta dejar todo en verde.</li>
+      </ol>
+
+      <h5>Recursos (docs · videos · manuales)</h5>
+      <div class="res">
+        <a href="https://modelcontextprotocol.io/" target="_blank"><span class="rt doc">doc</span>Model Context Protocol — sitio oficial<span class="rd">modelcontextprotocol.io</span></a>
+        <a href="https://docs.claude.com/en/docs/mcp" target="_blank"><span class="rt doc">doc</span>MCP en Claude — documentación<span class="rd">docs.claude.com</span></a>
+        <a href="https://docs.claude.com/en/docs/agents-and-tools/agent-skills/overview" target="_blank"><span class="rt doc">doc</span>Agent Skills — crear Skills personalizadas<span class="rd">docs.claude.com</span></a>
+        <a href="https://vitest.dev/guide/" target="_blank"><span class="rt doc">doc</span>Vitest — guía oficial<span class="rd">vitest.dev</span></a>
+        <a href="https://playwright.dev/docs/intro" target="_blank"><span class="rt doc">doc</span>Playwright — introducción oficial<span class="rd">playwright.dev</span></a>
+        <a href="https://www.youtube.com/results?search_query=playwright+e2e+testing+tutorial+2026" target="_blank"><span class="rt vid">video</span>Playwright E2E (tutoriales)<span class="rd">YouTube</span></a>
+      </div>
+
+      <h5>Checklist de la fase</h5>
+      <div class="checks">
+        <label class="check"><input type="checkbox"><span>Un servidor MCP conectado a Claude</span></label>
+        <label class="check"><input type="checkbox"><span>Una Custom Skill creada y funcionando</span></label>
+        <label class="check"><input type="checkbox"><span>Suite de pruebas unitarias con Vitest</span></label>
+        <label class="check"><input type="checkbox"><span>Pruebas E2E con Playwright de los flujos clave</span></label>
+      </div>
+
+      <h5>Ejercicios prácticos</h5>
+      <div class="checks">
+        <label class="check"><input type="checkbox"><span>Conecta un servidor MCP a Claude y úsalo dentro de una tarea real.</span></label>
+        <label class="check"><input type="checkbox"><span>Crea una Custom Skill que empaquete una tarea repetitiva tuya.</span></label>
+        <label class="check"><input type="checkbox"><span>Escribe pruebas unitarias con Vitest para una función pura.</span></label>
+        <label class="check"><input type="checkbox"><span>Genera una prueba E2E del login con Playwright (usa <code>npx playwright codegen</code>).</span></label>
+        <label class="check eval-check"><input type="checkbox"><span>Evaluación del módulo superada (≥ 80%)</span></label>
+      </div>
+
+      <h5>Evaluación del módulo (selección múltiple)</h5>
+      <div class="quiz" data-pass="4">
+        <div class="q" data-correct="1"><p class="qtext">1. ¿Qué es MCP (Model Context Protocol)?</p>
+          <label class="opt"><input type="radio" name="f4q1" data-i="0">Un editor de código</label>
+          <label class="opt"><input type="radio" name="f4q1" data-i="1">Un estándar para conectar modelos con herramientas y datos externos</label>
+          <label class="opt"><input type="radio" name="f4q1" data-i="2">Un lenguaje de programación</label>
+          <div class="qexp">MCP estandariza cómo un modelo accede a herramientas, archivos y servicios externos.</div></div>
+        <div class="q" data-correct="0"><p class="qtext">2. Vitest se usa principalmente para…</p>
+          <label class="opt"><input type="radio" name="f4q2" data-i="0">Pruebas unitarias rápidas</label>
+          <label class="opt"><input type="radio" name="f4q2" data-i="1">Desplegar aplicaciones</label>
+          <label class="opt"><input type="radio" name="f4q2" data-i="2">Diseñar interfaces</label>
+          <div class="qexp">Vitest corre pruebas unitarias muy rápido, ideal para lógica y funciones puras.</div></div>
+        <div class="q" data-correct="0"><p class="qtext">3. Playwright sirve para…</p>
+          <label class="opt"><input type="radio" name="f4q3" data-i="0">Pruebas end-to-end (E2E) simulando al usuario en el navegador</label>
+          <label class="opt"><input type="radio" name="f4q3" data-i="1">Crear embeddings</label>
+          <label class="opt"><input type="radio" name="f4q3" data-i="2">Gestionar la base de datos</label>
+          <div class="qexp">Playwright automatiza el navegador para validar flujos completos como un usuario real.</div></div>
+        <div class="q" data-correct="1"><p class="qtext">4. Según el reparto 70/20/10, ¿qué pruebas deben ser mayoría?</p>
+          <label class="opt"><input type="radio" name="f4q4" data-i="0">E2E</label>
+          <label class="opt"><input type="radio" name="f4q4" data-i="1">Unitarias</label>
+          <label class="opt"><input type="radio" name="f4q4" data-i="2">De integración</label>
+          <div class="qexp">~70% unitarias (rápidas), 20% integración y solo ~10% E2E (lentas pero realistas).</div></div>
+        <div class="q" data-correct="0"><p class="qtext">5. Una Custom Skill es…</p>
+          <label class="opt"><input type="radio" name="f4q5" data-i="0">Un paquete reutilizable de instrucciones y recursos para el agente</label>
+          <label class="opt"><input type="radio" name="f4q5" data-i="1">Un servidor de base de datos</label>
+          <label class="opt"><input type="radio" name="f4q5" data-i="2">Un modelo nuevo</label>
+          <div class="qexp">Las Skills encapsulan know-how que el agente carga cuando es relevante para la tarea.</div></div>
+        <div class="quiz-foot"><button class="gbtn-q qcheck">Comprobar respuestas</button><button class="gbtn-q qreset">Reintentar</button><span class="qscore"></span></div>
+      </div>
+    </div>
+  </details>
+</div></section>
+
+<!-- FASE 5 -->
+<section id="f5" style="padding-top:0"><div class="wrap">
+  <details class="phase">
+    <summary>
+      <div class="ph-badge">5</div>
+      <div class="ph-head-txt"><h3>Producción & Optimización</h3><span>GitHub Actions · CI/CD · Vercel · performance · docs automática</span></div>
+      <span class="ph-week">Sem 9–10</span>
+      <span class="chev">▾</span>
+    </summary>
+    <div class="ph-body">
+      <h5>Objetivo</h5>
+      <div class="obj">Llevar la app a producción con calidad automatizada: pipeline de CI/CD con GitHub Actions, despliegue en Vercel, optimización de performance y documentación automática.</div>
+
+      <h5>El pipeline CI/CD (gráfica)</h5>
+      <div class="diagram">
+        <svg viewBox="0 0 760 90" role="img" aria-label="Pipeline CI/CD">
+          <defs><marker id="arr2" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#00c4a0"/></marker></defs>
+          <g font-family="'JetBrains Mono',monospace" font-size="11" fill="#edeffa" text-anchor="middle">
+            <rect x="8" y="28" width="110" height="44" rx="10" fill="#11162e" stroke="#2a335e"/><text x="63" y="55">git push</text>
+            <line x1="118" y1="50" x2="152" y2="50" stroke="#00c4a0" stroke-width="2" marker-end="url(#arr2)"/>
+            <rect x="156" y="28" width="110" height="44" rx="10" fill="#11162e" stroke="#7b5cff"/><text x="211" y="50">Lint</text>
+            <line x1="266" y1="50" x2="300" y2="50" stroke="#00c4a0" stroke-width="2" marker-end="url(#arr2)"/>
+            <rect x="304" y="28" width="110" height="44" rx="10" fill="#11162e" stroke="#7b5cff"/><text x="359" y="50">Tests</text>
+            <line x1="414" y1="50" x2="448" y2="50" stroke="#00c4a0" stroke-width="2" marker-end="url(#arr2)"/>
+            <rect x="452" y="28" width="110" height="44" rx="10" fill="#11162e" stroke="#7b5cff"/><text x="507" y="50">Build</text>
+            <line x1="562" y1="50" x2="596" y2="50" stroke="#00c4a0" stroke-width="2" marker-end="url(#arr2)"/>
+            <rect x="600" y="28" width="150" height="44" rx="10" fill="#0a0f24" stroke="#00c4a0"/><text x="675" y="50" fill="#00c4a0">Deploy · Vercel</text>
+            <text x="63" y="16" fill="#9aa3c7" font-size="9">dev</text>
+            <text x="675" y="16" fill="#9aa3c7" font-size="9">producción</text>
+          </g>
+        </svg>
+      </div>
+
+      <h5>Manual paso a paso</h5>
+      <ol class="steps">
+        <li>Sube el proyecto a un repo de <b>GitHub</b>. Asegura que <code>npm run lint</code>, <code>test</code> y <code>build</code> pasan en local.</li>
+        <li>Crea un workflow en <code>.github/workflows/ci.yml</code> que corra lint → tests → build en cada push y PR.</li>
+        <li>Conecta el repo a <b>Vercel</b>. Cada push genera un <b>preview deploy</b>; <code>main</code> despliega a producción automáticamente.</li>
+        <li>Configura las variables de entorno (claves Supabase, etc.) en Vercel, separando preview de producción.</li>
+        <li><b>Performance:</b> mide con Lighthouse / Core Web Vitals y optimiza imágenes, fuentes y carga (lazy loading, caching).</li>
+        <li><b>Documentación automática:</b> pide al agente que genere y mantenga el README, changelog y docs técnicas a partir del código.</li>
+      </ol>
+
+      <h5>Recursos (docs · videos · manuales)</h5>
+      <div class="res">
+        <a href="https://docs.github.com/en/actions/quickstart" target="_blank"><span class="rt man">manual</span>GitHub Actions — quickstart oficial<span class="rd">docs.github.com</span></a>
+        <a href="https://docs.github.com/en/actions/automating-builds-and-tests" target="_blank"><span class="rt doc">doc</span>Automatizar builds y tests (CI)<span class="rd">docs.github.com</span></a>
+        <a href="https://vercel.com/docs/deployments" target="_blank"><span class="rt doc">doc</span>Vercel — despliegues y previews<span class="rd">vercel.com</span></a>
+        <a href="https://web.dev/articles/vitals" target="_blank"><span class="rt doc">doc</span>Core Web Vitals — métricas de performance<span class="rd">web.dev</span></a>
+        <a href="https://www.youtube.com/results?search_query=github+actions+vercel+ci+cd+next.js+2026" target="_blank"><span class="rt vid">video</span>CI/CD con GitHub Actions + Vercel (tutoriales)<span class="rd">YouTube</span></a>
+      </div>
+
+      <h5>Checklist de la fase</h5>
+      <div class="checks">
+        <label class="check"><input type="checkbox"><span>Workflow de GitHub Actions corriendo en cada push</span></label>
+        <label class="check"><input type="checkbox"><span>App desplegada en Vercel con previews</span></label>
+        <label class="check"><input type="checkbox"><span>Lighthouse ≥ 90 en performance</span></label>
+        <label class="check"><input type="checkbox"><span>README y docs generados automáticamente</span></label>
+      </div>
+
+      <h5>Ejercicios prácticos</h5>
+      <div class="checks">
+        <label class="check"><input type="checkbox"><span>Sube el proyecto a GitHub y crea <code>.github/workflows/ci.yml</code> que corra lint, test y build.</span></label>
+        <label class="check"><input type="checkbox"><span>Conecta el repo a Vercel y verifica que cada push genera un preview deploy.</span></label>
+        <label class="check"><input type="checkbox"><span>Configura las variables de entorno (claves de Supabase) en Vercel.</span></label>
+        <label class="check"><input type="checkbox"><span>Mide con Lighthouse y mejora al menos una métrica de performance.</span></label>
+        <label class="check eval-check"><input type="checkbox"><span>Evaluación del módulo superada (≥ 80%)</span></label>
+      </div>
+
+      <h5>Evaluación del módulo (selección múltiple)</h5>
+      <div class="quiz" data-pass="4">
+        <div class="q" data-correct="1"><p class="qtext">1. ¿Qué hace un pipeline de CI/CD?</p>
+          <label class="opt"><input type="radio" name="f5q1" data-i="0">Diseña logos</label>
+          <label class="opt"><input type="radio" name="f5q1" data-i="1">Automatiza lint, pruebas, build y despliegue ante cada cambio</label>
+          <label class="opt"><input type="radio" name="f5q1" data-i="2">Crea embeddings</label>
+          <div class="qexp">CI/CD integra y entrega de forma continua: cada push pasa por controles automáticos.</div></div>
+        <div class="q" data-correct="1"><p class="qtext">2. GitHub Actions se configura con archivos…</p>
+          <label class="opt"><input type="radio" name="f5q2" data-i="0">.css en /styles</label>
+          <label class="opt"><input type="radio" name="f5q2" data-i="1">YAML dentro de .github/workflows/</label>
+          <label class="opt"><input type="radio" name="f5q2" data-i="2">.sql en /db</label>
+          <div class="qexp">Los workflows son archivos <code>.yml</code> que definen los jobs y cuándo se ejecutan.</div></div>
+        <div class="q" data-correct="0"><p class="qtext">3. Vercel se usa para…</p>
+          <label class="opt"><input type="radio" name="f5q3" data-i="0">Desplegar y previsualizar la aplicación</label>
+          <label class="opt"><input type="radio" name="f5q3" data-i="1">Entrenar modelos</label>
+          <label class="opt"><input type="radio" name="f5q3" data-i="2">Editar imágenes</label>
+          <div class="qexp">Vercel despliega tu app y crea previews automáticos por cada cambio.</div></div>
+        <div class="q" data-correct="0"><p class="qtext">4. Las Core Web Vitals miden…</p>
+          <label class="opt"><input type="radio" name="f5q4" data-i="0">El rendimiento y la experiencia de la web</label>
+          <label class="opt"><input type="radio" name="f5q4" data-i="1">El número de usuarios</label>
+          <label class="opt"><input type="radio" name="f5q4" data-i="2">El costo del servidor</label>
+          <div class="qexp">Miden carga, interactividad y estabilidad visual; clave para la experiencia y el SEO.</div></div>
+        <div class="q" data-correct="1"><p class="qtext">5. Un "preview deploy" es…</p>
+          <label class="opt"><input type="radio" name="f5q5" data-i="0">La versión final en producción</label>
+          <label class="opt"><input type="radio" name="f5q5" data-i="1">Un despliegue temporal para revisar cambios antes de producción</label>
+          <label class="opt"><input type="radio" name="f5q5" data-i="2">Una copia de seguridad</label>
+          <div class="qexp">Permite revisar cada cambio en una URL propia antes de fusionar a producción.</div></div>
+        <div class="quiz-foot"><button class="gbtn-q qcheck">Comprobar respuestas</button><button class="gbtn-q qreset">Reintentar</button><span class="qscore"></span></div>
+      </div>
+    </div>
+  </details>
+</div></section>
+
+<!-- PODCAST -->
+<section id="podcast"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">03</span><h2 class="title">Podcasts para acompañar la ruta</h2></div>
+  <p class="sec-sub">Escucha mientras caminas o entrenas: refuerza conceptos sin pantalla. Y al final, una idea para crear tu propio podcast del programa.</p>
+  <div class="grid g2">
+    <div class="card"><div class="ico">🎧</div><h4>Latent Space</h4><p>El podcast de referencia sobre AI Engineering: RAG, agentes, evaluación y herramientas. Perfecto para fases 1, 3 y 4.</p><div class="res" style="margin-top:12px"><a href="https://www.latent.space/podcast" target="_blank"><span class="rt vid">audio</span>Escuchar<span class="rd">latent.space</span></a></div></div>
+    <div class="card"><div class="ico">🎙️</div><h4>Practical AI</h4><p>IA aplicada y práctica, con episodios sobre LLMs en producción y MLOps. Ideal para la fase 5.</p><div class="res" style="margin-top:12px"><a href="https://practicalai.fm/" target="_blank"><span class="rt vid">audio</span>Escuchar<span class="rd">practicalai.fm</span></a></div></div>
+    <div class="card"><div class="ico">📟</div><h4>The Changelog</h4><p>Software, open source y herramientas de desarrollo. Episodios frecuentes sobre Next.js, testing y CI/CD.</p><div class="res" style="margin-top:12px"><a href="https://changelog.com/podcast" target="_blank"><span class="rt vid">audio</span>Escuchar<span class="rd">changelog.com</span></a></div></div>
+    <div class="card"><div class="ico">🇪🇸</div><h4>Podcasts en español</h4><p>Busca episodios sobre IA y desarrollo en tu plataforma favorita para reforzar en tu idioma.</p><div class="res" style="margin-top:12px"><a href="https://open.spotify.com/search/inteligencia%20artificial%20desarrollo/podcasts" target="_blank"><span class="rt vid">audio</span>Buscar en Spotify<span class="rd">spotify.com</span></a></div></div>
+  </div>
+  <div class="callout" style="margin-top:18px">
+    <h4>🎵 Crea tu propio podcast del programa</h4>
+    <p>Sube este documento (o tus apuntes de cada semana) a <a href="https://notebooklm.google.com/" target="_blank">Google NotebookLM</a> y genera un <b>Audio Overview</b>: convierte el material en una conversación tipo podcast que puedes escuchar en repaso. Es una de las formas más potentes de repetición espaciada en audio, y puedes pedirlo en español.</p>
+  </div>
+</div></section>
+
+<!-- CAPSTONE -->
+<section style="padding-top:0"><div class="wrap">
+  <div class="callout" style="background:linear-gradient(135deg,rgba(0,196,160,.14),rgba(123,92,255,.12));border-color:var(--teal)">
+    <h4>🏁 Proyecto final (Semanas 11–12)</h4>
+    <p><b>El reto:</b> construye un producto que integre las 5 fases — una app Next.js + Supabase, con un chatbot RAG sobre datos privados, agentes con MCP/Skills, suite de pruebas (Vitest + Playwright), pipeline CI/CD y despliegue en Vercel.</p>
+    <p><b>Entregables:</b> demo pública, repositorio con README generado, y un post corto explicando qué construiste y qué aprendiste. Aplica "build in public": compartir tu avance multiplica el aprendizaje y abre puertas.</p>
+  </div>
+</div></section>
+
+<!-- DESCARGAS -->
+<section id="descargas"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">04</span><h2 class="title">Descargas e instalación de programas</h2></div>
+  <p class="sec-sub">Todo lo que necesitas instalar, con su enlace de descarga oficial. Instala primero las herramientas base (Semana 0) y luego el resto según avances. Disponibles para Windows, macOS y Linux.</p>
+
+  <h5 style="font-family:'Bricolage Grotesque';font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--violet-bright);margin:8px 0 12px">Herramientas base (Semana 0)</h5>
+  <div class="grid g2">
+    <a class="dl" href="https://nodejs.org/es/download" target="_blank"><span class="di">🟢</span><span class="dx"><b>Node.js (LTS)</b><small>Motor para ejecutar JavaScript y npm. Imprescindible.</small></span><span class="os">Win·Mac·Linux</span></a>
+    <a class="dl" href="https://git-scm.com/downloads" target="_blank"><span class="di">🔀</span><span class="dx"><b>Git</b><small>Control de versiones para tu código.</small></span><span class="os">Win·Mac·Linux</span></a>
+    <a class="dl" href="https://code.visualstudio.com/download" target="_blank"><span class="di">📝</span><span class="dx"><b>Visual Studio Code</b><small>Editor de código gratuito y estándar de la industria.</small></span><span class="os">Win·Mac·Linux</span></a>
+    <a class="dl" href="https://www.python.org/downloads/" target="_blank"><span class="di">🐍</span><span class="dx"><b>Python</b><small>Necesario para utilidades como uv / Spec Kit.</small></span><span class="os">Win·Mac·Linux</span></a>
+  </div>
+
+  <h5 style="font-family:'Bricolage Grotesque';font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--violet-bright);margin:24px 0 12px">IDEs y agentes de IA</h5>
+  <div class="grid g2">
+    <a class="dl" href="https://antigravity.google/download" target="_blank"><span class="di">🚀</span><span class="dx"><b>Google Antigravity</b><small>IDE agéntico de Google (gratis en preview).</small></span><span class="os">Win·Mac·Linux</span></a>
+    <a class="dl" href="https://claude.ai/download" target="_blank"><span class="di">✴️</span><span class="dx"><b>Claude (app de escritorio)</b><small>App de Claude para Windows y Mac.</small></span><span class="os">Win·Mac</span></a>
+    <a class="dl" href="https://docs.claude.com/en/docs/claude-code/setup" target="_blank"><span class="di">⌨️</span><span class="dx"><b>Claude Code</b><small>Se instala con npm: <code>npm i -g @anthropic-ai/claude-code</code></small></span><span class="os">Terminal</span></a>
+    <a class="dl" href="https://cursor.com/" target="_blank"><span class="di">🖱️</span><span class="dx"><b>Cursor (opcional)</b><small>Editor con IA, alternativa a Antigravity.</small></span><span class="os">Win·Mac·Linux</span></a>
+  </div>
+
+  <h5 style="font-family:'Bricolage Grotesque';font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--violet-bright);margin:24px 0 12px">Utilidades y servicios</h5>
+  <div class="grid g2">
+    <a class="dl" href="https://docs.astral.sh/uv/getting-started/installation/" target="_blank"><span class="di">⚡</span><span class="dx"><b>uv</b><small>Gestor de paquetes Python (para instalar Spec Kit).</small></span><span class="os">Win·Mac·Linux</span></a>
+    <a class="dl" href="https://desktop.github.com/" target="_blank"><span class="di">🐙</span><span class="dx"><b>GitHub Desktop (opcional)</b><small>Interfaz visual para Git si prefieres no usar terminal.</small></span><span class="os">Win·Mac</span></a>
+    <a class="dl" href="https://supabase.com/dashboard" target="_blank"><span class="di">🗄️</span><span class="dx"><b>Supabase</b><small>Base de datos en la nube: crea cuenta gratis (sin instalar).</small></span><span class="os">Web</span></a>
+    <a class="dl" href="https://vercel.com/signup" target="_blank"><span class="di">▲</span><span class="dx"><b>Vercel</b><small>Despliegue de tu app: crea cuenta gratis (sin instalar).</small></span><span class="os">Web</span></a>
+  </div>
+</div></section>
+
+<!-- CERTIFICADOS -->
+<section id="certificados"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">05</span><h2 class="title">Certificados gratuitos (en español)</h2></div>
+  <p class="sec-sub">Plataformas gratuitas que entregan certificado o insignia verificable, organizadas por región. La mayoría están en español; cuando no, lo indico para que uses el traductor del navegador.</p>
+  <div class="grid g2">
+
+    <div class="cert-card">
+      <h4>🇺🇸 Estados Unidos</h4><span class="reg">Norteamérica</span>
+      <div class="res">
+        <a href="https://www.freecodecamp.org/espanol/" target="_blank"><span class="rt doc">gratis·ES</span>freeCodeCamp en español — certificaciones por proyectos<span class="rd">freecodecamp.org</span></a>
+        <a href="https://www.kaggle.com/learn" target="_blank"><span class="rt doc">gratis</span>Kaggle Learn — micro-cursos de Python e IA<span class="rd">kaggle.com</span></a>
+        <a href="https://cs50.harvard.edu/x/" target="_blank"><span class="rt doc">gratis·ES*</span>CS50 (Harvard) — certificado gratuito, subtítulos en español<span class="rd">harvard.edu</span></a>
+        <a href="https://skillsbuild.org/" target="_blank"><span class="rt doc">gratis</span>IBM SkillsBuild — cursos e insignias en IA y datos<span class="rd">ibm.org</span></a>
+        <a href="https://learn.microsoft.com/es-es/training/" target="_blank"><span class="rt doc">gratis·ES</span>Microsoft Learn — rutas e insignias (AI-900 en español)<span class="rd">microsoft.com</span></a>
+      </div>
+    </div>
+
+    <div class="cert-card">
+      <h4>🇪🇺 Europa</h4><span class="reg">Unión Europea</span>
+      <div class="res">
+        <a href="https://www.elementsofai.com/es" target="_blank"><span class="rt doc">gratis·ES</span>Elements of AI (U. de Helsinki, Finlandia) — certificado<span class="rd">elementsofai.com</span></a>
+        <a href="https://grow.google/intl/es/courses-and-tools/" target="_blank"><span class="rt doc">gratis·ES</span>Google Actívate / Grow — certificados de Google<span class="rd">grow.google</span></a>
+        <a href="https://conectaempleo.fundaciontelefonica.com/" target="_blank"><span class="rt doc">gratis·ES</span>Conecta Empleo (Fundación Telefónica) — programación e IA<span class="rd">fundaciontelefonica.com</span></a>
+        <a href="https://huggingface.co/learn" target="_blank"><span class="rt doc">gratis·EN</span>Hugging Face Learn — agentes y NLP (certificado en EN)<span class="rd">huggingface.co</span></a>
+      </div>
+    </div>
+
+    <div class="cert-card">
+      <h4>🌏 Asia</h4><span class="reg">Asia-Pacífico</span>
+      <div class="res">
+        <a href="https://edu.alibabacloud.com/" target="_blank"><span class="rt doc">gratis·EN</span>Alibaba Cloud Academy — cursos y certificaciones cloud/IA<span class="rd">alibabacloud.com</span></a>
+        <a href="https://e.huawei.com/en/talent/portal/#/" target="_blank"><span class="rt doc">gratis·EN</span>Huawei Talent (ICT Academy) — cursos gratuitos<span class="rd">huawei.com</span></a>
+        <a href="https://www.cloudskillsboost.google/" target="_blank"><span class="rt doc">gratis</span>Google Cloud Skills Boost — insignias (global, disponible en Asia)<span class="rd">google</span></a>
+      </div>
+      <p style="font-size:12px;color:var(--faint);margin-top:10px">Nota: la oferta de origen asiático suele estar en inglés. Usa el traductor del navegador (clic derecho → «Traducir»).</p>
+    </div>
+
+    <div class="cert-card" style="border-color:var(--teal)">
+      <h4>🌎 LATAM</h4><span class="reg" style="color:var(--teal)">Latinoamérica</span>
+      <div class="res">
+        <a href="https://capacitateparaelempleo.org/" target="_blank"><span class="rt man">gratis·ES</span>Capacítate para el Empleo (Fund. Carlos Slim, México) — certificado<span class="rd">carlosslim</span></a>
+        <a href="https://www.santanderopenacademy.com/es/index.html" target="_blank"><span class="rt man">gratis·ES</span>Santander Open Academy — cursos y becas en tecnología<span class="rd">santander</span></a>
+        <a href="https://platzi.com/cursos/gratis/" target="_blank"><span class="rt man">gratis·ES</span>Platzi (Colombia) — cursos gratuitos de programación e IA<span class="rd">platzi.com</span></a>
+        <a href="https://ed.team/cursos-gratis" target="_blank"><span class="rt man">gratis·ES</span>EDteam — cursos gratis de desarrollo web<span class="rd">ed.team</span></a>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:12px;color:var(--faint);margin-top:14px">* ES = en español · EN = en inglés (usa traductor) · ES* = subtítulos/traducción en español. Verifica condiciones del certificado en cada plataforma, ya que pueden cambiar.</p>
+</div></section>
+
+<!-- NIÑOS -->
+<section id="ninos"><div class="wrap">
+  <div class="kids">
+    <span class="ktag">★ ZONA PARA NIÑOS ★</span>
+    <h3>Aprende a <span class="gg">programar jugando</span> 🤖✨</h3>
+    <p class="kintro">¡Hola, explorador! Programar es como darle instrucciones muy exactas a un robot. Aquí abajo tienes un robot 🤖 que quiere llegar al regalo 🎁. Tú le dices qué hacer con los botones. ¡Igual que los grandes le dan instrucciones precisas a la IA!</p>
+
+    <div class="game">
+      <div class="glevel" id="glevel">Nivel 1 de 3 — Lleva al robot al regalo</div>
+      <div class="gboard" id="gboard"></div>
+      <div class="program" id="program"></div>
+      <div class="gpad">
+        <button class="gbtn cmd" data-cmd="F">⬆️ Avanzar</button>
+        <button class="gbtn cmd" data-cmd="L">↺ Girar izq.</button>
+        <button class="gbtn cmd" data-cmd="R">↻ Girar der.</button>
+      </div>
+      <div class="gctrls">
+        <button class="gbtn run" id="grun">▶️ ¡Ejecutar!</button>
+        <button class="gbtn clr" id="gclear">🗑️ Borrar</button>
+        <button class="gbtn hint" id="ghint">💡 Pista</button>
+      </div>
+      <div class="gstatus" id="gstatus">Arma tu programa y pulsa «¡Ejecutar!» 🚀</div>
+
+      <div class="diploma" id="diploma">
+        <div class="seal">🏅</div>
+        <h4>¡Diploma de Pequeño Programador!</h4>
+        <p>Este diploma se otorga a:</p>
+        <div class="dname" id="dname">Tu nombre</div>
+        <p>por completar la aventura de código y aprender a dar instrucciones a un robot. 🎉</p>
+        <input id="dinput" type="text" placeholder="Escribe tu nombre" maxlength="22">
+        <div><button class="dbtn" id="dput">Poner mi nombre</button><button class="dbtn" id="dprint">🖨️ Imprimir</button></div>
+      </div>
+    </div>
+
+    <h5 style="color:var(--amber)">Páginas geniales para seguir aprendiendo (gratis y en español)</h5>
+    <div class="res">
+      <a href="https://scratch.mit.edu/" target="_blank"><span class="rt tool">jugar</span>Scratch (MIT) — crea juegos y animaciones con bloques<span class="rd">scratch.mit.edu</span></a>
+      <a href="https://scratch.mit.edu/download" target="_blank"><span class="rt man">descargar</span>Scratch para tu computador (sin internet)<span class="rd">scratch.mit.edu</span></a>
+      <a href="https://www.scratchjr.org/" target="_blank"><span class="rt tool">app</span>ScratchJr — para los más pequeños (5–7 años · tablet)<span class="rd">scratchjr.org</span></a>
+      <a href="https://code.org/es" target="_blank"><span class="rt tool">jugar</span>Code.org — La Hora del Código con tus personajes favoritos<span class="rd">code.org</span></a>
+      <a href="https://blockly.games/?lang=es" target="_blank"><span class="rt tool">jugar</span>Blockly Games (Google) — puzles de lógica<span class="rd">blockly.games</span></a>
+      <a href="https://es.khanacademy.org/computing/computer-programming" target="_blank"><span class="rt doc">aprender</span>Khan Academy — programación para principiantes<span class="rd">khanacademy.org</span></a>
+    </div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <p class="mono">Programa de Desarrollo Agentic con IA · basado en el roadmap de datapath.ai</p>
+  <p style="margin-top:8px">Guárdalo en tu bóveda <b style="color:var(--teal)">"El Ojo de Dios"</b> y marca tu progreso a medida que avanzas. Tu progreso se guarda en este navegador.</p>
+</div></footer>
+
+<script>
+(function(){
+  var KEY='progreso_ruta_agentic_v2';
+  var boxes=[].slice.call(document.querySelectorAll('.check input'));
+  var fill=document.getElementById('barFill');
+  var pct=document.getElementById('pctTxt');
+
+  // clave estable por sección + texto (no se rompe al reordenar/insertar)
+  boxes.forEach(function(b,i){
+    var sec=b.closest('section'); var sid=sec?sec.id:'x';
+    var sp=b.closest('.check').querySelector('span');
+    var t=sp?sp.textContent.trim().slice(0,90):('c'+i);
+    b.dataset.k=sid+'::'+t;
+  });
+
+  function load(){
+    try{
+      var raw=localStorage.getItem(KEY);
+      if(!raw) return;
+      var saved=JSON.parse(raw);
+      boxes.forEach(function(b){
+        if(saved[b.dataset.k]){ b.checked=true; b.closest('.check').classList.add('done'); }
+      });
+    }catch(e){/* sin almacenamiento: sigue funcionando */}
+  }
+  function save(){
+    try{
+      var obj={};
+      boxes.forEach(function(b){ if(b.checked) obj[b.dataset.k]=1; });
+      localStorage.setItem(KEY,JSON.stringify(obj));
+    }catch(e){}
+  }
+  function update(){
+    var done=boxes.filter(function(b){return b.checked;}).length;
+    var p=boxes.length? Math.round(done/boxes.length*100):0;
+    fill.style.width=p+'%';
+    pct.textContent=p+'%';
+  }
+  boxes.forEach(function(b){
+    b.addEventListener('change',function(){
+      b.closest('.check').classList.toggle('done',b.checked);
+      save(); update();
+    });
+  });
+  load(); update();
+})();
+</script>
+
+<script>
+/* Juego: lleva al robot al regalo dando instrucciones */
+(function(){
+  var board=document.getElementById('gboard');
+  if(!board) return;
+  var progEl=document.getElementById('program');
+  var statusEl=document.getElementById('gstatus');
+  var levelEl=document.getElementById('glevel');
+  var diploma=document.getElementById('diploma');
+
+  // niveles: tamaño N, robot {x,y,dir 0=arriba,1=der,2=abajo,3=izq}, meta {x,y}, muros [[x,y]...]
+  var levels=[
+    {n:5, robot:{x:0,y:4,dir:0}, goal:{x:0,y:0}, walls:[]},
+    {n:5, robot:{x:0,y:4,dir:1}, goal:{x:4,y:0}, walls:[[2,2],[2,3]]},
+    {n:6, robot:{x:0,y:5,dir:0}, goal:{x:5,y:0}, walls:[[1,4],[1,3],[3,2],[3,1],[4,4]]}
+  ];
+  var li=0, prog=[], robot, running=false;
+  var arrows=['rotate(0deg)','rotate(90deg)','rotate(180deg)','rotate(270deg)'];
+
+  function setLevel(i){
+    li=i; prog=[]; running=false;
+    var L=levels[i];
+    robot={x:L.robot.x,y:L.robot.y,dir:L.robot.dir};
+    levelEl.textContent='Nivel '+(i+1)+' de '+levels.length+' — Lleva al robot al regalo 🎁';
+    statusEl.textContent='Arma tu programa y pulsa «¡Ejecutar!» 🚀';
+    statusEl.className='gstatus';
+    drawBoard(); drawProg();
+  }
+  function isWall(x,y){ return levels[li].walls.some(function(w){return w[0]===x&&w[1]===y;}); }
+
+  function drawBoard(){
+    var L=levels[li];
+    board.style.gridTemplateColumns='repeat('+L.n+',1fr)';
+    board.innerHTML='';
+    for(var y=0;y<L.n;y++){
+      for(var x=0;x<L.n;x++){
+        var c=document.createElement('div');
+        c.className='gcell';
+        if(isWall(x,y)) c.className+=' wall';
+        if(x===L.goal.x&&y===L.goal.y){ c.className+=' goal'; c.textContent='🎁'; }
+        if(x===robot.x&&y===robot.y){
+          var r=document.createElement('span');
+          r.className='robot'; r.textContent='🤖';
+          r.style.transform=arrows[robot.dir];
+          c.textContent=''; c.appendChild(r);
+        }
+        board.appendChild(c);
+      }
+    }
+  }
+  function drawProg(){
+    progEl.innerHTML='';
+    var label={F:'⬆️ Avanzar',L:'↺ Izq.',R:'↻ Der.'};
+    prog.forEach(function(c){
+      var s=document.createElement('span'); s.className='pchip'; s.textContent=label[c];
+      progEl.appendChild(s);
+    });
+  }
+  function setBtns(dis){
+    document.querySelectorAll('.kids .gbtn').forEach(function(b){
+      if(b.id!=='gclear') b.disabled=dis;
+    });
+  }
+
+  // agregar comandos
+  document.querySelectorAll('.kids .gbtn.cmd').forEach(function(b){
+    b.addEventListener('click',function(){
+      if(running) return;
+      if(prog.length>=12){ statusEl.textContent='¡Uy! Máximo 12 instrucciones 😅'; return; }
+      prog.push(b.dataset.cmd); drawProg();
+      statusEl.textContent='Instrucciones: '+prog.length+'. ¡Sigue o ejecuta! ▶️';
+      statusEl.className='gstatus';
+    });
+  });
+  document.getElementById('gclear').addEventListener('click',function(){
+    if(running) return; prog=[]; drawProg();
+    statusEl.textContent='Programa borrado. Empieza de nuevo 😊'; statusEl.className='gstatus';
+  });
+  document.getElementById('ghint').addEventListener('click',function(){
+    if(running) return;
+    statusEl.textContent='💡 Pista: gira primero hacia el regalo, luego avanza contando las casillas.';
+    statusEl.className='gstatus';
+  });
+
+  document.getElementById('grun').addEventListener('click',function(){
+    if(running||!prog.length) return;
+    running=true; setBtns(true);
+    var L=levels[li]; var i=0;
+    statusEl.textContent='Ejecutando… 🤖'; statusEl.className='gstatus';
+    var timer=setInterval(function(){
+      if(i>=prog.length){
+        clearInterval(timer);
+        if(robot.x===L.goal.x&&robot.y===L.goal.y) win(); else lose();
+        return;
+      }
+      var c=prog[i++];
+      if(c==='L') robot.dir=(robot.dir+3)%4;
+      else if(c==='R') robot.dir=(robot.dir+1)%4;
+      else { // avanzar
+        var nx=robot.x, ny=robot.y;
+        if(robot.dir===0) ny--; else if(robot.dir===1) nx++; else if(robot.dir===2) ny++; else nx--;
+        if(nx<0||ny<0||nx>=L.n||ny>=L.n||isWall(nx,ny)){
+          clearInterval(timer); drawBoard(); crash(); return;
+        }
+        robot.x=nx; robot.y=ny;
+      }
+      drawBoard();
+    },480);
+  });
+
+  function win(){
+    statusEl.textContent='🎉 ¡LO LOGRASTE! El robot llegó al regalo.';
+    statusEl.className='gstatus win';
+    if(li<levels.length-1){
+      setTimeout(function(){ statusEl.textContent='➡️ ¡Vamos al siguiente nivel!'; setLevel(li+1); },1600);
+    } else {
+      setTimeout(function(){
+        statusEl.textContent='🏆 ¡Completaste los 3 niveles! Eres todo un programador.';
+        diploma.classList.add('show');
+        diploma.scrollIntoView({behavior:'smooth',block:'center'});
+        running=false; setBtns(false);
+      },1400);
+    }
+  }
+  function lose(){
+    statusEl.textContent='Casi… el robot no llegó al regalo. ¡Inténtalo otra vez! 🔁';
+    statusEl.className='gstatus lose'; running=false; setBtns(false);
+    setTimeout(function(){ setLevel(li); },1500);
+  }
+  function crash(){
+    statusEl.textContent='💥 ¡Choque! El robot se salió o golpeó un muro. Reintenta 🔁';
+    statusEl.className='gstatus lose'; running=false; setBtns(false);
+    setTimeout(function(){ setLevel(li); },1500);
+  }
+
+  // diploma
+  document.getElementById('dput').addEventListener('click',function(){
+    var v=document.getElementById('dinput').value.trim();
+    if(v) document.getElementById('dname').textContent=v;
+  });
+  document.getElementById('dprint').addEventListener('click',function(){ window.print(); });
+
+  setLevel(0);
+})();
+</script>
+<script>
+/* Evaluaciones de selección múltiple */
+(function(){
+  document.querySelectorAll('.quiz').forEach(function(quiz){
+    var questions=[].slice.call(quiz.querySelectorAll('.q'));
+    var scoreEl=quiz.querySelector('.qscore');
+    var pass=parseInt(quiz.dataset.pass,10)||Math.ceil(questions.length*0.8);
+
+    quiz.querySelector('.qcheck').addEventListener('click',function(){
+      var answered=questions.filter(function(q){return q.querySelector('input:checked');}).length;
+      if(answered<questions.length){
+        scoreEl.className='qscore fail';
+        scoreEl.textContent='Responde todas las preguntas ('+answered+'/'+questions.length+') 🙂';
+        return;
+      }
+      var correct=0;
+      questions.forEach(function(q){
+        var ci=q.dataset.correct;
+        var sel=q.querySelector('input:checked');
+        q.querySelectorAll('.opt').forEach(function(o){
+          o.classList.remove('correct','wrong');
+          var inp=o.querySelector('input');
+          if(inp.dataset.i===ci) o.classList.add('correct');
+          else if(inp.checked) o.classList.add('wrong');
+        });
+        if(sel&&sel.dataset.i===ci) correct++;
+        var exp=q.querySelector('.qexp'); if(exp) exp.classList.add('show');
+      });
+      if(correct>=pass){
+        scoreEl.className='qscore pass';
+        scoreEl.textContent='✅ ¡Aprobado!  '+correct+'/'+questions.length;
+        var ec=quiz.closest('.ph-body').querySelector('.eval-check input');
+        if(ec && !ec.checked){ ec.checked=true; ec.dispatchEvent(new Event('change')); }
+      } else {
+        scoreEl.className='qscore fail';
+        scoreEl.textContent='Puntaje: '+correct+'/'+questions.length+' — repasa y reintenta 🔁';
+      }
+    });
+
+    quiz.querySelector('.qreset').addEventListener('click',function(){
+      quiz.querySelectorAll('input').forEach(function(i){i.checked=false;});
+      quiz.querySelectorAll('.opt').forEach(function(o){o.classList.remove('correct','wrong');});
+      quiz.querySelectorAll('.qexp').forEach(function(e){e.classList.remove('show');});
+      scoreEl.textContent=''; scoreEl.className='qscore';
+    });
+  });
+})();
+</script>
+
+<!-- ================= MÓDULO GLOBAL MULTIVERSO CTS (PAÍSES, DIVISAS & TRADUCTOR) ================= -->
+<style>
+#cts-hub-global {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 999999;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+.cts-badge-control {
+    background: rgba(15, 15, 22, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 215, 0, 0.35);
+    color: #ffffff;
+    padding: 9px 15px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cts-badge-control:hover {
+    background: rgba(255, 215, 0, 0.2);
+    border-color: rgba(255, 215, 0, 0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px 0 rgba(255, 215, 0, 0.3);
+}
+.cts-panel-modal {
+    display: none;
+    position: fixed;
+    bottom: 80px;
+    left: 20px;
+    width: 320px;
+    background: rgba(13, 13, 18, 0.95);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 215, 0, 0.5);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+    color: #fff;
+    text-align: left;
+    animation: ctsFadeUp 0.3s ease-out;
+}
+@keyframes ctsFadeUp {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.cts-panel-modal h4 {
+    margin: 0 0 12px 0;
+    font-size: 15px;
+    color: #ffd700;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.cts-btn-cerrar {
+    background: transparent;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+    font-size: 18px;
+}
+.cts-opcion-pais {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+    padding: 10px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    transition: all 0.2s;
+    width: 100%;
+}
+.cts-opcion-pais:hover, .cts-opcion-pais.activo {
+    background: rgba(255, 215, 0, 0.15);
+    border-color: #ffd700;
+    color: #fff;
+    font-weight: 700;
+}
+.cts-tarifa-display {
+    margin-top: 14px;
+    padding: 14px;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(0, 0, 0, 0.4));
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    border-radius: 14px;
+}
+.cts-precio-main {
+    font-size: 20px;
+    font-weight: 800;
+    color: #00ff88;
+    margin: 4px 0;
+}
+.cts-precio-sub {
+    font-size: 11px;
+    color: #ccc;
+}
+.cts-btn-ws-cierre {
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+    padding: 12px;
+    background: #25d366;
+    color: #000;
+    font-weight: 800;
+    text-align: center;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+.cts-btn-ws-cierre:hover {
+    background: #20b858;
+}
+/* Ocultar elementos antiestéticos de Google Translate */
+.goog-te-banner-frame.skiptranslate, .goog-te-gadget-icon { display: none !important; }
+body { top: 0px !important; }
+#google_translate_element { display: none; }
+</style>
+
+<div id="cts-hub-global">
+    <div id="google_translate_element"></div>
+    
+    <!-- Botón de País & Moneda -->
+    <button class="cts-badge-control" onclick="abrirPanelPaises()">
+        <span id="cts-flag-actual">🇨🇴</span>
+        <span id="cts-tarifa-btn">$650,000 COP</span>
+        <span style="font-size:10px; opacity:0.8;">▼</span>
+    </button>
+
+    <!-- Botón de Traducción Rápida -->
+    <button class="cts-badge-control" onclick="abrirPanelTraductor()">
+        <span>🌐</span>
+        <span>Idioma / Translate</span>
+    </button>
+</div>
+
+<!-- Modal Selector de País & Divisa -->
+<div id="ctsPanelPaises" class="cts-panel-modal">
+    <h4>🌍 Selecciona tu País / Mercado <button class="cts-btn-cerrar" onclick="cerrarPaneles()">×</button></h4>
+    <div style="max-height: 200px; overflow-y: auto; padding-right: 4px;">
+        <button class="cts-opcion-pais activo" onclick="seleccionarPais('CO', '🇨🇴', 'Colombia', '$650,000 COP', '$240,000 COP/mes')">
+            <span>🇨🇴 Colombia (Local)</span> <span>$650k COP</span>
+        </button>
+        <button class="cts-opcion-pais" onclick="seleccionarPais('MX', '🇲🇽', 'México', '$3,500 MXN', '$1,200 MXN/mes')">
+            <span>🇲🇽 México (CDMX/MX)</span> <span>$3,500 MXN</span>
+        </button>
+        <button class="cts-opcion-pais" onclick="seleccionarPais('ES', '🇪🇸', 'España / Europa', '190 €', '65 €/mes')">
+            <span>🇪🇸 España & Eurozona</span> <span>190 €</span>
+        </button>
+        <button class="cts-opcion-pais" onclick="seleccionarPais('US', '🇺🇸', 'EE.UU. / Miami Beach', '$290 USD', '$95 USD/mes')">
+            <span>🇺🇸 EE.UU. (Hispano/USA)</span> <span>$290 USD</span>
+        </button>
+        <button class="cts-opcion-pais" onclick="seleccionarPais('CL', '🇨🇱', 'Chile (Santiago)', '$180.000 CLP', '$60.000 CLP/mes')">
+            <span>🇨🇱 Chile</span> <span>$180k CLP</span>
+        </button>
+        <button class="cts-opcion-pais" onclick="seleccionarPais('PE', '🇵🇪', 'Perú (Lima/Cusco)', 'S/ 650 PEN', 'S/ 220 PEN/mes')">
+            <span>🇵🇪 Perú</span> <span>S/ 650 PEN</span>
+        </button>
+        <button class="cts-opcion-pais" onclick="seleccionarPais('AR', '🇦🇷', 'Argentina & Latam', '$170 USD', '$60 USD/mes')">
+            <span>🌎 Resto Latam (USD)</span> <span>$170 USD</span>
+        </button>
+    </div>
+    <div class="cts-tarifa-display">
+        <div style="font-size: 12px; color: #aaa;">Inversión Llave en Mano (<span id="cts-nombre-pais">Colombia</span>):</div>
+        <div id="cts-display-precio" class="cts-precio-main">$650,000 COP</div>
+        <div id="cts-display-sub" class="cts-precio-sub">O suscripción todo incluido por $240,000 COP/mes (Hosting + Soporte IA). Cero mensualidades ocultas.</div>
+        <a id="cts-ws-link" href="https://wa.me/573000000000?text=Hola,%20quiero%20adquirir%20esta%20p%C3%A1gina%20web%20para%20Colombia%20por%20$650,000%20COP" target="_blank" class="cts-btn-ws-cierre">🚀 Adquirir web en esta moneda</a>
+    </div>
+</div>
+
+<!-- Modal Selector de Idioma -->
+<div id="ctsPanelTraductor" class="cts-panel-modal" style="width: 220px;">
+    <h4>🌐 Traducción 1-Clic <button class="cts-btn-cerrar" onclick="cerrarPaneles()">×</button></h4>
+    <button class="cts-opcion-pais" onclick="cambiarIdioma('es')">🇪🇸 Español</button>
+    <button class="cts-opcion-pais" onclick="cambiarIdioma('en')">🇺🇸 English (USA/Global)</button>
+    <button class="cts-opcion-pais" onclick="cambiarIdioma('pt')">🇧🇷 Português (Brasil)</button>
+    <button class="cts-opcion-pais" onclick="cambiarIdioma('fr')">🇫🇷 Français</button>
+    <button class="cts-opcion-pais" onclick="cambiarIdioma('de')">🇩🇪 Deutsch</button>
+    <button class="cts-opcion-pais" onclick="cambiarIdioma('it')">🇮🇹 Italiano</button>
+</div>
+
+<script>
+function cerrarPaneles() {
+    document.getElementById('ctsPanelPaises').style.display = 'none';
+    document.getElementById('ctsPanelTraductor').style.display = 'none';
+}
+function abrirPanelPaises() {
+    var p = document.getElementById('ctsPanelPaises');
+    var act = p.style.display === 'block';
+    cerrarPaneles();
+    p.style.display = act ? 'none' : 'block';
+}
+function abrirPanelTraductor() {
+    var p = document.getElementById('ctsPanelTraductor');
+    var act = p.style.display === 'block';
+    cerrarPaneles();
+    p.style.display = act ? 'none' : 'block';
+}
+function seleccionarPais(codigo, bandera, nombre, precioUnico, precioSub) {
+    document.getElementById('cts-flag-actual').innerText = bandera;
+    document.getElementById('cts-tarifa-btn').innerText = precioUnico;
+    document.getElementById('cts-nombre-pais').innerText = nombre;
+    document.getElementById('cts-display-precio').innerText = precioUnico;
+    document.getElementById('cts-display-sub').innerText = "O suscripción todo incluido por " + precioSub + " (Hosting + Soporte IA). Cero comisiones ocultas.";
+    
+    var msgWs = "Hola, me interesa adquirir esta demostración web interactiva adaptada para mi negocio en " + nombre + " con la tarifa de " + precioUnico + ". ¿Cómo iniciamos hoy?";
+    document.getElementById('cts-ws-link').href = "https://wa.me/573000000000?text=" + encodeURIComponent(msgWs);
+    
+    # Guardar elección del cliente
+    try { localStorage.setItem('cts_pais_seleccionado', JSON.stringify({c:codigo, b:bandera, n:nombre, p:precioUnico, s:precioSub})); } catch(e){}
+    
+    var btns = document.querySelectorAll('#ctsPanelPaises .cts-opcion-pais');
+    btns.forEach(function(b){ b.classList.remove('activo'); });
+    event.currentTarget.classList.add('activo');
+}
+function cambiarIdioma(lang) {
+    var select = document.querySelector('select.goog-te-combo');
+    if (select) {
+        select.value = lang;
+        select.dispatchEvent(new Event('change'));
+    }
+    cerrarPaneles();
+}
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({pageLanguage: 'es', includedLanguages: 'es,en,pt,fr,de,it', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+}
+# Restaurar preferencia previa de país
+try {
+    var guardado = JSON.parse(localStorage.getItem('cts_pais_seleccionado') || 'null');
+    if (guardado && guardado.p) {
+        document.getElementById('cts-flag-actual').innerText = guardado.b;
+        document.getElementById('cts-tarifa-btn').innerText = guardado.p;
+        document.getElementById('cts-nombre-pais').innerText = guardado.n;
+        document.getElementById('cts-display-precio').innerText = guardado.p;
+        document.getElementById('cts-display-sub').innerText = "O suscripción todo incluido por " + guardado.s + " (Hosting + Soporte IA). Cero comisiones ocultas.";
+    }
+} catch(e){}
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<!-- ================= FIN MÓDULO GLOBAL MULTIVERSO ================= -->
+</body>
+
+</html>

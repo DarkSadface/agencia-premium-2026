@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contrato de Prestación de Servicios de Ingeniería y Desarrollo Web — Colombia Tech Systems</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0b10;
+            --bg-secondary: #12141d;
+            --bg-card: rgba(23, 26, 38, 0.75);
+            --accent-gold: #ffd700;
+            --accent-green: #00ff88;
+            --accent-blue: #00bcd4;
+            --text-main: #f0f2f5;
+            --text-muted: #9ba1b0;
+            --border-color: rgba(255, 215, 0, 0.25);
+            --border-focus: rgba(255, 215, 0, 0.8);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.65;
+            padding: 40px 20px;
+            background-image: radial-gradient(circle at 10% 15%, rgba(0, 188, 212, 0.06), transparent 40%),
+                              radial-gradient(circle at 90% 85%, rgba(255, 215, 0, 0.08), transparent 45%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 45px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.7);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 30px;
+            margin-bottom: 35px;
+        }
+
+        .logo-text {
+            font-family: 'Outfit', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #fff 30%, var(--accent-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .sub-title {
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 24px;
+            color: var(--accent-gold);
+            margin-top: 25px;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 19px;
+            color: #fff;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--accent-gold);
+            padding-left: 12px;
+        }
+
+        p, li {
+            color: var(--text-main);
+            font-size: 15px;
+            margin-bottom: 12px;
+            text-align: justify;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+            background: rgba(0, 0, 0, 0.35);
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"], input[type="email"], input[type="date"], select {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .plan-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .plan-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 215, 0, 0.5);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .plan-card.active {
+            border-color: var(--accent-green);
+            background: rgba(0, 255, 136, 0.08);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.15);
+        }
+
+        .plan-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .plan-price {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--accent-green);
+            margin: 10px 0;
+        }
+
+        .plan-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            list-style: none;
+            padding: 0;
+        }
+
+        .plan-desc li::before {
+            content: "✓ ";
+            color: var(--accent-gold);
+            font-weight: bold;
+        }
+
+        .legal-box {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 3px solid var(--accent-blue);
+            padding: 18px;
+            border-radius: 0 12px 12px 0;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        .signature-section {
+            margin-top: 40px;
+            border-top: 2px solid rgba(255, 255, 255, 0.08);
+            padding-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .sig-pad-container {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px dashed rgba(255, 255, 255, 0.25);
+            border-radius: 14px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        canvas {
+            background: #fff;
+            border-radius: 8px;
+            cursor: crosshair;
+            width: 100%;
+            height: 160px;
+            display: block;
+            margin: 0 auto 10px;
+        }
+
+        .btn-sig {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-sig:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-print {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            margin: 40px auto 10px;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #ffae00 100%);
+            color: #000;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 18px;
+            padding: 16px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+            transition: all 0.3s;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-print:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.5);
+            background: linear-gradient(135deg, #ffae00 0%, var(--accent-gold) 100%);
+        }
+
+        @media print {
+            body {
+                background: #fff !important;
+                color: #000 !important;
+                padding: 0 !important;
+            }
+            .container {
+                box-shadow: none !important;
+                border: none !important;
+                background: #fff !important;
+                color: #000 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                padding: 0 !important;
+            }
+            .btn-print, .btn-sig, #selector-de-moneda, .no-print {
+                display: none !important;
+            }
+            .plan-card {
+                border: 1px solid #ccc !important;
+                background: #f9f9f9 !important;
+            }
+            .plan-card.active {
+                border: 2px solid #000 !important;
+                background: #eefbee !important;
+            }
+            h1, h2, .logo-text {
+                color: #000 !important;
+            }
+            p, li, label, .sub-title {
+                color: #222 !important;
+            }
+            input[type="text"], input[type="email"], input[type="date"], select {
+                background: transparent !important;
+                border: 1px solid #000 !important;
+                color: #000 !important;
+            }
+            canvas {
+                border: 1px solid #000 !important;
+            }
+            .legal-box {
+                background: #f4f4f4 !important;
+                border-left: 3px solid #000 !important;
+                color: #000 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="logo-text">⚡ Colombia Tech Systems</div>
+        <div class="sub-title">División de Ingeniería de Software, Inteligencia Artificial & Diseño Web Premium</div>
+        <h1>CONTRATO DE PRESTACIÓN DE SERVICIOS DE DESARROLLO WEB Y SOLUCIÓN DIGITAL</h1>
+        <p style="text-align: center; color: var(--text-muted); font-size: 13px; margin-top: 6px;">
+            Documento jurídico formal regido bajo el Código de Comercio de Colombia, la Ley 527 de 1999 y Ley 1480 de 2011.
+        </p>
+    </header>
+
+    <section>
+        <h2>1. IDENTIFICACIÓN DE LAS PARTES (INTERVINIENTES)</h2>
+        <p>Entre los suscritos a saber, por una parte <strong>COLOMBIA TECH SYSTEMS (CTS)</strong>, que para los efectos del presente contrato se denominará el <strong>CONTRATISTA / PROVEEDOR</strong>, y por la otra parte el <strong>CLIENTE / CONTRATANTE</strong> cuyos datos de identificación civil y comercial se especifican a continuación:</p>
+        
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Nombre del Cliente / Razón Social</label>
+                <input type="text" id="cliente_nombre" placeholder="Ej. Clínica Dental S.A.S. / Juan Pérez">
+            </div>
+            <div class="form-group">
+                <label>NIT / Cédula de Ciudadanía (C.C.)</label>
+                <input type="text" id="cliente_nit" placeholder="Ej. 901.234.567-8 / C.C. 1.234.567.890">
+            </div>
+            <div class="form-group">
+                <label>Representante Legal / Encargado</label>
+                <input type="text" id="cliente_repre" placeholder="Nombre completo del firmante">
+            </div>
+            <div class="form-group">
+                <label>Ciudad y País de Domicilio</label>
+                <input type="text" id="cliente_ciudad" placeholder="Ej. Bogotá, Colombia / Madrid, España / CDMX">
+            </div>
+            <div class="form-group">
+                <label>Correo Electrónico de Notificación Legal</label>
+                <input type="email" id="cliente_email" placeholder="contacto@empresa.com">
+            </div>
+            <div class="form-group">
+                <label>Teléfono / Móvil WhatsApp</label>
+                <input type="text" id="cliente_tel" placeholder="+57 300 123 4567">
+            </div>
+            <div class="form-group">
+                <label>Fecha de Suscripción del Contrato</label>
+                <input type="date" id="fecha_contrato">
+            </div>
+            <div class="form-group no-print">
+                <label>Moneda / Divisa Preferencial del Contrato</label>
+                <select id="moneda_select" onchange="actualizarMoneda()">
+                    <option value="COP">🇨🇴 Pesos Colombianos (COP)</option>
+                    <option value="USD">🇺🇸 Dólares Estadounidenses (USD)</option>
+                    <option value="MXN">🇲🇽 Pesos Mexicanos (MXN)</option>
+                    <option value="EUR">🇪🇸 Euros (EUR)</option>
+                    <option value="CLP">🇨🇱 Pesos Chilenos (CLP)</option>
+                    <option value="PEN">🇵🇪 Soles Peruanos (PEN)</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>2. SELECCIÓN DE PLAN COMERCIAL Y ALCANCE TECNOLÓGICO</h2>
+        <p>El CONTRATISTA se compromete a diseñar, desarrollar y entregar a favor del CLIENTE la solución web seleccionada a continuación, cumpliendo con los estándares de rendimiento <strong>Zero-Overhead</strong>, diseño responsivo, seguridad SSL y módulo flotante multidivisa/traducción en tiempo real:</p>
+
+        <div class="plan-cards">
+            <!-- Plan Emprendedor -->
+            <div class="plan-card active" onclick="seleccionarPlan(0, this)">
+                <div class="plan-title">🥉 PLAN EMPRENDEDOR</div>
+                <div class="plan-price" id="precio_plan_0">$650,000 COP</div>
+                <ul class="plan-desc">
+                    <li>Landing Page One-Page (5 Secciones).</li>
+                    <li>Diseño Premium de alta conversión.</li>
+                    <li>Botón WhatsApp y Cierre Express.</li>
+                    <li>Módulo Traductor (Español / Inglés).</li>
+                    <li>Hosting + SSL Incluido por 1 Año.</li>
+                    <li>Entrega de 3 a 5 días hábiles.</li>
+                </ul>
+            </div>
+
+            <!-- Plan Profesional -->
+            <div class="plan-card" onclick="seleccionarPlan(1, this)">
+                <div class="plan-title">🥈 PLAN PROFESIONAL (VIP)</div>
+                <div class="plan-price" id="precio_plan_1">$1,200,000 COP</div>
+                <ul class="plan-desc">
+                    <li>Web Multipagina (Hasta 10 Secciones).</li>
+                    <li>Módulo Multiverso (6 Idiomas + Divisas).</li>
+                    <li>Dominio .COM or .CO gratis (1er Año).</li>
+                    <li>SEO Avanzado & Indexación Google.</li>
+                    <li>Hosting High-Speed por 1 Año.</li>
+                    <li>Entrega de 7 a 10 días hábiles.</li>
+                </ul>
+            </div>
+
+            <!-- Plan Corporativo -->
+            <div class="plan-card" onclick="seleccionarPlan(2, this)">
+                <div class="plan-title">🥇 PLAN CORPORATIVO 360°</div>
+                <div class="plan-price" id="precio_plan_2">$240,000 COP / mes</div>
+                <ul class="plan-desc">
+                    <li>Portal Dinámico + Dashboard Inteligente.</li>
+                    <li>Asistencia Inteligencia Artificial 24/7.</li>
+                    <li>Mantenimiento evolutivo y backups.</li>
+                    <li>Modificaciones de contenido ilimitadas.</li>
+                    <li>Soporte Técnico Prioritario en Vivo.</li>
+                    <li>Sin cláusulas de permanencia oculta.</li>
+                </ul>
+            </div>
+        </div>
+        <p><strong>Plan Seleccionado por el Cliente: </strong> <span id="nombre_plan_seleccionado" style="color:var(--accent-green); font-weight:700;">🥉 PLAN EMPRENDEDOR ($650,000 COP)</span></p>
+    </section>
+
+    <section>
+        <h2>3. MARCO NORMATIVO CLÁSICO Y ESTATUTARIO (LEYES COLOMBIANAS)</h2>
+        <div class="legal-box">
+            <p><strong>3.1. Validez de Firma Electrónica (Ley 527 de 1999 & Decreto 2364 de 2012):</strong> Las partes acuerdan expresamente que la firma electrónica, manuscrita en panel digital o digitalizada estampada en el presente instrumento goza de plena validez jurídica, eficacia legal y fuerza obligatoria probatoria en todo el territorio colombiano y jurisdicciones internacionales, equivalente a la firma manuscrita física.</p>
+            <p><strong>3.2. Propiedad Intelectual y Derechos de Autor (Ley 23 de 1982 y Decisión 351 del Acuerdo de Cartagena):</strong> Una vez cancelado el 100% del valor pactado por el CLIENTE, el CONTRATISTA cede de manera exclusiva y definitiva los derechos patrimoniales y de explotación comercial sobre el sitio web final entregado. El CONTRATISTA conserva invariablemente los derechos morales inalienables como autor original y la facultad de incluir la obra en su portafolio público o demostraciones técnicas, salvo firma expresa de convenio de confidencialidad (NDA) independiente.</p>
+            <p><strong>3.3. Protección de Datos Personales (Ley 1581 de 2012 / Hábeas Data):</strong> Al firmar el presente contrato, el CLIENTE autoriza el tratamiento de sus datos de contacto con fines de facturación, ejecución técnica y servicio post-venta en los servidores robustos del CONTRATISTA, bajo políticas estrictas de privacidad e inmutabilidad sin cesión a terceros ilegítimos.</p>
+            <p><strong>3.4. Garantía Legal de Software (Estatuto del Consumidor - Ley 1480 de 2011, Art. 7):</strong> El CONTRATISTA otorga una garantía de estabilidad técnica de <strong>treinta (30) días calendario</strong> partir de la puesta en producción y entrega formal, obligándose a corregir gratuitamente cualquier defecto de software, bug de visualización o fallo de enlace derivado del código entregado. La garantía cesará inmediatamente si el CLIENTE o terceros ajenos intervienen el código o servidores entregados sin supervisión o autorización de CTS.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>4. EXCLUSIONES DE ALCANCE Y POLÍTICA DE MODIFICACIONES</h2>
+        <p>Con el fin de mantener el cronograma, la pureza arquitectónica y el equilibrio económico, el presente contrato <strong>EXCLUYE EXPLÍCITAMENTE</strong> las siguientes obligaciones, las cuales requerirán cotización previa adicional y anexo modificatorio:</p>
+        <ul>
+            <li><strong>Pautas Publicitarias y Paga Digital:</strong> No incluye el pago de publicidad pagada en Google Ads, Meta (Facebook/Instagram/WhatsApp), LinkedIn, TikTok o similares; cualquier presupuesto de inversión publicitaria correrá al 100% por cuenta y riesgo del CLIENTE.</li>
+            <li><strong>Comisiones Transaccionales de Bancas o Pasarelas:</strong> Las tasas que retengan entidades como Wompi, PayU, Stripe, Paypal, Mercado Pago, Nequi o Daviplata por pagos recibidos en la web del CLIENTE no están cubiertas por el CONTRATISTA.</li>
+            <li><strong>Rediseño Arquitectónico Post-Aprobación:</strong> El cliente tendrá derecho hasta <strong>dos (2) revisiones visuales</strong> para el Plan Emprendedor, y hasta <strong>cuatro (4) revisiones</strong> en los Planes Profesional y Corporativo antes de la publicación definitiva. Cambios estructurales profundos una vez aprobado el wireframe final facturarán a la tarifa de ingeniería estándar por hora de CTS.</li>
+        </ul>
+    </section>
+
+    <section class="signature-section">
+        <div class="sig-pad-container">
+            <h3 style="color: #fff; font-size: 15px; margin-bottom: 8px;">🖋️ FIRMA DIGITAL DEL CLIENTE / CONTRATANTE</h3>
+            <p style="font-size: 12px; color: var(--text-muted); text-align:center; margin-bottom:10px;">
+                Dibuja tu firma con el ratón o el dedo en la pantalla:
+            </p>
+            <canvas id="sig-canvas-cliente" width="360" height="160"></canvas>
+            <button class="btn-sig no-print" onclick="limpiarCanvas('sig-canvas-cliente')">🧹 Borrar y Firmar de Nuevo</button>
+            <p style="font-size: 11px; color: #777; margin-top: 10px;">Firma electrónica válida bajo Ley 527 de 1999 (Colombia)</p>
+        </div>
+
+        <div class="sig-pad-container" style="display: flex; flex-direction: column; justify-content: center; background: rgba(255, 215, 0, 0.05); border-color: rgba(255, 215, 0, 0.4);">
+            <h3 style="color: var(--accent-gold); font-size: 15px; margin-bottom: 8px;">⚡ COLOMBIA TECH SYSTEMS (CTS)</h3>
+            <p style="font-size: 13px; color: #fff; font-weight:700;">PROVEEDOR / CONTRATISTA TECNOLÓGICO</p>
+            <p style="font-size: 12px; color: var(--text-muted);">División de Ingeniería de Software & Inteligencia Artificial</p>
+            <div style="margin: 20px 0; font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 800; color: #fff; letter-spacing: 3px; border-bottom: 2px solid var(--accent-gold); display: inline-block;">
+                CTS — AUTOMATED SIGN
+            </div>
+            <p style="font-size: 11px; color: var(--accent-green); font-weight: 600;">🛡️ Certificado por Orácuulo Maestro / Viernes & Claude AI</p>
+        </div>
+    </section>
+
+    <button class="btn-print" onclick="window.print()">🖨️ Imprimir / Guardar Contrato Legal en PDF</button>
+    <p class="no-print" style="text-align:center; color: var(--text-muted); font-size: 12px; margin-top: 10px;">
+        Al hacer clic en "Imprimir / Guardar Contrato", el navegador generará un documento oficial limpio listo para ser firmado o remitido vía correo al cliente.
+    </p>
+</div>
+
+<script>
+    // Inicialización de Fecha Hoy
+    document.getElementById('fecha_contrato').valueAsDate = new Date();
+
+    // Gestión del Canvas de Firma Digital
+    const canvas = document.getElementById('sig-canvas-cliente');
+    const ctx = canvas.getContext('2d');
+    let dibujando = false;
+
+    function getPos(e) {
+        const rect = canvas.getBoundingClientRect();
+        const clienteX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clienteY = e.touches ? e.touches[0].clientY : e.clientY;
+        return { x: clienteX - rect.left, y: clienteY - rect.top };
+    }
+
+    function empezarDibujo(e) {
+        e.preventDefault();
+        dibujando = true;
+        ctx.beginPath();
+        const pos = getPos(e);
+        ctx.moveTo(pos.x, pos.y);
+    }
+
+    function dibujar(e) {
+        if (!dibujando) return;
+        e.preventDefault();
+        const pos = getPos(e);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.strokeStyle = '#000000';
+        ctx.lineWidth = 2.5;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.stroke();
+    }
+
+    function detenerDibujo(e) {
+        if (!dibujando) return;
+        e.preventDefault();
+        dibujando = false;
+        ctx.closePath();
+    }
+
+    canvas.addEventListener('mousedown', empezarDibujo);
+    canvas.addEventListener('mousemove', dibujar);
+    canvas.addEventListener('mouseup', detenerDibujo);
+    canvas.addEventListener('mouseout', detenerDibujo);
+
+    canvas.addEventListener('touchstart', empezarDibujo);
+    canvas.addEventListener('touchmove', dibujar);
+    canvas.addEventListener('touchend', detenerDibujo);
+
+    function limpiarCanvas(id) {
+        const c = document.getElementById(id);
+        const ct = c.getContext('2d');
+        ct.clearRect(0, 0, c.width, c.height);
+    }
+
+    // Datos Tarifarios Multivisa y Planes
+    const TARIFAS = {
+        'COP': { p0: '$650,000 COP', p1: '$1,200,000 COP', p2: '$240,000 COP / mes', name: 'COP' },
+        'USD': { p0: '$160 USD', p1: '$290 USD', p2: '$65 USD / mes', name: 'USD' },
+        'MXN': { p0: '$3,500 MXN', p1: '$5,500 MXN', p2: '$1,200 MXN / mes', name: 'MXN' },
+        'EUR': { p0: '150 €', p1: '275 €', p2: '60 € / mes', name: 'EUR' },
+        'CLP': { p0: '$180.000 CLP', p1: '$310.000 CLP', p2: '$60.000 CLP / mes', name: 'CLP' },
+        'PEN': { p0: 'S/ 650 PEN', p1: 'S/ 1,150 PEN', p2: 'S/ 220 PEN / mes', name: 'PEN' }
+    };
+
+    let planActualIndex = 0;
+    const nombresPlanes = ['🥉 PLAN EMPRENDEDOR', '🥈 PLAN PROFESIONAL (VIP)', '🥇 PLAN CORPORATIVO 360°'];
+
+    function seleccionarPlan(idx, elemento) {
+        planActualIndex = idx;
+        const cards = document.querySelectorAll('.plan-card');
+        cards.forEach(c => c.classList.remove('active'));
+        elemento.classList.add('active');
+        actualizarTextoPlan();
+    }
+
+    function actualizarMoneda() {
+        const m = document.getElementById('moneda_select').value;
+        document.getElementById('precio_plan_0').innerText = TARIFAS[m].p0;
+        document.getElementById('precio_plan_1').innerText = TARIFAS[m].p1;
+        document.getElementById('precio_plan_2').innerText = TARIFAS[m].p2;
+        actualizarTextoPlan();
+    }
+
+    function actualizarTextoPlan() {
+        const m = document.getElementById('moneda_select').value;
+        const precs = [TARIFAS[m].p0, TARIFAS[m].p1, TARIFAS[m].p2];
+        document.getElementById('nombre_plan_seleccionado').innerText = `${nombresPlanes[planActualIndex]} (${precs[planActualIndex]})`;
+    }
+</script>
+</body>
+</html>
