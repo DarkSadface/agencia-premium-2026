@@ -884,20 +884,7 @@
 </head>
 <body>
 
-                    <!-- BARRA SUPERIOR FIEL CTS CON BOTÓN AL CURSO -->
-                    <div style="background: rgba(2, 6, 13, 0.92); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(56, 230, 255, 0.28); padding: 10px 24px; position: sticky; top: 0; z-index: 999999; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
-                      <div style="display: flex; align-items: center; gap: 12px;">
-                        <span style="color: #38e6ff; font-family: 'Share Tech Mono', monospace; font-size: 13px; letter-spacing: 1px;">● NÚCLEO ORÁCULO ACTIVO | V6.55</span>
-                        
-                      </div>
-                      <div style="display: flex; align-items: center; gap: 14px;">
-                        <span style="color: #e0f4ff; font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 14px;">🎓 Formación Oficial en IA:</span>
-                         <a href="curso-agentic-ia.html" style="display:inline-flex; align-items:center; gap:6px; background: linear-gradient(135deg, #00ff88 0%, #00cc66 100%); color: #000; font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: 0.85rem; padding: 8px 18px; border-radius: 99px; text-decoration: none; box-shadow: 0 0 25px rgba(0, 255, 136, 0.45); border: 1px solid #ffffff; transition: all 0.3s ease; letter-spacing: 0.5px;">🎓 CURSO IA AGENTIC <span style="background:#000; color:#00ff88; padding:2px 7px; border-radius:10px; font-size:0.7rem; font-family:'Share Tech Mono';">VERCEL</span></a> 
-                      </div>
-                    </div>
-                    
-
-  <!-- Navegación Superior -->
+  <!-- Navegación Superior HUD Integrada & Alineada -->
   <nav class="hud-nav">
     <div class="container nav-content">
       <a href="#" class="nav-brand">
@@ -909,12 +896,13 @@
         </div>
         <span class="nav-title">COLOMBIA TECH SYSTEMS</span>
       </a>
-      <div class="nav-status">
+      <div class="nav-status" style="flex: 1; display: flex; align-items: center; gap: 15px; margin-left: clamp(10px, 3vw, 30px);">
         <div class="status-badge">
           <span class="pulse-dot"></span>
           <span>NÚCLEO ORÁCULO ACTIVO | V6.55</span>
         </div>
-        <div class="clock-badge" id="hud-clock">00:00:00</div>
+        <a href="curso-agentic-ia.html" style="display:inline-flex; align-items:center; gap:6px; background: linear-gradient(135deg, #00ff88 0%, #00cc66 100%); color: #000; font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: 0.82rem; padding: 6px 16px; border-radius: 99px; text-decoration: none; box-shadow: 0 0 20px rgba(0, 255, 136, 0.5); border: 1px solid #ffffff; transition: all 0.3s ease; letter-spacing: 0.5px;">🎓 CURSO IA AGENTIC <span style="background:#000; color:#00ff88; padding:2px 6px; border-radius:8px; font-size:0.68rem; font-family:'Share Tech Mono';">VERCEL</span></a>
+        <div class="clock-badge" id="hud-clock" style="margin-left: auto; text-align: right; font-weight: 700; font-size: 1.1rem; text-shadow: 0 0 15px #38e6ff;">00:00:00</div>
       </div>
     </div>
   </nav>
